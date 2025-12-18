@@ -1,7 +1,8 @@
 import React from 'react'
+
+import LineChart from './components/line-chart'
 import PanelGroup from './components/panel-group'
 import { Container } from './styles'
-import LineChart from './components/line-chart'
 
 type DashboardContainerProps = {}
 

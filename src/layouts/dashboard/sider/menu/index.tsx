@@ -1,15 +1,15 @@
-import React from 'react'
-import { Menu as MenuAntd, MenuProps as MenuAntdProps } from 'antd'
 import {
   DashboardOutlined,
   ExclamationOutlined,
   HomeOutlined,
   TableOutlined,
 } from '@ant-design/icons'
-import { Link, useNavigate } from 'react-router-dom'
 import { useSetting } from '@contexts/setting/context'
-import styled from 'styled-components'
 import { router_keys } from '@routers/key'
+import { Link } from '@tanstack/react-router'
+import { Menu as MenuAntd, MenuProps as MenuAntdProps } from 'antd'
+import React from 'react'
+import styled from 'styled-components'
 
 const MenuStyled = styled.div`
   .ant-menu {
@@ -28,11 +28,9 @@ const MenuStyled = styled.div`
 type MenuProps = {}
 
 const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
-  const navigate = useNavigate()
   const { toggleDrawerOpened } = useSetting()
 
-  const onClick: MenuAntdProps['onClick'] = e => {
-    navigate(`${e.key}`)
+  const onClick: MenuAntdProps['onClick'] = () => {
     toggleDrawerOpened()
   }
 

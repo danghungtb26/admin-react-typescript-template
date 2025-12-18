@@ -1,13 +1,13 @@
+import { CloseCircleOutlined } from '@ant-design/icons'
 import { useTagView } from '@contexts/tag-view/context'
 import { TagViewModel } from '@models/tag-view'
-import React, { startTransition, useEffect, useRef, useState } from 'react'
-import { Scrollbars } from 'react-custom-scrollbars'
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import styled from 'styled-components'
-import cx from 'classnames'
-import { CloseCircleOutlined } from '@ant-design/icons'
-import { findRouter } from '@routers'
 import { router_keys } from '@routers/key'
+import { Link, useLocation, useMatches, useNavigate, useParams } from '@tanstack/react-router'
+import cx from 'classnames'
+import { last } from 'lodash'
+import React, { startTransition, useEffect, useMemo, useRef, useState } from 'react'
+import { Scrollbars } from 'react-custom-scrollbars'
+import styled from 'styled-components'
 
 export const TAG_VIEW_HEIGHT = 34
 
@@ -97,7 +97,16 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
 
   const location = useLocation()
   const navigate = useNavigate()
-  const params = useParams()
+  const params = useParams({ strict: false })
+  const matches = useMatches()
+  console.log('🚀 ~ TagView ~ matches:', matches)
+  const staticDataMeta = useMemo(() => {
+    const match = last(matches)
+    return match?.staticData?.meta ?? {}
+  }, [])
+
+  // const ctx = useRouteContext({strict: false})
+  // console.log("🚀 ~ TagView ~ ctx:", ctx)
 
   const [attribute, setAttribute] = useState<{
     x: number
@@ -114,6 +123,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
     /**
      * Alert if clicked on outside of element
      */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleClickOutside: React.EventHandler<any> = event => {
       if (menu.current && !menu.current.contains(event.target)) {
         startTransition(() => {
@@ -130,17 +140,15 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
   }, [menu])
 
   useEffect(() => {
-    const router = findRouter(location.pathname)
     addTagView(
       TagViewModel.fromJson({
-        title: router?.meta?.title ?? location.pathname,
-        title_key: router?.meta?.titleKey,
+        title: staticDataMeta.title ?? location.pathname,
+        title_key: staticDataMeta.titleKey,
         path: location.pathname,
         params: { ...location.state, ...params },
       }),
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname, params])
+  }, [location.pathname, params, staticDataMeta])
 
   const onClickRemove: (tag: TagViewModel) => React.MouseEventHandler<HTMLSpanElement> =
     tag => e => {
@@ -152,7 +160,9 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
         }
 
         const before = tagViews[index - 1]
-        navigate(before.path ?? '')
+        navigate({
+          from: before.path ?? '',
+        })
       }
       removeTagView(tag.id)
       startTransition(() => {
@@ -177,7 +187,9 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
 
   const onClickRemoveOthers = () => {
     if (location.pathname !== currentTag?.path) {
-      navigate(currentTag?.path ?? router_keys.dashboard)
+      navigate({
+        from: currentTag?.path ?? router_keys.dashboard,
+      })
     }
     removeOthers(currentTag?.id)
     startTransition(() => {
@@ -187,7 +199,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
 
   const onClickRemoveAll = () => {
     const canDelete = tagViews.find(i => !i.deletable)
-    navigate(canDelete?.path ?? router_keys.dashboard)
+    navigate({ from: canDelete?.path ?? router_keys.dashboard })
     removeAll()
     startTransition(() => {
       setCurrentTag(undefined)

@@ -1,8 +1,8 @@
 import { field } from '@decorators/field'
 import { model } from '@decorators/model'
-import { Base } from './base'
-import { clone } from 'lodash'
+
 import { Address } from './address'
+import { Base } from './base'
 
 @model()
 export class User extends Base {
@@ -28,17 +28,5 @@ export class User extends Base {
     return {
       ...this.toJson(),
     }
-  }
-
-  static override fromJson(json?: any) {
-    return new User(json ?? {})
-  }
-
-  static get default() {
-    return this.fromJson({})
-  }
-
-  static clone(d?: User) {
-    return d ? clone(d) : new User({})
   }
 }

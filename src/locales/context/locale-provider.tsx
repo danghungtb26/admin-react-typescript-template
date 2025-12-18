@@ -1,9 +1,11 @@
-import React, { useCallback, useEffect, useMemo } from 'react'
-import { LocaleContext } from './context'
-import nProgress from 'nprogress'
-import { useLocation } from 'react-router'
-import { I18nextProvider, initReactI18next } from 'react-i18next'
+import { useLocation } from '@tanstack/react-router'
 import i18next from 'i18next'
+import nProgress from 'nprogress'
+import React, { useCallback, useEffect, useMemo } from 'react'
+import { I18nextProvider, initReactI18next } from 'react-i18next'
+
+import { LocaleContext } from './context'
+
 type LocaleProviderProps = {
   locale: string
   messages: {}

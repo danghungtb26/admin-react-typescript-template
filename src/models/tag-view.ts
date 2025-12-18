@@ -1,7 +1,7 @@
-import { model } from '@decorators/model'
-import { Base } from './base'
 import { field } from '@decorators/field'
-import { generateRandomId } from '@commons/id'
+import { model } from '@decorators/model'
+
+import { Base } from './base'
 
 @model()
 export class TagViewModel extends Base {
@@ -15,25 +15,10 @@ export class TagViewModel extends Base {
   path?: string
 
   @field()
-  params?: any
-
-  //   constructor(json) {
-  //     super(json)
-  //     console.log('🚀 ~ TagViewModel ~ constructor ~ json:', json)
-  //   }
+  params?: unknown
 
   @field()
   deletable: boolean = true
-
-  static override fromJson(json: {
-    title?: string
-    title_key?: string
-    path: string
-    params?: any
-    deletable?: boolean
-  }): TagViewModel {
-    return new TagViewModel({ ...json, id: generateRandomId() })
-  }
 
   static _dashboard: TagViewModel
 

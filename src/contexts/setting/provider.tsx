@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo, useState } from 'react'
-import { SettingContext, SettingContextType } from './context'
 import { getSidebarCollapsed, setSidebarCollapsed } from '@commons/cookies'
+import React, { useEffect, useMemo, useState } from 'react'
+
+import { SettingContext, SettingContextType } from './context'
 
 type SettingProviderProps = {}
 

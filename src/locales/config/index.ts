@@ -1,5 +1,6 @@
 import { LOCALE_KEY } from '@constants/key'
 import Cookies from 'js-cookie'
+
 export const support_locales = ['vi', 'en']
 
 export const default_locale = 'vi'
@@ -16,7 +17,7 @@ export const getInitialLocale = async () => {
   let messages = {}
   try {
     messages = (await import(`../messages/${locale}.json`)).default
-  } catch (error) {
+  } catch {
     messages = {}
   }
 

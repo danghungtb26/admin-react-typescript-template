@@ -1,9 +1,8 @@
-import App from '@app'
+// import App from '@app'
 import { generateRandomId } from '@commons/id'
-import DashboardLayout from '@layouts/dashboard'
-import { type RouteObject, matchPath } from 'react-router-dom'
+// import { type RouteObject, matchPath } from '@tanstack/react-router'
 
-export type DataRouteObject = Omit<RouteObject, 'children'> & {
+export type DataRouteObject = Omit<{}, 'children'> & {
   id: string
   children?: DataRouteObject[]
   meta?: {
@@ -13,121 +12,121 @@ export type DataRouteObject = Omit<RouteObject, 'children'> & {
 }
 
 export const routers: DataRouteObject[] = [
-  {
-    id: 'root',
-    element: <App />,
-    children: [
-      {
-        id: 'login',
-        path: 'login',
-        lazy: async () => {
-          const { default: Component } = await import('@app/login')
-          return {
-            Component,
-          }
-        },
-        meta: {
-          title: 'Login',
-        },
-      },
-      {
-        id: 'signed',
-        path: '',
-        element: <DashboardLayout />,
-        children: [
-          {
-            id: 'home',
-            path: 'home',
-            lazy: async () => {
-              const { default: Component } = await import('@app/home')
-              return {
-                Component,
-              }
-            },
-            meta: {
-              title: 'Home',
-              titleKey: 'home',
-            },
-          },
-          {
-            id: 'dashboard',
-            path: 'dashboard',
-            lazy: async () => {
-              const { default: Component } = await import('@app/dashboard')
-              return {
-                Component,
-              }
-            },
-            meta: {
-              title: 'Dashboard',
-              titleKey: 'home',
-            },
-          },
-          {
-            id: 'template',
-            path: 'template',
-            meta: {
-              title: 'Template',
-              titleKey: 'table.template.title',
-            },
-            children: [
-              {
-                id: 'table',
-                path: 'table',
-                meta: {
-                  title: 'Table template',
-                  titleKey: 'table.template.title',
-                },
-                children: [
-                  {
-                    id: 'root-table',
-                    path: '',
-                    lazy: async () => {
-                      const { default: Component } = await import('@app/template/table')
-                      return {
-                        Component,
-                      }
-                    },
-                    meta: {
-                      title: 'Table template',
-                      titleKey: 'table.template.title',
-                    },
-                  },
-                  {
-                    id: 'detail',
-                    path: ':id',
-                    lazy: async () => {
-                      const { default: Component } = await import('@app/template/table')
-                      return {
-                        Component,
-                      }
-                    },
-                    meta: {
-                      title: 'Detail template',
-                      titleKey: 'table.template.title',
-                    },
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: generateRandomId(),
-            path: 'profile',
-            lazy: async () => {
-              const { default: Component } = await import('@app/profile')
-              return {
-                Component,
-              }
-            },
-            meta: {
-              title: 'Profile',
-            },
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   id: 'root',
+  //   // element: <App />,
+  //   children: [
+  //     {
+  //       id: 'login',
+  //       path: 'login',
+  //       lazy: async () => {
+  //         const { default: Component } = await import('@app/login')
+  //         return {
+  //           Component,
+  //         }
+  //       },
+  //       meta: {
+  //         title: 'Login',
+  //       },
+  //     },
+  //     {
+  //       id: 'signed',
+  //       path: '',
+  //       element: <DashboardLayout />,
+  //       children: [
+  //         {
+  //           id: 'home',
+  //           path: 'home',
+  //           lazy: async () => {
+  //             const { default: Component } = await import('@app/home')
+  //             return {
+  //               Component,
+  //             }
+  //           },
+  //           meta: {
+  //             title: 'Home',
+  //             titleKey: 'home',
+  //           },
+  //         },
+  //         {
+  //           id: 'dashboard',
+  //           path: 'dashboard',
+  //           lazy: async () => {
+  //             const { default: Component } = await import('@app/dashboard')
+  //             return {
+  //               Component,
+  //             }
+  //           },
+  //           meta: {
+  //             title: 'Dashboard',
+  //             titleKey: 'home',
+  //           },
+  //         },
+  //         {
+  //           id: 'template',
+  //           path: 'template',
+  //           meta: {
+  //             title: 'Template',
+  //             titleKey: 'table.template.title',
+  //           },
+  //           children: [
+  //             {
+  //               id: 'table',
+  //               path: 'table',
+  //               meta: {
+  //                 title: 'Table template',
+  //                 titleKey: 'table.template.title',
+  //               },
+  //               children: [
+  //                 {
+  //                   id: 'root-table',
+  //                   path: '',
+  //                   lazy: async () => {
+  //                     const { default: Component } = await import('@app/template/table')
+  //                     return {
+  //                       Component,
+  //                     }
+  //                   },
+  //                   meta: {
+  //                     title: 'Table template',
+  //                     titleKey: 'table.template.title',
+  //                   },
+  //                 },
+  //                 {
+  //                   id: 'detail',
+  //                   path: ':id',
+  //                   lazy: async () => {
+  //                     const { default: Component } = await import('@app/template/table')
+  //                     return {
+  //                       Component,
+  //                     }
+  //                   },
+  //                   meta: {
+  //                     title: 'Detail template',
+  //                     titleKey: 'table.template.title',
+  //                   },
+  //                 },
+  //               ],
+  //             },
+  //           ],
+  //         },
+  //         {
+  //           id: generateRandomId(),
+  //           path: 'profile',
+  //           lazy: async () => {
+  //             const { default: Component } = await import('@app/profile')
+  //             return {
+  //               Component,
+  //             }
+  //           },
+  //           meta: {
+  //             title: 'Profile',
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ]
 
 type R = {

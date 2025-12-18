@@ -1,9 +1,9 @@
 import { findRouter, findRouterById } from '@routers'
 import { router_keys } from '@routers/key'
+import { Link, useLocation } from '@tanstack/react-router'
+import { Breadcrumb as BreadcrumbAntd } from 'antd'
 import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Breadcrumb as BreadcrumbAntd } from 'antd'
 import styled from 'styled-components'
 
 const BreadcrumbStyled = styled.div`
@@ -58,7 +58,7 @@ const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
         items={items.map((i, id) => ({
           title:
             id === items.length - 1 ? (
-              i.title ?? i.link
+              (i.title ?? i.link)
             ) : (
               <Link to={i.link}>{i.title ?? i.link}</Link>
             ),

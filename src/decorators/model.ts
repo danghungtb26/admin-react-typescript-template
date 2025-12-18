@@ -1,18 +1,30 @@
-import get from 'lodash/get'
-import forEach from 'lodash/forEach'
 import 'reflect-metadata'
-import isUndefined from 'lodash/isUndefined'
 import { isNull } from 'lodash'
+import forEach from 'lodash/forEach'
+import get from 'lodash/get'
+import isUndefined from 'lodash/isUndefined'
+
 import { fieldsKey } from './constants'
-import { getFieldType } from './utils'
+
+const getFieldType = (fieldType: unknown) => {
+  if (typeof fieldType === 'function') {
+    try {
+      return fieldType()
+    } catch {
+      return fieldType
+    }
+  }
+
+  return fieldType
+}
 
 export const model = () => {
-  return <T extends { new (...args: any[]): {} }>(constructor: T) => {
-    // @ts-ignore
+  return <T extends { new (...args: unknown[]): object }>(constructor: T) => {
+    // @ts-expect-error - Complex generic type inheritance
     return class extends constructor {
       base_name = constructor.name
 
-      constructor(json: any) {
+      constructor(json: Record<string, unknown>) {
         super(json)
         const keys = getAllKeys(this)
         forEach(keys, key => {
@@ -24,41 +36,41 @@ export const model = () => {
               if (FieldType) {
                 if (Array.isArray(FieldType) && FieldType.length === 1) {
                   if (Array.isArray(value)) {
-                    // @ts-ignore
+                    // @ts-expect-error - Dynamic key assignment
                     this[propertyKey] = value.map(i => new FieldType[0](i))
                     return
                   }
-                  // @ts-ignore
                   throw new Error(
-                    `Không thể convert dữ liệu JSON sang dạng mảng được. PropertyKey: ${propertyKey}, Constructor: ${this.base_name}`,
+                    `Không thể convert dữ liệu JSON sang dạng mảng được. PropertyKey: ${propertyKey}, Contructor: ${this.base_name}`,
                   )
-                  // this[propertyKey] = new FieldType[0](value)
                 }
-                // @ts-ignore
+                // @ts-expect-error - Dynamic key assignment
                 this[propertyKey] = new FieldType(value)
                 return
               }
 
-              // @ts-ignore
+              // @ts-expect-error - Dynamic key assignment
               this[propertyKey] = value
             }
           }
         })
-        // @ts-ignore
+        // @ts-expect-error - Dynamic method call
         this.afterMounted?.(json)
       }
     }
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getField = (target: any, key: string) => {
   const fields =
     Reflect.getMetadata(fieldsKey, target, target.base_name || target.constructor.name) || []
 
-  const fieldData = fields.find((field: any) => field.propertyKey === key)
+  const fieldData = fields.find((field: { propertyKey: string }) => field.propertyKey === key)
   return fieldData?.fieldName
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getAllKeys = (target: any) => {
   return Reflect.getMetadata(fieldsKey, target, target.base_name)
 }

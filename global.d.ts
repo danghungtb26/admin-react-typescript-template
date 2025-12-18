@@ -1,8 +1,7 @@
-import * as a from 'react-router'
-
-declare module 'react-router' {
-  export type DataRouteObject = a.RouteObject & {
-    id: string
+// React Router types have been replaced by TanStack Router
+// This file is kept for potential future global type declarations
+declare module '@tanstack/react-router' {
+  interface StaticDataRouteOption {
     meta?: {
       title?: string
       titleKey?: string

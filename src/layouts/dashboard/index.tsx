@@ -1,19 +1,20 @@
+import { useSetting } from '@contexts/setting/context'
+import { Outlet } from '@tanstack/react-router'
+import { media_break_points } from '@themes/styled/globalStyle'
 import { Layout } from 'antd'
+import cx from 'classnames'
 import React from 'react'
 import styled from 'styled-components'
-import LayoutSider from './sider'
-import LayoutHeader from './header'
-import { Outlet } from 'react-router-dom'
-import cx from 'classnames'
+
 import {
   ANIMATION_SPEED,
   HEADER_HEIGHT,
   SIDER_BAR_COLLAPSED_WIDTH,
   SIDER_BAR_WIDTH,
 } from './constants'
-import { useSetting } from '@contexts/setting/context'
+import LayoutHeader from './header'
+import LayoutSider from './sider'
 import TagView, { TAG_VIEW_HEIGHT } from './tag-view'
-import { media_break_points } from '@themes/styled/globalStyle'
 
 const LayoutStyled = styled(Layout)`
   position: relative;

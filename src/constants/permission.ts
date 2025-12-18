@@ -110,7 +110,7 @@ export const isScope = (scopes: string[], app: APP, collection: COLLECTION) => {
       collection: split[2],
     }
   })
-  // eslint-disable-next-line array-callback-return, consistent-return
+
   const scope = scopeMake?.find(i => {
     if ((i.app === app || i.app === '*') && (i.collection === collection || i.collection === '*')) {
       return true
@@ -128,7 +128,7 @@ export const isUpdate = (scopes: string[], app: APP, collection: COLLECTION) => 
       collection: split[2],
     }
   })
-  // eslint-disable-next-line array-callback-return, consistent-return
+
   const update = scopeMake?.find(i => {
     if (
       (i.collection === collection || i.collection === '*') &&
@@ -150,7 +150,7 @@ export const isCreate = (scopes: string[], app: APP, collection: COLLECTION) => 
       collection: split[2],
     }
   })
-  // eslint-disable-next-line array-callback-return, consistent-return
+
   const create = scopeMake?.find(i => {
     if (
       (i.collection === collection || i.collection === '*') &&
@@ -172,7 +172,7 @@ export const isDelete = (scopes: string[], app: APP, collection: COLLECTION) => 
       collection: split[2],
     }
   })
-  // eslint-disable-next-line array-callback-return, consistent-return
+
   const delete1 = scopeMake?.find(i => {
     if (
       (i.collection === collection || i.collection === '*') &&

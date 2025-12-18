@@ -1,6 +1,6 @@
+import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs'
 import { App, ConfigProvider } from 'antd'
 import React from 'react'
-import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs'
 import { useTheme } from 'styled-components'
 
 type AntDesignProviderProps = {

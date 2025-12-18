@@ -1,22 +1,18 @@
-import AntDesignProvider from '@themes/ant'
-import StyledProvider from '@themes/styled'
-import StyledThemeProvider from '@themes/styled/theme'
+import { RouterProvider, createRouter } from '@tanstack/react-router'
 import i18next from 'i18next'
 import LanguageDetector from 'i18next-browser-languagedetector'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { initReactI18next } from 'react-i18next'
-import { RouteObject, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { setupI18n } from 'vite-plugin-i18n-detector/client'
+
 import vi from './locales/messages/vi.json'
-import { routers } from '@routers'
-import SettingProvider from '@contexts/setting/provider'
-import { AnimatePresence } from 'framer-motion'
-import TagViewProvider from '@contexts/tag-view/provider'
+import { routeTree } from './routeTree.gen'
 
 const root = ReactDOM.createRoot(document.getElementById('root')!)
 
-const router = createBrowserRouter(routers as RouteObject[])
+// Create TanStack Router instance
+const router = createRouter({ routeTree })
 
 // const { locale, messages } = await getInitialLocale()
 const lookupTarget = 'lang'
@@ -58,19 +54,7 @@ const { loadResourceByLang } = setupI18n({
   onInited() {
     root.render(
       <React.StrictMode>
-        <StyledThemeProvider>
-          <StyledProvider>
-            <AntDesignProvider>
-              <SettingProvider>
-                <TagViewProvider>
-                  <AnimatePresence mode="wait">
-                    <RouterProvider router={router} />
-                  </AnimatePresence>
-                </TagViewProvider>
-              </SettingProvider>
-            </AntDesignProvider>
-          </StyledProvider>
-        </StyledThemeProvider>
+        <RouterProvider router={router} />
       </React.StrictMode>,
     )
   },

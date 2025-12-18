@@ -3,8 +3,8 @@ import { styled } from 'styled-components'
 
 const InputVNDMoney = styled(InputNumber).attrs(() => {
   return {
-    formatter: (value: any) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-    parser: (value: any) => value.replace(/\$\s?|(,*)/g, ''),
+    formatter: (value: unknown) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
+    parser: (value: unknown) => `${value}`.replace(/\$\s?|(,*)/g, ''),
     style: { width: '100%' },
   }
 })`

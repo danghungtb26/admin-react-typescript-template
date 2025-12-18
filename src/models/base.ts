@@ -1,10 +1,11 @@
-import dateTime from '@commons/datetime'
-import { HH_MM_SS_DD_MM_YYYY } from '@commons/datetime/format'
-import { field } from '@decorators/field'
-import { getAllKeys } from '@decorators/model'
 import { isNull, isUndefined } from 'lodash'
+import clone from 'lodash/clone'
 
-// @model()
+import dateTime from '@/commons/datetime'
+import { HH_MM_SS_DD_MM_YYYY } from '@/commons/datetime/format'
+import { field } from '@/decorators/field'
+import { getAllKeys } from '@/decorators/model'
+
 export abstract class Base {
   @field('created_at')
   createdAt?: string
@@ -21,9 +22,8 @@ export abstract class Base {
   @field()
   order?: number
 
-  // @ts-ignore
-  // eslint-disable-next-line no-useless-constructor, no-empty-function, @typescript-eslint/no-unused-vars
-  constructor(json?: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(_json?: unknown) {}
 
   afterMounted() {}
 
@@ -36,7 +36,7 @@ export abstract class Base {
       if (!isUndefined(key) && !isNull(key)) {
         const { propertyKey, fieldName, fieldType: FieldType } = key
 
-        // @ts-ignore
+        // @ts-expect-error dynamic key
         let v = this[propertyKey]
         if (!isUndefined(v) && !isNull(v)) {
           if (Array.isArray(FieldType) && FieldType.length === 1) {
@@ -69,7 +69,16 @@ export abstract class Base {
     return dateTime(this.createdAt).format(HH_MM_SS_DD_MM_YYYY)
   }
 
-  public static fromJson: (json: any) => void = () => {
-    throw new Error('Method not implemented! Use derived class')
+  static fromJson<TCtor extends new (...args: unknown[]) => unknown>(
+    this: TCtor,
+    json?: unknown,
+    ...rest: unknown[]
+  ): InstanceType<TCtor> {
+    return new this(json ?? {}, ...rest) as InstanceType<TCtor>
+  }
+
+  static clone<T>(d?: T) {
+    // @ts-expect-error this is a generic type
+    return d ? clone(d) : new this({})
   }
 }

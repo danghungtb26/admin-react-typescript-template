@@ -4,7 +4,7 @@ export const field = (
   fieldName?: string,
   fieldType?: object | [object] | (() => object | [object]),
 ) => {
-  return (target: any, propertyKey: string) => {
+  return (target: object, propertyKey: string) => {
     if (fieldType && Array.isArray(fieldType) && fieldType.length !== 1) {
       throw new Error(
         `Chỉ nhận 1 kiểu dữ liệu. PropertyKey: ${propertyKey}, Contructor: ${target.constructor.name}`,
