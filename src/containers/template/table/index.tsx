@@ -1,10 +1,11 @@
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { PageContainer } from '@components/box/page-container'
 import { Link } from '@tanstack/react-router'
 import { Button, Divider, Table, Tag } from 'antd'
 import React from 'react'
 
 import TableSearch from './components/search'
+
+import { PageContainer } from '@/components/box/page-container'
 
 const { Column } = Table
 

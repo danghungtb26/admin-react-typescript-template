@@ -12,6 +12,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^2.0.1",
     "@ant-design/icons": "^6.1.0",
     "@apollo/client": "^4.0.11",
     "@tanstack/react-router": "^1.141.6",

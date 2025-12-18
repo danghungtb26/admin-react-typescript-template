@@ -1,6 +1,6 @@
-import { model } from '@decorators/model'
-
 import { Base } from './base'
+
+import { model } from '@/decorators/model'
 
 @model()
 export class Address extends Base {

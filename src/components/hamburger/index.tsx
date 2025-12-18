@@ -1,8 +1,9 @@
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
-import { useSetting } from '@contexts/setting/context'
-import { useMobile } from '@hooks/media'
 import React from 'react'
 import styled from 'styled-components'
+
+import { useSetting } from '@/contexts/setting/context'
+import { useMobile } from '@/hooks/media'
 
 const Wrap = styled.div`
   line-height: 4.6rem;

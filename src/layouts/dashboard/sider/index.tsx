@@ -1,6 +1,3 @@
-import { useSetting } from '@contexts/setting/context'
-import { useMobile } from '@hooks/media'
-import { media_break_points } from '@themes/styled/globalStyle'
 import { Layout } from 'antd'
 import React from 'react'
 import styled, { css } from 'styled-components'
@@ -8,6 +5,10 @@ import styled, { css } from 'styled-components'
 import { ANIMATION_SPEED, SIDER_BAR_COLLAPSED_WIDTH, SIDER_BAR_WIDTH } from '../constants'
 
 import Menu from './menu'
+
+import { useSetting } from '@/contexts/setting/context'
+import { useMobile } from '@/hooks/media'
+import { media_break_points } from '@/themes/styled/globalStyle'
 
 type LayoutSiderProps = {}
 

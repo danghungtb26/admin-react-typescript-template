@@ -1,8 +1,8 @@
-import { field } from '@decorators/field'
-import { model } from '@decorators/model'
-
 import { Base } from './base'
 import { Permission } from './permission'
+
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
 
 @model()
 export class Role extends Base {

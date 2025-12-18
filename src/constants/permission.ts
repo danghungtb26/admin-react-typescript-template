@@ -1,4 +1,4 @@
-import { ScopeType, flattenScope } from '@models/scope'
+import { ScopeType, flattenScope } from '@/models/scope'
 
 export enum ACTION {
   ALL = '*',

@@ -1,4 +1,4 @@
-import { isExist } from '@commons/object'
+import { isExist } from '@/commons/object'
 
 export const getEnv = (key: string) => {
   if (isExist(import.meta.env[key])) {

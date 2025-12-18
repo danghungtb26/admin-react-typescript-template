@@ -1,5 +1,6 @@
-import { break_points_value } from '@themes/styled/globalStyle'
 import { useMediaQuery } from 'react-responsive'
+
+import { break_points_value } from '@/themes/styled/globalStyle'
 
 export const useMobile = () =>
   useMediaQuery({

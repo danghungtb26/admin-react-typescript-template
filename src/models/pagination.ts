@@ -1,5 +1,5 @@
-import { field } from '@decorators/field'
-import { model } from '@decorators/model'
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
 
 @model()
 export class Pagination {

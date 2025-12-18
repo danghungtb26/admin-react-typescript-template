@@ -1,7 +1,8 @@
-import { router_keys } from '@routers/key'
 import { Outlet, useNavigate, useNavigation } from '@tanstack/react-router'
 import nProgress from 'nprogress'
 import React, { useEffect, useState } from 'react'
+
+import { router_keys } from '@/routers/key'
 
 type AppProps = {}
 

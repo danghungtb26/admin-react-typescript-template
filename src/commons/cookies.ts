@@ -1,5 +1,6 @@
-import { AUTHEN_TOKEN_KEY, SIDE_BAR_COLLAPSED_KEY } from '@constants/key'
 import Cookies from 'js-cookie'
+
+import { AUTHEN_TOKEN_KEY, SIDE_BAR_COLLAPSED_KEY } from '@/constants/key'
 
 export const getAuthenToken = () => {
   return Cookies.get(AUTHEN_TOKEN_KEY)

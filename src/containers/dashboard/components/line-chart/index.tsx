@@ -1,8 +1,9 @@
-import { useSetting } from '@contexts/setting/context'
 import * as echarts from 'echarts'
 import { debounce } from 'lodash'
 import React, { HTMLProps, useEffect, useRef } from 'react'
 import styled from 'styled-components'
+
+import { useSetting } from '@/contexts/setting/context'
 
 type LineChartProps = {} & HTMLProps<HTMLDivElement>
 

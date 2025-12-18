@@ -69,7 +69,7 @@ export default defineConfig({
       ...support_paths.reduce((a, b) => {
         return {
           ...a,
-          [`@${b}`]: path.resolve(__dirname, `./src/${b}`),
+          [`@/${b}`]: path.resolve(__dirname, `./src/${b}`),
         }
       }, {}),
     },

@@ -1,6 +1,4 @@
-import { useSetting } from '@contexts/setting/context'
 import { Outlet } from '@tanstack/react-router'
-import { media_break_points } from '@themes/styled/globalStyle'
 import { Layout } from 'antd'
 import cx from 'classnames'
 import React from 'react'
@@ -15,6 +13,9 @@ import {
 import LayoutHeader from './header'
 import LayoutSider from './sider'
 import TagView, { TAG_VIEW_HEIGHT } from './tag-view'
+
+import { useSetting } from '@/contexts/setting/context'
+import { media_break_points } from '@/themes/styled/globalStyle'
 
 const LayoutStyled = styled(Layout)`
   position: relative;

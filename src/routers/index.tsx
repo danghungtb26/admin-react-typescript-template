@@ -1,5 +1,5 @@
 // import App from '@app'
-import { generateRandomId } from '@commons/id'
+import { generateRandomId } from '@/commons/id'
 // import { type RouteObject, matchPath } from '@tanstack/react-router'
 
 export type DataRouteObject = Omit<{}, 'children'> & {

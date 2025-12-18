@@ -1,5 +1,6 @@
-import DashboardLayout from '@layouts/dashboard'
 import { createFileRoute, redirect } from '@tanstack/react-router'
+
+import DashboardLayout from '@/layouts/dashboard'
 
 export const Route = createFileRoute('/_authenticated')({
   beforeLoad: async ({ location }) => {

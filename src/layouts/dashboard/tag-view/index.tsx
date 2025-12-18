@@ -1,13 +1,14 @@
 import { CloseCircleOutlined } from '@ant-design/icons'
-import { useTagView } from '@contexts/tag-view/context'
-import { TagViewModel } from '@models/tag-view'
-import { router_keys } from '@routers/key'
-import { Link, useLocation, useMatches, useNavigate, useParams } from '@tanstack/react-router'
+import { Link, useNavigate, useRouterState } from '@tanstack/react-router'
 import cx from 'classnames'
 import { last } from 'lodash'
-import React, { startTransition, useEffect, useMemo, useRef, useState } from 'react'
+import React, { startTransition, useEffect, useRef, useState } from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 import styled from 'styled-components'
+
+import { useTagView } from '@/contexts/tag-view/context'
+import { TagViewModel } from '@/models/tag-view'
+import { router_keys } from '@/routers/key'
 
 export const TAG_VIEW_HEIGHT = 34
 
@@ -95,24 +96,23 @@ type TagViewProps = {}
 const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
   const { tagViews, addTagView, removeTagView, removeAll, removeOthers } = useTagView()
 
-  const location = useLocation()
   const navigate = useNavigate()
-  const params = useParams({ strict: false })
-  const matches = useMatches()
-  console.log('🚀 ~ TagView ~ matches:', matches)
-  const staticDataMeta = useMemo(() => {
-    const match = last(matches)
-    return match?.staticData?.meta ?? {}
-  }, [])
 
-  // const ctx = useRouteContext({strict: false})
-  // console.log("🚀 ~ TagView ~ ctx:", ctx)
+  const state = useRouterState({
+    select: s => {
+      const match = last(s.matches)
+      return {
+        pathname: s.location.pathname,
+        meta: match?.staticData?.meta ?? {},
+        params: match?.params ?? {},
+        loaded: s.status === 'idle',
+      }
+    },
+  })
 
   const [attribute, setAttribute] = useState<{
     x: number
     y: number
-    // width: number
-    // height: number
   }>({ x: 0, y: 0 })
   const [currentTag, setCurrentTag] = useState<TagViewModel>()
 
@@ -140,20 +140,21 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
   }, [menu])
 
   useEffect(() => {
-    addTagView(
-      TagViewModel.fromJson({
-        title: staticDataMeta.title ?? location.pathname,
-        title_key: staticDataMeta.titleKey,
-        path: location.pathname,
-        params: { ...location.state, ...params },
-      }),
-    )
-  }, [location.pathname, params, staticDataMeta])
+    if (state.loaded)
+      addTagView(
+        TagViewModel.fromJson({
+          title: state.meta.title ?? state.pathname,
+          title_key: state.meta.titleKey,
+          path: state.pathname,
+          params: state.params,
+        }),
+      )
+  }, [state])
 
   const onClickRemove: (tag: TagViewModel) => React.MouseEventHandler<HTMLSpanElement> =
     tag => e => {
       e.preventDefault()
-      if (tag.path === location.pathname) {
+      if (tag.path === state.pathname) {
         const index = tagViews.findIndex(i => i.id === tag.id)
         if (index < 0) {
           return
@@ -219,7 +220,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
             onContextMenu={onContextMenu(tag)}
             to={tag.path ?? ''}
             key={tag.id}
-            className={cx({ active: tag.path === location.pathname })}
+            className={cx({ active: tag.path === state.pathname })}
           >
             {tag.title}
             {tag.deletable ? (

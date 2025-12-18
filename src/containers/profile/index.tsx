@@ -1,9 +1,10 @@
-import { PageContainer } from '@components/box/page-container'
 import { Card, Col, Row, Tabs } from 'antd'
 import React from 'react'
 
 import AccountTab from './components/account'
 import UserCard from './components/user-card'
+
+import { PageContainer } from '@/components/box/page-container'
 
 type ProfileContainerProps = {}
 

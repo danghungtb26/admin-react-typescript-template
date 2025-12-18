@@ -1,8 +1,9 @@
-import { TagViewModel } from '@models/tag-view'
 import { uniqBy } from 'lodash'
 import React, { useState } from 'react'
 
 import { TagViewContext, TagViewContextType } from './context'
+
+import { TagViewModel } from '@/models/tag-view'
 
 type TagViewProviderProps = {}
 
