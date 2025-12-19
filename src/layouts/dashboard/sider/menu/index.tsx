@@ -8,24 +8,9 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import { Menu as MenuAntd, MenuProps as MenuAntdProps } from 'antd'
 import { uniq } from 'lodash'
 import React, { useEffect, useMemo } from 'react'
-import styled from 'styled-components'
 
 import { useSetting } from '@/contexts/setting/context'
 import { router_keys } from '@/routers/key'
-
-const MenuStyled = styled.div`
-  .ant-menu {
-    background-color: rgba(48, 65, 86, 0.5);
-    .ant-menu-submenu-open {
-      background-color: #263445 !important;
-      border-radius: 0;
-    }
-
-    .ant-menu-sub {
-      background-color: #1f2d3d !important;
-    }
-  }
-`
 
 type MenuItem = {
   key: string
@@ -95,6 +80,11 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
             label: <Link to={router_keys.template.table.list}>Table</Link>,
             icon: <TableOutlined />,
           },
+          {
+            key: '/template/table/1',
+            label: <Link to={router_keys.template.table.detail('1')}>Table 1</Link>,
+            icon: <TableOutlined />,
+          },
         ],
       },
     ],
@@ -120,7 +110,7 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
   }, [openKeys])
 
   return (
-    <MenuStyled>
+    <div className="[&_.ant-menu]:bg-sidebar-bg [&_.ant-menu-submenu-open]:bg-sidebar-hover! [&_.ant-menu-submenu-open]:rounded-none! [&_.ant-menu-sub]:bg-sidebar-sub!">
       <MenuAntd
         theme="dark"
         mode="inline"
@@ -130,7 +120,7 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
         items={menuItems}
         onOpenChange={s => setOpenKeysState(s)}
       />
-    </MenuStyled>
+    </div>
   )
 }
 

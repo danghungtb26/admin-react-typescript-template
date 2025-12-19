@@ -6,6 +6,9 @@ import ReactDOM from 'react-dom/client'
 import { initReactI18next } from 'react-i18next'
 import { I18nAllyClient } from 'vite-plugin-i18n-ally/client'
 
+// Import Tailwind CSS
+import './styles/tailwind.css'
+
 import vi from './locales/messages/vi.json'
 import { routeTree } from './routeTree.gen'
 

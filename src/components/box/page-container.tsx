@@ -1,7 +1,5 @@
-import styled from 'styled-components'
+import React from 'react'
 
-export const PageContainer = styled.div`
-  padding: 2rem;
-  background-color: #f0f2f5;
-  position: relative;
-`
+export const PageContainer: React.FC<React.PropsWithChildren> = ({ children }) => {
+  return <div className="relative p-8 bg-page-bg">{children}</div>
+}

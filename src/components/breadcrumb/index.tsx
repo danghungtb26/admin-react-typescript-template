@@ -1,71 +1,79 @@
-import { Link, useLocation } from '@tanstack/react-router'
+import { Link, useMatches } from '@tanstack/react-router'
 import { Breadcrumb as BreadcrumbAntd } from 'antd'
+import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion'
 import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
-import styled from 'styled-components'
-
-import { findRouter, findRouterById } from '@/routers'
-import { router_keys } from '@/routers/key'
-
-const BreadcrumbStyled = styled.div`
-  float: left;
-  font-size: 1.4rem;
-  line-height: 5rem;
-  height: 100%;
-  margin-left: 1.6rem;
-  display: flex;
-  align-items: center;
-`
 
 type BreadCrumbProps = {}
 
+const animationConfig: {
+  initial: HTMLMotionProps<'span'>['initial']
+  animate: HTMLMotionProps<'span'>['animate']
+  exit: HTMLMotionProps<'span'>['exit']
+  transition: HTMLMotionProps<'span'>['transition']
+} = {
+  initial: { opacity: 0, x: 30 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: -30 },
+  transition: { duration: 0.3, ease: 'linear' },
+}
+
+const separator = (
+  <AnimatePresence mode="popLayout">
+    <motion.span key="separator" {...animationConfig} className="inline-block relative">
+      /
+    </motion.span>
+  </AnimatePresence>
+)
+
 const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
-  const location = useLocation()
+  const matches = useMatches()
 
   const items = useMemo(() => {
-    const r = findRouter(location.pathname)
-    const parent = r?.parent ? findRouterById(r.parent) : undefined
-    const dashboard = findRouter(router_keys.dashboard)
-    const items = []
+    // Get the last 2 matches, excluding layout routes (__root and _authenticated)
+    const lastMatches = matches
+      .filter(
+        match =>
+          !match.id.startsWith('__root') &&
+          !match.id.startsWith('_authenticated') &&
+          match.pathname !== '/',
+      )
+      .slice(-2)
 
-    if (dashboard) {
-      items.push({
-        link: `/${dashboard.pathString}`,
-        title: dashboard.meta?.title,
-        titleKey: dashboard.meta?.titleKey,
-      })
-    }
+    return uniqBy(
+      [
+        { link: '/dashboard', title: 'Dashboard', titleKey: 'dashboard' },
+        ...lastMatches.map(match => ({
+          link: match.pathname,
+          title: match.staticData?.meta?.title,
+          titleKey: match.staticData?.meta?.titleKey,
+        })),
+      ],
+      'link',
+    )
+  }, [matches])
 
-    if (r) {
-      if (parent) {
-        items.push({
-          link: `/${parent.pathString}`,
-          title: parent.meta?.title,
-          titleKey: parent.meta?.titleKey,
-        })
-      }
-      items.push({
-        link: `/${r.pathString}`,
-        title: r.meta?.title,
-        titleKey: r.meta?.titleKey,
-      })
-    }
-    return uniqBy(items, 'link')
-  }, [location.pathname])
-
-  return (
-    <BreadcrumbStyled>
-      <BreadcrumbAntd
-        items={items.map((i, id) => ({
-          title:
-            id === items.length - 1 ? (
+  const renderedItems = useMemo(() => {
+    return items.map((i, id) => ({
+      className: 'transition-all duration-300',
+      title: (
+        <AnimatePresence mode="popLayout">
+          <motion.span key={i.link} {...animationConfig} className="inline-block relative">
+            {id === items.length - 1 ? (
               (i.title ?? i.link)
             ) : (
               <Link to={i.link}>{i.title ?? i.link}</Link>
-            ),
-        }))}
-      />
-    </BreadcrumbStyled>
+            )}
+          </motion.span>
+        </AnimatePresence>
+      ),
+    }))
+  }, [items])
+
+  return (
+    <div className="float-left text-sm leading-header h-full ml-4 flex items-center">
+      <BreadcrumbAntd items={renderedItems} separator={separator} />
+    </div>
   )
 }
 
