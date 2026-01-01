@@ -4,6 +4,10 @@ import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion'
 import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
 
+import { cn } from '@/lib/utils'
+
+type Props = React.ComponentProps<typeof BreadcrumbAntd>
+
 type BreadCrumbProps = {}
 
 const animationConfig: {
@@ -14,7 +18,7 @@ const animationConfig: {
 } = {
   initial: { opacity: 0, x: 30 },
   animate: { opacity: 1, x: 0 },
-  exit: { opacity: 0, x: -30 },
+  exit: { opacity: 0, x: 30 },
   transition: { duration: 0.3, ease: 'linear' },
 }
 
@@ -40,33 +44,42 @@ const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
       )
       .slice(-2)
 
-    return uniqBy(
+    const uniqItems = uniqBy(
       [
-        { link: '/dashboard', title: 'Dashboard', titleKey: 'dashboard' },
+        { link: '/dashboard', title: 'Dashboard', titleKey: 'dashboard', display: true },
         ...lastMatches.map(match => ({
           link: match.pathname,
           title: match.staticData?.meta?.title,
           titleKey: match.staticData?.meta?.titleKey,
+          display: true,
         })),
       ],
       'link',
     )
+
+    return uniqItems
   }, [matches])
 
-  const renderedItems = useMemo(() => {
+  const renderedItems = useMemo<Props['items']>(() => {
     return items.map((i, id) => ({
-      className: 'transition-all duration-300',
       title: (
         <AnimatePresence mode="popLayout">
-          <motion.span key={i.link} {...animationConfig} className="inline-block relative">
+          <motion.span
+            key={i.link}
+            {...animationConfig}
+            className={cn('text-nowrap inline-block relative')}
+          >
             {id === items.length - 1 ? (
               (i.title ?? i.link)
             ) : (
-              <Link to={i.link}>{i.title ?? i.link}</Link>
+              <Link className="" to={i.link}>
+                {i.title ?? i.link}
+              </Link>
             )}
           </motion.span>
         </AnimatePresence>
       ),
+      separator: null,
     }))
   }, [items])
 
