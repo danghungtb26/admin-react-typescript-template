@@ -10,6 +10,12 @@
   --color-tag-border: #d8dce5;
   --color-tag-text: #495060;
   --color-tag-active: #42b983;
+
+  /* Context menu colors */
+  --color-context-menu-bg: #ffffff;
+  --color-context-menu-border: #e5e7eb;
+  --color-context-menu-text: #333333;
+  --color-context-menu-label: #999999;
   --color-context-menu-hover: #eeeeee;
 
   /* Custom font sizes - với base 10px thì 1rem = 10px */
@@ -25,7 +31,17 @@
   --min-height-loading: 30rem; /* 300px */
 }
 
-/* Override base styles khi cần để tránh conflict với Ant Design */
 @layer base {
-  /* Giữ trống hoặc chỉ thêm những override cần thiết */
+  :root {
+  }
+
+  .dark {
+  }
+}
+
+@layer base {
+  * {
+  }
+  body {
+  }
 }

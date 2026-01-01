@@ -22,6 +22,7 @@ const support_paths = [
   'themes',
   'routers',
   'app',
+  'lib',
   'contexts',
 ]
 // https://vitejs.dev/config/
