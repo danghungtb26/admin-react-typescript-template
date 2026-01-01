@@ -1,5 +1,5 @@
 import { StyleProvider, px2remTransformer } from '@ant-design/cssinjs'
-import { App, ConfigProvider } from 'antd'
+import { ConfigProvider } from 'antd'
 import React from 'react'
 import { useTheme } from 'styled-components'
 
@@ -22,24 +22,24 @@ const AntDesignProvider: React.FC<AntDesignProviderProps> = ({ children }) => {
 
   return (
     <StyleProvider transformers={[px2rem]}>
-      <App>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorPrimary: theme.colors?.primary_1,
-              fontFamily: 'Quicksand',
+      {/* <App> */}
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: theme.colors?.primary_1,
+            // fontFamily: 'Quicksand',
+          },
+          components: {
+            Button: {
+              primaryShadow: 'unset',
             },
-            components: {
-              Button: {
-                primaryShadow: 'unset',
-              },
-            },
-            hashed: true,
-          }}
-        >
-          {children}
-        </ConfigProvider>
-      </App>
+          },
+          hashed: true,
+        }}
+      >
+        {children}
+      </ConfigProvider>
+      {/* </App> */}
     </StyleProvider>
   )
 }

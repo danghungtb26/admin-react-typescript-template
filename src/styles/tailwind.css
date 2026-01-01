@@ -7,9 +7,15 @@
   --color-sidebar-bg: rgba(48, 65, 86, 0.5);
   --color-sidebar-hover: #263445;
   --color-sidebar-sub: #1f2d3d;
+
+  /* Tag colors */
+  --color-tag-view: #42b983;
   --color-tag-border: #d8dce5;
   --color-tag-text: #495060;
-  --color-tag-active: #42b983;
+  --color-tag-active-bg: #42b983;
+  --color-tag-inactive-bg: #f5f5f5;
+  --color-tag-inactive-text: #666666;
+  --color-tag-inactive-hover: #e8e8e8;
 
   /* Context menu colors */
   --color-context-menu-bg: #ffffff;

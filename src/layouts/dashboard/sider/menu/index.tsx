@@ -60,7 +60,6 @@ const Menu: React.FC<React.PropsWithChildren<MenuProps>> = () => {
       return state.location.pathname
     },
   })
-  console.log('🚀 ~ Menu ~ pathname:', pathname)
 
   const menuItems: MenuItem[] = useMemo(
     () => [

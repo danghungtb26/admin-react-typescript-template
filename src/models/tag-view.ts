@@ -1,10 +1,14 @@
 import { Base } from './base'
 
+import { generateRandomId } from '@/commons/id'
 import { field } from '@/decorators/field'
 import { model } from '@/decorators/model'
 
 @model()
 export class TagViewModel extends Base {
+  @field()
+  override id: string = generateRandomId()
+
   @field()
   title?: string
 

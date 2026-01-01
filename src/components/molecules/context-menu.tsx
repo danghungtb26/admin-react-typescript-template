@@ -153,7 +153,7 @@ const renderMenuItem = (
             {item.icon && <span className="mr-2">{item.icon}</span>}
             {item.label}
           </ContextMenuSubTrigger>
-          <ContextMenuSubContent className="min-w-[12rem] rounded-md border border-context-menu-border bg-context-menu-bg p-1 text-context-menu-text shadow-[2px_2px_8px_0_rgba(0,0,0,0.15)]">
+          <ContextMenuSubContent className="min-w-48 rounded-md border border-context-menu-border bg-context-menu-bg p-1 text-context-menu-text shadow-[2px_2px_8px_0_rgba(0,0,0,0.15)]">
             {item.items.map((subItem, subIndex) =>
               renderMenuItem(subItem, subIndex, radioValue, onRadioValueChange),
             )}
@@ -181,7 +181,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
   return (
     <ContextMenuRoot>
       <ContextMenuTrigger asChild>{children}</ContextMenuTrigger>
-      <ContextMenuContent className="min-w-[12rem] rounded-md border border-context-menu-border bg-context-menu-bg p-1 text-context-menu-text shadow-[2px_2px_8px_0_rgba(0,0,0,0.15)]">
+      <ContextMenuContent className="min-w-48 rounded-md border border-context-menu-border bg-context-menu-bg p-1 text-context-menu-text shadow-[2px_2px_8px_0_rgba(0,0,0,0.15)]">
         {hasRadioItems && radioValue !== undefined && onRadioValueChange ? (
           <ContextMenuRadioGroup value={radioValue} onValueChange={onRadioValueChange}>
             {content}
