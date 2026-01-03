@@ -1,5 +1,5 @@
 @import 'tailwindcss';
-@import 'tailwindcss-animate';
+@plugin 'tailwindcss-animate';
 
 /* Custom theme cho project */
 @theme {
@@ -45,7 +45,7 @@
   --height-menu-item: 2.5rem; /* 40px */
 
   /* Sidebar dimensions */
-  --width-sidebar: 15rem; /* 240px */
+  --width-sidebar: 13.125rem; /* 210px */
   --width-sidebar-collapsed: 3.5rem; /* 56px */
 
   /* Custom min heights */

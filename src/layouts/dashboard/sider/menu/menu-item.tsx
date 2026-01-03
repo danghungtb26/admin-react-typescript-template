@@ -40,7 +40,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
       <div
         className={cn(
           'relative flex h-menu-item w-full items-center justify-center text-base text-sidebar-text transition-none',
-          'hover:bg-sidebar-item-hover hover:text-sidebar-text',
+          'hover:bg-sidebar-item-hover',
           (isSelected || hasSelectedChild) &&
             'bg-transparent text-sidebar-text-active before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-item-active before:content-[""]',
         )}
@@ -66,7 +66,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
                   onClick={closePopover}
                   className={cn(
                     'flex items-center px-4 py-3 text-sm font-semibold text-sidebar-text transition-colors',
-                    'hover:bg-sidebar-item-hover hover:text-sidebar-text',
+                    'hover:bg-sidebar-item-hover',
                     isChildSelected && 'text-sidebar-text-active',
                   )}
                 >
@@ -113,7 +113,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           className={cn(
             'flex h-menu-item cursor-pointer items-center text-sm font-semibold leading-12.5 text-sidebar-text transition-none relative',
             paddingLeft,
-            'hover:bg-sidebar-item-hover hover:text-sidebar-text',
+            'hover:bg-sidebar-item-hover',
           )}
           onClick={handleClick}
         >
@@ -129,7 +129,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           className={cn(
             'relative flex h-menu-item items-center text-sm font-semibold leading-12.5 text-sidebar-text transition-none',
             paddingLeft,
-            'hover:bg-sidebar-item-hover hover:text-sidebar-text',
+            'hover:bg-sidebar-item-hover',
             isSelected &&
               'bg-transparent text-sidebar-text-active before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-item-active',
           )}
