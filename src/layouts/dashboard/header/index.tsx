@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import React from 'react'
 
 import { Avatar, AvatarImage } from '@/components/atoms/avatar'
@@ -10,6 +10,7 @@ import { router_keys } from '@/routers/key'
 type LayoutHeaderProps = {}
 
 const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () => {
+  const navigate = useNavigate()
   const menuItems = [
     {
       type: 'label' as const,
@@ -21,6 +22,9 @@ const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () =>
       key: 'profile',
       label: <Link to={router_keys.profile}>Profile</Link>,
       shortcut: '⇧⌘P',
+      onClick: () => {
+        navigate({ to: router_keys.profile })
+      },
     },
     {
       type: 'separator' as const,

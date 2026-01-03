@@ -106,8 +106,9 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
   side = 'bottom',
   contentClassName,
 }) => {
+  const [open, setOpen] = React.useState(false)
   return (
-    <DropdownMenuPrimitive>
+    <DropdownMenuPrimitive open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
       <DropdownMenuContent align={align} side={side} className={contentClassName}>
         {items.map(item => renderMenuItem(item))}
