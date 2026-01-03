@@ -23,22 +23,8 @@ const AntDesignProvider: React.FC<AntDesignProviderProps> = ({ children }) => {
   return (
     <StyleProvider transformers={[px2rem]}>
       {/* <App> */}
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: theme.colors?.primary_1,
-            // fontFamily: 'Quicksand',
-          },
-          components: {
-            Button: {
-              primaryShadow: 'unset',
-            },
-          },
-          hashed: true,
-        }}
-      >
-        {children}
-      </ConfigProvider>
+
+      {children}
       {/* </App> */}
     </StyleProvider>
   )

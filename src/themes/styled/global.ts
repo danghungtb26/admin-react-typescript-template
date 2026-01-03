@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     html {
-        font-size: 10px;
+        /* font-size: 10px; */
         /* font-size: clamp(7px, -0.875rem + 1.5vw, 10px);; */
     }
 

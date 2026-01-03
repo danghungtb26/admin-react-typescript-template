@@ -1,12 +1,21 @@
 @import 'tailwindcss';
+@import 'tailwindcss-animate';
 
 /* Custom theme cho project */
 @theme {
   /* Custom colors */
   --color-page-bg: #f0f2f5;
-  --color-sidebar-bg: rgba(48, 65, 86, 0.5);
-  --color-sidebar-hover: #263445;
-  --color-sidebar-sub: #1f2d3d;
+
+  /* Sidebar colors - Light theme (from Figma) */
+  --color-sidebar-bg: #ffffff;
+  --color-sidebar-text: #202224;
+  --color-sidebar-text-active: #4880ff;
+  --color-sidebar-item-hover: #f5f6fa;
+  --color-sidebar-item-active: #4880ff;
+  --color-sidebar-sub-bg: #fafbfc;
+  --color-sidebar-border: #e0e0e0;
+  --color-sidebar-divider: #d8d8d8;
+  --color-sidebar-label: rgba(32, 34, 36, 0.6);
 
   /* Tag colors */
   --color-tag-view: #42b983;
@@ -24,17 +33,44 @@
   --color-context-menu-label: #999999;
   --color-context-menu-hover: #eeeeee;
 
-  /* Custom font sizes - với base 10px thì 1rem = 10px */
-  --font-size-xs: 1.2rem; /* 12px */
-  --font-size-sm: 1.4rem; /* 14px */
+  /* Tooltip colors */
+  --color-tooltip-bg: #374151; /* gray-700 */
+  --color-tooltip-text: #ffffff;
 
-  /* Custom heights - với base 10px thì 1rem = 10px */
-  --height-tag: 2.6rem; /* 26px */
-  --height-tag-view: 3.4rem; /* 34px */
-  --height-header: 5rem; /* 50px */
+  /* Custom heights */
+  --height-tag: 1.625rem; /* 26px */
+  --height-tag-view: 2.125rem; /* 34px */
+  --height-header: 3.375rem; /* 54px */
+  --height-logo: 4rem; /* 64px */
+  --height-menu-item: 2.5rem; /* 40px */
+
+  /* Sidebar dimensions */
+  --width-sidebar: 15rem; /* 240px */
+  --width-sidebar-collapsed: 3.5rem; /* 56px */
 
   /* Custom min heights */
-  --min-height-loading: 30rem; /* 300px */
+  --min-height-loading: 18.75rem; /* 300px */
+
+  /* shadcn UI overrides */
+  --radius: 0.625rem;
+  --color-background: oklch(1 0 0);
+  --color-foreground: oklch(0.145 0 0);
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.145 0 0);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.145 0 0);
+  --color-primary: oklch(0.205 0 0);
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-secondary: oklch(0.97 0 0);
+  --color-secondary-foreground: oklch(0.205 0 0);
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: oklch(0.556 0 0);
+  --color-accent: oklch(0.97 0 0);
+  --color-accent-foreground: oklch(0.205 0 0);
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-border: oklch(0.922 0 0);
+  --color-input: oklch(0.922 0 0);
+  --color-ring: oklch(0.708 0 0);
 }
 
 @layer base {
@@ -47,6 +83,7 @@
 
 @layer base {
   * {
+    @apply border-border;
   }
   body {
   }

@@ -48,11 +48,11 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
       <Link to={tag.path ?? ''} className="first:ml-3.75 last:mr-3.75">
         <div
           className={cx(
-            'inline-flex items-center gap-1 relative cursor-pointer h-tag px-3 text-xl',
+            'inline-flex items-center gap-1 relative cursor-pointer h-tag px-3 text-xs',
             {
               'bg-tag-view text-white before:w-2 before:h-2 before:rounded-full before:bg-white before:mr-1':
                 isActive,
-              'bg-tag-inactive-bg text-tag-inactive-text hover:bg-tag-inactive-hover border border-tag-border':
+              'bg-tag-inactive-bg text-tag-inactive-text hover:bg-tag-inactive-hover border':
                 !isActive,
             },
           )}
@@ -64,7 +64,7 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
                 e.preventDefault()
                 onRemove(tag)
               }}
-              className="ml-1 p-1 text-xs hover:bg-gray-400 hover:rounded-full transition-colors cursor-pointer"
+              className="ml-1 p-1 text-[8px] hover:bg-gray-400 hover:rounded-full transition-colors cursor-pointer"
             />
           ) : null}
         </div>

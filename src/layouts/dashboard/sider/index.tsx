@@ -1,58 +1,13 @@
-import { Layout } from 'antd'
 import React from 'react'
-import styled, { css } from 'styled-components'
 
-import { ANIMATION_SPEED, SIDER_BAR_COLLAPSED_WIDTH, SIDER_BAR_WIDTH } from '../constants'
-
+import Logo from './logo'
 import Menu from './menu'
 
 import { useSetting } from '@/contexts/setting/context'
 import { useMobile } from '@/hooks/media'
-import { media_break_points } from '@/themes/styled/globalStyle'
+import { cn } from '@/lib/utils'
 
 type LayoutSiderProps = {}
-
-const SiderStyled = styled(Layout.Sider)<{ $open?: boolean }>`
-  transition: width 0.28s;
-  background-color: rgb(48, 65, 86) !important;
-  height: 100%;
-  position: fixed !important;
-  font-size: 0;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 999;
-  overflow: hidden;
-  overscroll-behavior: contain;
-
-  .ant-menu {
-    transition: all ${ANIMATION_SPEED}s;
-  }
-
-  ${media_break_points.xs} {
-    transition-duration: 0.3s;
-    transform: translate3d(-${SIDER_BAR_WIDTH / 10}rem, 0, 0);
-
-    ${p =>
-      p.$open
-        ? css`
-            transform: none;
-          `
-        : css`
-            pointer-events: none;
-          `}
-  }
-`
-
-const DrawerBackground = styled.div`
-  background: #000;
-  opacity: 0.3;
-  width: 100vw;
-  top: 0;
-  height: 100vh;
-  position: absolute;
-  z-index: 222;
-`
 
 const LayoutSider: React.FC<React.PropsWithChildren<LayoutSiderProps>> = () => {
   const { sidebarCollapsed, drawerOpened, toggleDrawerOpened } = useSetting()
@@ -60,16 +15,24 @@ const LayoutSider: React.FC<React.PropsWithChildren<LayoutSiderProps>> = () => {
 
   return (
     <>
-      {drawerOpened && mobile ? <DrawerBackground onClick={toggleDrawerOpened} /> : null}
-      <SiderStyled
-        $open={drawerOpened}
-        width={SIDER_BAR_WIDTH}
-        collapsedWidth={SIDER_BAR_COLLAPSED_WIDTH}
-        collapsed={!mobile && sidebarCollapsed}
-        trigger={null}
+      {drawerOpened && mobile ? (
+        <div
+          className="fixed top-0 h-screen w-screen bg-black opacity-30 z-222"
+          onClick={toggleDrawerOpened}
+        />
+      ) : null}
+      <div
+        className={cn(
+          'fixed top-0 bottom-0 left-0 z-999 h-full overflow-hidden overscroll-contain bg-white text-[0] transition-[width] duration-280 border-r border-sidebar-border',
+          mobile && 'duration-300 -translate-x-60',
+          mobile && drawerOpened && 'translate-x-0',
+          mobile && !drawerOpened && 'pointer-events-none',
+          !mobile && sidebarCollapsed ? 'w-sidebar-collapsed' : 'w-sidebar',
+        )}
       >
+        <Logo />
         <Menu />
-      </SiderStyled>
+      </div>
     </>
   )
 }
