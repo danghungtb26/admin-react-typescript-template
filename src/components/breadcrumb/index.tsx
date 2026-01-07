@@ -1,12 +1,15 @@
 import { Link, useMatches } from '@tanstack/react-router'
-import { Breadcrumb as BreadcrumbAntd } from 'antd'
 import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion'
 import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
 
+import {
+  Breadcrumb as BaseBreadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/atoms/breadcrumb'
 import { cn } from '@/lib/utils'
-
-type Props = React.ComponentProps<typeof BreadcrumbAntd>
 
 type BreadCrumbProps = {}
 
@@ -19,16 +22,8 @@ const animationConfig: {
   initial: { opacity: 0, x: 30 },
   animate: { opacity: 1, x: 0 },
   exit: { opacity: 0, x: 30 },
-  transition: { duration: 0.3, ease: 'linear' },
+  transition: { duration: 0.3, ease: 'easeIn' },
 }
-
-const separator = (
-  <AnimatePresence mode="popLayout">
-    <motion.span key="separator" {...animationConfig} className="inline-block relative">
-      /
-    </motion.span>
-  </AnimatePresence>
-)
 
 const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
   const matches = useMatches()
@@ -60,32 +55,38 @@ const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
     return uniqItems
   }, [matches])
 
-  const renderedItems = useMemo<Props['items']>(() => {
-    return items.map((i, id) => ({
-      title: (
-        <AnimatePresence mode="popLayout">
-          <motion.span
-            key={i.link}
-            {...animationConfig}
-            className={cn('text-nowrap inline-block relative')}
-          >
-            {id === items.length - 1 ? (
-              (i.title ?? i.link)
-            ) : (
-              <Link className="" to={i.link}>
-                {i.title ?? i.link}
-              </Link>
-            )}
-          </motion.span>
-        </AnimatePresence>
-      ),
-      separator: null,
-    }))
-  }, [items])
-
   return (
     <div className="float-left text-sm leading-header h-full ml-4 flex items-center">
-      <BreadcrumbAntd items={renderedItems} separator={separator} />
+      <BaseBreadcrumb>
+        <BreadcrumbList className="flex relative">
+          {items.map((item, index) => (
+            <React.Fragment key={item.link}>
+              <BreadcrumbItem key={index}>
+                <AnimatePresence mode="popLayout">
+                  <motion.span {...animationConfig} className={cn('relative')}>
+                    {index === items.length - 1 ? (
+                      <span className="font-normal text-foreground">{item.title}</span>
+                    ) : (
+                      <Link to={item.link} className="hover:text-foreground transition-colors">
+                        {item.title}
+                      </Link>
+                    )}
+                  </motion.span>
+                </AnimatePresence>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator
+                key={`separator-${item.link}`}
+                className={cn(
+                  index >= items.length - 1 ? 'opacity-0' : 'inline-flex',
+                  'inline-flex transition-opacity duration-300 ease-in-out',
+                )}
+              >
+                <motion.span {...animationConfig}>/</motion.span>
+              </BreadcrumbSeparator>
+            </React.Fragment>
+          ))}
+        </BreadcrumbList>
+      </BaseBreadcrumb>
     </div>
   )
 }

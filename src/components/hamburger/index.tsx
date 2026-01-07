@@ -1,4 +1,4 @@
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
+import { MenuIcon as HamburgerIcon } from 'lucide-react'
 import React from 'react'
 
 import { useSetting } from '@/contexts/setting/context'
@@ -11,10 +11,13 @@ const Hamburger: React.FC<React.PropsWithChildren<HamburgerProps>> = () => {
     useSetting()
   const mobile = useMobile()
   const cond = !mobile ? sidebarCollapsed : !drawerOpened
-  const Component = cond ? MenuUnfoldOutlined : MenuFoldOutlined
+  const Component = cond ? HamburgerIcon : HamburgerIcon
   return (
     <div className="h-full float-left cursor-pointer transition-[background] duration-300 flex self-center hover:bg-black/2.5">
-      <Component onClick={mobile ? toggleDrawerOpened : toggleSidebarCollapsed} />
+      <Component
+        onClick={mobile ? toggleDrawerOpened : toggleSidebarCollapsed}
+        className="size-5"
+      />
     </div>
   )
 }

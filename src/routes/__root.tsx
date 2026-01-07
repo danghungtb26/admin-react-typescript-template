@@ -7,9 +7,6 @@ import { useEffect } from 'react'
 
 import SettingProvider from '@/contexts/setting/provider'
 import TagViewProvider from '@/contexts/tag-view/provider'
-import AntDesignProvider from '@/themes/ant'
-import StyledProvider from '@/themes/styled'
-import StyledThemeProvider from '@/themes/styled/theme'
 
 export const Route = createRootRoute({
   component: RootComponent,
@@ -28,19 +25,13 @@ function RootComponent() {
 
   return (
     <>
-      <StyledThemeProvider>
-        <StyledProvider>
-          <AntDesignProvider>
-            <SettingProvider>
-              <TagViewProvider>
-                <AnimatePresence mode="wait">
-                  <Outlet />
-                </AnimatePresence>
-              </TagViewProvider>
-            </SettingProvider>
-          </AntDesignProvider>
-        </StyledProvider>
-      </StyledThemeProvider>
+      <SettingProvider>
+        <TagViewProvider>
+          <AnimatePresence mode="wait">
+            <Outlet />
+          </AnimatePresence>
+        </TagViewProvider>
+      </SettingProvider>
 
       {import.meta.env.DEV && <TanStackRouterDevtools position="bottom-right" />}
     </>

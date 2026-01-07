@@ -1,20 +1,14 @@
 import * as echarts from 'echarts'
 import { debounce } from 'lodash'
 import React, { HTMLProps, useEffect, useRef } from 'react'
-import styled from 'styled-components'
 
 import { useSetting } from '@/contexts/setting/context'
 
 type LineChartProps = {} & HTMLProps<HTMLDivElement>
 
-const ChartDiv = styled.div`
-  width: 100%;
-  height: 35rem;
-`
-
 const LineChart: React.FC<React.PropsWithChildren<LineChartProps>> = ({ ...p }) => {
   const ref = useRef<HTMLDivElement>(null)
-  const chart = useRef<echarts.ECharts>()
+  const chart = useRef<echarts.ECharts>(null)
 
   useEffect(() => {
     const data = {
@@ -115,7 +109,7 @@ const LineChart: React.FC<React.PropsWithChildren<LineChartProps>> = ({ ...p }) 
     }
   }, [sidebarCollapsed])
 
-  return <ChartDiv {...p} ref={ref} />
+  return <div className="w-full h-96" {...p} ref={ref} />
 }
 
 export default LineChart

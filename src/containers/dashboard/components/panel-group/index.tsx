@@ -1,14 +1,5 @@
 import React from 'react'
-
-import {
-  CardPanel,
-  CardPanelCol,
-  CardPanelDescription,
-  CardPanelIconWrapper,
-  CardPanelNum,
-  CardPanelText,
-  PanelGroupRow,
-} from './styles'
+import CountUp from 'react-countup'
 
 const chartList = [
   {
@@ -41,21 +32,21 @@ type PanelGroupProps = {}
 
 const PanelGroup: React.FC<React.PropsWithChildren<PanelGroupProps>> = () => {
   return (
-    <PanelGroupRow gutter={40}>
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-10 mt-7">
       {chartList.map(chart => (
-        <CardPanelCol key={chart.type} lg={6} sm={12} xs={12} className="card-panel-col">
-          <CardPanel>
-            <CardPanelIconWrapper>
+        <div key={chart.type} className="card-panel-col mb-8">
+          <div className="h-28 cursor-pointer text-xs relative overflow-hidden text-gray-500 bg-white shadow-xl border-gray-100">
+            <div className="float-left mt-3.5 ml-3.5 p-4 transition-all duration-380 ease-out rounded-md">
               <div className={chart.type} style={{ fontSize: 55, color: chart.color }} />
-            </CardPanelIconWrapper>
-            <CardPanelDescription>
-              <CardPanelText>{chart.type}</CardPanelText>
-              <CardPanelNum end={chart.num} start={0} className="card-panel-num" />
-            </CardPanelDescription>
-          </CardPanel>
-        </CardPanelCol>
+            </div>
+            <div className="float-right font-bold mt-6 mr-6 mb-6">
+              <p className="leading-5 text-gray-400 text-base mb-3">{chart.type}</p>
+              <CountUp end={chart.num} start={0} className="card-panel-num text-xl" />
+            </div>
+          </div>
+        </div>
       ))}
-    </PanelGroupRow>
+    </div>
   )
 }
 

@@ -1,6 +1,6 @@
-import { CloseOutlined } from '@ant-design/icons'
 import { Link } from '@tanstack/react-router'
 import cx from 'classnames'
+import { X } from 'lucide-react'
 import React from 'react'
 
 import { ContextMenu, ContextMenuItemType } from '@/components/molecules/context-menu'
@@ -48,7 +48,7 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
       <Link to={tag.path ?? ''} className="first:ml-3.75 last:mr-3.75">
         <div
           className={cx(
-            'inline-flex items-center gap-1 relative cursor-pointer h-tag px-3 text-xs',
+            'inline-flex items-center gap-1 relative cursor-pointer h-tag px-2 text-xs',
             {
               'bg-tag-view text-white before:w-2 before:h-2 before:rounded-full before:bg-white before:mr-1':
                 isActive,
@@ -59,12 +59,12 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
         >
           {tag.title}
           {tag.deletable ? (
-            <CloseOutlined
+            <X
               onClick={e => {
                 e.preventDefault()
                 onRemove(tag)
               }}
-              className="ml-1 p-1 text-[8px] hover:bg-gray-400 hover:rounded-full transition-colors cursor-pointer"
+              className="ml-1 p-px size-3 hover:bg-gray-400 hover:rounded-full transition-colors cursor-pointer"
             />
           ) : null}
         </div>

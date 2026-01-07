@@ -1,5 +1,5 @@
-import { DownOutlined } from '@ant-design/icons'
 import { Link } from '@tanstack/react-router'
+import { ChevronDown } from 'lucide-react'
 import React, { useState } from 'react'
 
 import { useMenuContext } from './menu-context'
@@ -119,7 +119,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
         >
           {item.icon && <span className="mr-4 text-base">{item.icon}</span>}
           <span className="flex-1">{item.label}</span>
-          <DownOutlined
+          <ChevronDown
             className={cn('mr-4 text-xs transition-transform duration-200', isOpen && 'rotate-180')}
           />
         </div>
