@@ -41,7 +41,7 @@ const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
 
     const uniqItems = uniqBy(
       [
-        { link: '/dashboard', title: 'Dashboard', titleKey: 'dashboard', display: true },
+        { link: '/dashboard/', title: 'Dashboard', titleKey: 'dashboard', display: true },
         ...lastMatches.map(match => ({
           link: match.pathname,
           title: match.staticData?.meta?.title,

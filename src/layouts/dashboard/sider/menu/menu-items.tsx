@@ -10,6 +10,20 @@ export const menuItems: MenuItem[] = [
     label: 'Dashboard',
     to: router_keys.dashboard,
     icon: <LayoutDashboardIcon />,
+    children: [
+      {
+        key: '/dashboard/default',
+        label: 'Default',
+        to: router_keys.dashboard,
+        icon: <LayoutDashboardIcon className="size-4" />,
+      },
+      {
+        key: '/dashboard/analytics',
+        label: 'Analytics',
+        to: router_keys.analytics,
+        icon: <LayoutDashboardIcon className="size-4" />,
+      },
+    ],
   },
   {
     key: '/home',
