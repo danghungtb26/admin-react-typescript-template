@@ -89,6 +89,15 @@ interface DataTableProps<TData, TValue> {
    * @default [10, 20, 30, 40, 50]
    */
   pageSizeOptions?: number[]
+  /**
+   * Custom className for the container
+   */
+  className?: string
+  /**
+   * Show or hide pagination controls
+   * @default true
+   */
+  showPagination?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -98,12 +107,14 @@ export function DataTable<TData, TValue>({
   sorting,
   onSortingChange,
   manualSorting = false,
-  rowSelection: controlledRowSelection,
+  rowSelection,
   onRowSelectionChange,
   pagination: controlledPagination,
   onPaginationChange,
   manualPagination = false,
   pageSizeOptions = [10, 20, 30, 40, 50],
+  className,
+  showPagination = true,
 }: DataTableProps<TData, TValue>) {
   // Use internal state if pagination is not controlled
   const [internalPagination, setInternalPagination] = useState<PaginationState>({
@@ -141,12 +152,12 @@ export function DataTable<TData, TValue>({
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: !manualSorting ? getSortedRowModel() : undefined,
     onSortingChange,
-    onRowSelectionChange: onRowSelectionChange,
     onPaginationChange: handlePaginationChange,
+    ...(rowSelection && { onRowSelectionChange }),
     state: {
       sorting,
-      rowSelection: controlledRowSelection,
       pagination: paginationState,
+      ...(rowSelection ? { rowSelection } : {}),
     },
     manualSorting,
     manualPagination,
@@ -158,7 +169,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div className="space-y-4">
+    <div className={cn('space-y-4', className)}>
       <div className="relative rounded-md border">
         {loading && (
           <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center">
@@ -219,78 +230,80 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
 
-      <div className="flex items-center justify-between px-2">
-        <div className="flex-1 text-sm text-muted-foreground">
-          {manualPagination && controlledPagination?.total !== undefined && (
-            <>
-              Showing {paginationState.pageIndex * paginationState.pageSize + 1} to{' '}
-              {Math.min(
-                (paginationState.pageIndex + 1) * paginationState.pageSize,
-                controlledPagination.total,
-              )}{' '}
-              of {controlledPagination.total} row(s)
-            </>
-          )}
+      {showPagination && (
+        <div className="flex items-center justify-between px-2">
+          <div className="flex-1 text-sm text-muted-foreground">
+            {manualPagination && controlledPagination?.total !== undefined && (
+              <>
+                Showing {paginationState.pageIndex * paginationState.pageSize + 1} to{' '}
+                {Math.min(
+                  (paginationState.pageIndex + 1) * paginationState.pageSize,
+                  controlledPagination.total,
+                )}{' '}
+                of {controlledPagination.total} row(s)
+              </>
+            )}
+          </div>
+          <div className="flex items-center space-x-6 lg:space-x-8">
+            <div className="flex items-center space-x-2">
+              <p className="text-sm font-medium">Rows per page</p>
+              <Select
+                value={`${table.getState().pagination.pageSize}`}
+                onValueChange={value => {
+                  table.setPageSize(Number(value))
+                }}
+                options={pageSizeOptions.map(pageSize => ({
+                  label: `${pageSize}`,
+                  value: `${pageSize}`,
+                }))}
+                className="h-8 w-17.5"
+                placeholder={table.getState().pagination.pageSize.toString()}
+              />
+            </div>
+            <div className="flex w-25 items-center justify-center text-sm font-medium">
+              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+            </div>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                className="hidden h-8 w-8 p-0 lg:flex"
+                onClick={() => table.setPageIndex(0)}
+                disabled={!table.getCanPreviousPage()}
+              >
+                <span className="sr-only">Go to first page</span>
+                <ChevronsLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="h-8 w-8 p-0"
+                onClick={() => table.previousPage()}
+                disabled={!table.getCanPreviousPage()}
+              >
+                <span className="sr-only">Go to previous page</span>
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="h-8 w-8 p-0"
+                onClick={() => table.nextPage()}
+                disabled={!table.getCanNextPage()}
+              >
+                <span className="sr-only">Go to next page</span>
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="outline"
+                className="hidden h-8 w-8 p-0 lg:flex"
+                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+                disabled={!table.getCanNextPage()}
+              >
+                <span className="sr-only">Go to last page</span>
+                <ChevronsRight className="h-4 w-4" />
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="flex items-center space-x-6 lg:space-x-8">
-          <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium">Rows per page</p>
-            <Select
-              value={`${table.getState().pagination.pageSize}`}
-              onValueChange={value => {
-                table.setPageSize(Number(value))
-              }}
-              options={pageSizeOptions.map(pageSize => ({
-                label: `${pageSize}`,
-                value: `${pageSize}`,
-              }))}
-              className="h-8 w-17.5"
-              placeholder={table.getState().pagination.pageSize.toString()}
-            />
-          </div>
-          <div className="flex w-25 items-center justify-center text-sm font-medium">
-            Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </div>
-          <div className="flex items-center space-x-2">
-            <Button
-              variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={() => table.setPageIndex(0)}
-              disabled={!table.getCanPreviousPage()}
-            >
-              <span className="sr-only">Go to first page</span>
-              <ChevronsLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="h-8 w-8 p-0"
-              onClick={() => table.previousPage()}
-              disabled={!table.getCanPreviousPage()}
-            >
-              <span className="sr-only">Go to previous page</span>
-              <ChevronLeft className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="h-8 w-8 p-0"
-              onClick={() => table.nextPage()}
-              disabled={!table.getCanNextPage()}
-            >
-              <span className="sr-only">Go to next page</span>
-              <ChevronRight className="h-4 w-4" />
-            </Button>
-            <Button
-              variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
-              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-              disabled={!table.getCanNextPage()}
-            >
-              <span className="sr-only">Go to last page</span>
-              <ChevronsRight className="h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </div>
+      )}
     </div>
   )
 }

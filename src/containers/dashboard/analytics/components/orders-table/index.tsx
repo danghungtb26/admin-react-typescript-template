@@ -1,24 +1,30 @@
+import { ColumnDef } from '@tanstack/react-table'
 import { Edit2, Trash2, ChevronDown } from 'lucide-react'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
+import { Checkbox } from '@/components/atoms/checkbox'
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/atoms/dropdown-menu'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/atoms/table'
+import { DataTable } from '@/components/molecules/data-table'
 
-const orders = [
+type Order = {
+  id: string
+  client: string
+  email: string
+  date: string
+  status: string
+  country: string
+  total: string
+  color: string
+}
+
+const orders: Order[] = [
   {
     id: '#1532',
     client: 'John Carter',
@@ -81,6 +87,103 @@ const orders = [
   },
 ]
 
+const columns: ColumnDef<Order>[] = [
+  {
+    id: 'select',
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
+        }
+        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="rounded border-gray-300 text-indigo-600"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={value => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="rounded border-gray-300 text-indigo-600"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'id',
+    header: 'Order',
+    cell: ({ row }) => (
+      <div className="font-semibold text-gray-700 font-mono text-xs">{row.original.id}</div>
+    ),
+  },
+  {
+    accessorKey: 'client',
+    header: 'Client',
+    cell: ({ row }) => (
+      <div className="flex items-center gap-3">
+        <div
+          className={`size-8 rounded-full ${row.original.color} flex items-center justify-center text-white text-[10px] font-bold`}
+        >
+          {row.original.client.charAt(0)}
+        </div>
+        <div>
+          <div className="text-xs font-bold text-gray-900">{row.original.client}</div>
+          <div className="text-[10px] text-gray-500">{row.original.email}</div>
+        </div>
+      </div>
+    ),
+  },
+  {
+    accessorKey: 'date',
+    header: 'Date',
+    cell: ({ row }) => <div className="text-xs text-gray-500">{row.original.date}</div>,
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }) => (
+      <Badge
+        className={
+          row.original.status === 'Delivered'
+            ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 shadow-none font-normal'
+            : row.original.status === 'Pending'
+              ? 'bg-amber-100 text-amber-600 hover:bg-amber-100 shadow-none font-normal'
+              : 'bg-rose-100 text-rose-600 hover:bg-rose-100 shadow-none font-normal'
+        }
+      >
+        • {row.original.status}
+      </Badge>
+    ),
+  },
+  {
+    accessorKey: 'country',
+    header: 'Country',
+    cell: ({ row }) => (
+      <div className="text-xs text-gray-600 font-medium">{row.original.country}</div>
+    ),
+  },
+  {
+    accessorKey: 'total',
+    header: 'Total',
+    cell: ({ row }) => (
+      <div className="text-xs font-bold text-gray-900 text-right">{row.original.total}</div>
+    ),
+  },
+  {
+    id: 'actions',
+    header: '',
+    cell: () => (
+      <div className="flex justify-end gap-2 text-gray-400">
+        <Edit2 className="size-3.5 hover:text-indigo-600 cursor-pointer" />
+        <Trash2 className="size-3.5 hover:text-red-600 cursor-pointer" />
+      </div>
+    ),
+    enableSorting: false,
+  },
+]
+
 const OrdersTable = () => {
   return (
     <Card className="border-none shadow-sm rounded-xl">
@@ -105,78 +208,13 @@ const OrdersTable = () => {
           </Button>
         </div>
       </CardHeader>
-      <CardContent className="p-0">
-        <Table>
-          <TableHeader className="bg-transparent border-b-gray-100">
-            <TableRow className="hover:bg-transparent">
-              <TableHead className="w-12 pl-6">
-                <input
-                  type="checkbox"
-                  className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                />
-              </TableHead>
-              <TableHead className="text-gray-500 font-medium">Order</TableHead>
-              <TableHead className="text-gray-500 font-medium">Client</TableHead>
-              <TableHead className="text-gray-500 font-medium">Date</TableHead>
-              <TableHead className="text-gray-500 font-medium">Status</TableHead>
-              <TableHead className="text-gray-500 font-medium">Country</TableHead>
-              <TableHead className="text-gray-500 font-medium text-right">Total</TableHead>
-              <TableHead className="w-[100px]"></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {orders.map(order => (
-              <TableRow key={order.id} className="border-b-gray-50 hover:bg-gray-50/50">
-                <TableCell className="pl-6">
-                  <input
-                    type="checkbox"
-                    className="rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                  />
-                </TableCell>
-                <TableCell className="font-semibold text-gray-700 font-mono text-xs">
-                  {order.id}
-                </TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-3">
-                    <div
-                      className={`size-8 rounded-full ${order.color} flex items-center justify-center text-white text-[10px] font-bold`}
-                    >
-                      {order.client.charAt(0)}
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-gray-900">{order.client}</div>
-                      <div className="text-[10px] text-gray-500">{order.email}</div>
-                    </div>
-                  </div>
-                </TableCell>
-                <TableCell className="text-xs text-gray-500">{order.date}</TableCell>
-                <TableCell>
-                  <Badge
-                    className={
-                      order.status === 'Delivered'
-                        ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 shadow-none font-normal'
-                        : order.status === 'Pending'
-                          ? 'bg-amber-100 text-amber-600 hover:bg-amber-100 shadow-none font-normal'
-                          : 'bg-rose-100 text-rose-600 hover:bg-rose-100 shadow-none font-normal'
-                    }
-                  >
-                    • {order.status}
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-xs text-gray-600 font-medium">{order.country}</TableCell>
-                <TableCell className="text-xs font-bold text-gray-900 text-right">
-                  {order.total}
-                </TableCell>
-                <TableCell>
-                  <div className="flex justify-end gap-2 text-gray-400">
-                    <Edit2 className="size-3.5 hover:text-indigo-600 cursor-pointer" />
-                    <Trash2 className="size-3.5 hover:text-red-600 cursor-pointer" />
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+      <CardContent className="p-0 [&_.space-y-4]:space-y-0">
+        <DataTable
+          columns={columns}
+          data={orders}
+          pageSizeOptions={[6, 10, 20]}
+          showPagination={false}
+        />
       </CardContent>
     </Card>
   )
