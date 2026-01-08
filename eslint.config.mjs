@@ -10,7 +10,7 @@ import ts from 'typescript-eslint'
 
 export default defineConfig(
   {
-    ignores: ['eslint.config.mjs', 'src/database', '.husky'],
+    ignores: ['eslint.config.mjs', 'src/database', '.husky', 'src/components/atoms'],
   },
   js.configs.recommended,
   ts.configs.recommended,

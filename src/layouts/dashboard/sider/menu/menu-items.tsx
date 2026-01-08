@@ -1,4 +1,4 @@
-import { LayoutDashboardIcon, FileExclamationPoint, HomeIcon, TableIcon } from 'lucide-react'
+import { LayoutDashboardIcon, FileExclamationPoint, HomeIcon, TableIcon, User } from 'lucide-react'
 
 import type { MenuItem } from './types'
 
@@ -24,6 +24,12 @@ export const menuItems: MenuItem[] = [
         icon: <LayoutDashboardIcon className="size-4" />,
       },
     ],
+  },
+  {
+    key: '/users',
+    label: 'Users',
+    to: router_keys.users,
+    icon: <User />,
   },
   {
     key: '/home',
