@@ -1,5 +1,6 @@
-import { ColumnDef } from '@tanstack/react-table'
+import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table'
 import { Pencil, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar'
 import { Badge } from '@/components/atoms/badge'
@@ -254,6 +255,25 @@ const columns: ColumnDef<User>[] = [
 ]
 
 export default function UserList() {
+  const [sorting, setSorting] = useState<SortingState>([])
+  const [loading, setLoading] = useState(false)
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
+  console.log('🚀 ~ UserList ~ rowSelection:', rowSelection)
+
+  const handleSortingChange: import('@tanstack/react-table').OnChangeFn<
+    SortingState
+  > = updaterOrValue => {
+    setLoading(true)
+    const newSorting =
+      typeof updaterOrValue === 'function' ? updaterOrValue(sorting) : updaterOrValue
+
+    // Simulate API delay
+    setTimeout(() => {
+      setSorting(newSorting)
+      setLoading(false)
+    }, 1000)
+  }
+
   return (
     <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div className="flex items-center justify-between space-y-2">
@@ -262,7 +282,16 @@ export default function UserList() {
           <p className="text-muted-foreground">Here&apos;s a list of your users for this month!</p>
         </div>
       </div>
-      <DataTable data={data} columns={columns} />
+      <DataTable
+        data={data}
+        columns={columns}
+        loading={loading}
+        sorting={sorting}
+        manualSorting={false}
+        onSortingChange={handleSortingChange}
+        rowSelection={rowSelection}
+        onRowSelectionChange={setRowSelection}
+      />
     </div>
   )
 }

@@ -3,18 +3,23 @@ import {
   flexRender,
   getCoreRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  OnChangeFn,
+  RowSelectionState,
+  SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ChevronLeft,
+  ChevronRight,
+  ChevronsLeft,
+  ChevronsRight,
+  Loader2,
+} from 'lucide-react'
 
 import { Button } from '@/components/atoms/button'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/atoms/select'
 import {
   Table,
   TableBody,
@@ -23,23 +28,63 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/atoms/table'
+import { Select } from '@/components/molecules/select'
+import { cn } from '@/lib/utils'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  loading?: boolean
+  sorting?: SortingState
+  onSortingChange?: OnChangeFn<SortingState>
+  /**
+   * Enable manual sorting (server-side sorting):
+   * - false: Table handles sorting automatically (client-side)
+   * - true: Parent component handles sorting (server-side)
+   * @default false
+   */
+  manualSorting?: boolean
+  /**
+   * Row selection state (controlled)
+   * If not provided, selection will be handled internally
+   */
+  rowSelection?: RowSelectionState
+  onRowSelectionChange?: OnChangeFn<RowSelectionState>
 }
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function DataTable<TData, TValue>({
+  columns,
+  data,
+  loading = false,
+  sorting,
+  onSortingChange,
+  manualSorting = false,
+  rowSelection: controlledRowSelection,
+  onRowSelectionChange,
+}: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: !manualSorting ? getSortedRowModel() : undefined,
+    onSortingChange,
+    onRowSelectionChange: onRowSelectionChange,
+    state: {
+      sorting,
+      rowSelection: controlledRowSelection,
+    },
+    manualSorting,
   })
 
   return (
     <div className="space-y-4">
-      <div className="rounded-md border">
+      <div className="relative rounded-md border">
+        {loading && (
+          <div className="bg-background/50 absolute inset-0 z-10 flex items-center justify-center">
+            <Loader2 className="text-primary h-8 w-8 animate-spin" />
+          </div>
+        )}
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
@@ -47,9 +92,21 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
                 {headerGroup.headers.map(header => {
                   return (
                     <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(header.column.columnDef.header, header.getContext())}
+                      {header.isPlaceholder ? null : (
+                        <div
+                          className={cn(
+                            'flex items-center gap-2',
+                            header.column.getCanSort() && 'cursor-pointer select-none',
+                          )}
+                          onClick={header.column.getToggleSortingHandler()}
+                        >
+                          {flexRender(header.column.columnDef.header, header.getContext())}
+                          {{
+                            asc: <ArrowUpIcon className="h-4 w-4" />,
+                            desc: <ArrowDownIcon className="h-4 w-4" />,
+                          }[header.column.getIsSorted() as string] ?? null}
+                        </div>
+                      )}
                     </TableHead>
                   )
                 })}
@@ -59,7 +116,11 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map(row => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
+                <TableRow
+                  key={row.id}
+                  data-state={row.getIsSelected() && 'selected'}
+                  className="even:bg-muted/40"
+                >
                   {row.getVisibleCells().map(cell => (
                     <TableCell key={cell.id}>
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -91,20 +152,15 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
               onValueChange={value => {
                 table.setPageSize(Number(value))
               }}
-            >
-              <SelectTrigger className="h-8 w-[70px]">
-                <SelectValue placeholder={table.getState().pagination.pageSize} />
-              </SelectTrigger>
-              <SelectContent side="top">
-                {[10, 20, 30, 40, 50].map(pageSize => (
-                  <SelectItem key={pageSize} value={`${pageSize}`}>
-                    {pageSize}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+              options={[10, 20, 30, 40, 50].map(pageSize => ({
+                label: `${pageSize}`,
+                value: `${pageSize}`,
+              }))}
+              className="h-8 w-17.5"
+              placeholder={table.getState().pagination.pageSize.toString()}
+            />
           </div>
-          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          <div className="flex w-25 items-center justify-center text-sm font-medium">
             Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">
