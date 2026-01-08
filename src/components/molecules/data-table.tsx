@@ -5,6 +5,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   OnChangeFn,
+  PaginationState,
   RowSelectionState,
   SortingState,
   useReactTable,
@@ -18,6 +19,7 @@ import {
   ChevronsRight,
   Loader2,
 } from 'lucide-react'
+import { useState } from 'react'
 
 import { Button } from '@/components/atoms/button'
 import {
@@ -30,6 +32,25 @@ import {
 } from '@/components/atoms/table'
 import { Select } from '@/components/molecules/select'
 import { cn } from '@/lib/utils'
+
+/**
+ * Pagination options for external (server-side) pagination
+ */
+export interface PaginationOptions {
+  /**
+   * Current page number (0-based)
+   */
+  pageIndex: number
+  /**
+   * Number of rows per page
+   */
+  pageSize: number
+  /**
+   * Total number of rows across all pages
+   * Required for external pagination to calculate page count
+   */
+  total?: number
+}
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -50,6 +71,24 @@ interface DataTableProps<TData, TValue> {
    */
   rowSelection?: RowSelectionState
   onRowSelectionChange?: OnChangeFn<RowSelectionState>
+  /**
+   * Pagination options (controlled)
+   * If not provided, pagination will be handled internally
+   */
+  pagination?: PaginationOptions
+  onPaginationChange?: (pagination: PaginationOptions) => void
+  /**
+   * Enable manual pagination (server-side pagination):
+   * - false: Table handles pagination automatically (client-side)
+   * - true: Parent component handles pagination (server-side)
+   * @default false
+   */
+  manualPagination?: boolean
+  /**
+   * Options for rows per page dropdown
+   * @default [10, 20, 30, 40, 50]
+   */
+  pageSizeOptions?: number[]
 }
 
 export function DataTable<TData, TValue>({
@@ -61,7 +100,40 @@ export function DataTable<TData, TValue>({
   manualSorting = false,
   rowSelection: controlledRowSelection,
   onRowSelectionChange,
+  pagination: controlledPagination,
+  onPaginationChange,
+  manualPagination = false,
+  pageSizeOptions = [10, 20, 30, 40, 50],
 }: DataTableProps<TData, TValue>) {
+  // Use internal state if pagination is not controlled
+  const [internalPagination, setInternalPagination] = useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: 10,
+  })
+
+  const isPaginationControlled = controlledPagination !== undefined
+  const paginationState: PaginationState = isPaginationControlled
+    ? {
+        pageIndex: controlledPagination.pageIndex,
+        pageSize: controlledPagination.pageSize,
+      }
+    : internalPagination
+
+  const handlePaginationChange: OnChangeFn<PaginationState> = updaterOrValue => {
+    const newPagination =
+      typeof updaterOrValue === 'function' ? updaterOrValue(paginationState) : updaterOrValue
+
+    if (isPaginationControlled && onPaginationChange) {
+      onPaginationChange({
+        pageIndex: newPagination.pageIndex,
+        pageSize: newPagination.pageSize,
+        total: controlledPagination.total,
+      })
+    } else {
+      setInternalPagination(newPagination)
+    }
+  }
+
   const table = useReactTable({
     data,
     columns,
@@ -70,11 +142,19 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: !manualSorting ? getSortedRowModel() : undefined,
     onSortingChange,
     onRowSelectionChange: onRowSelectionChange,
+    onPaginationChange: handlePaginationChange,
     state: {
       sorting,
       rowSelection: controlledRowSelection,
+      pagination: paginationState,
     },
     manualSorting,
+    manualPagination,
+    // For external pagination, we need to provide the total row count
+    pageCount:
+      manualPagination && controlledPagination?.total
+        ? Math.ceil(controlledPagination.total / paginationState.pageSize)
+        : undefined,
   })
 
   return (
@@ -141,8 +221,16 @@ export function DataTable<TData, TValue>({
 
       <div className="flex items-center justify-between px-2">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} of{' '}
-          {table.getFilteredRowModel().rows.length} row(s) selected.
+          {manualPagination && controlledPagination?.total !== undefined && (
+            <>
+              Showing {paginationState.pageIndex * paginationState.pageSize + 1} to{' '}
+              {Math.min(
+                (paginationState.pageIndex + 1) * paginationState.pageSize,
+                controlledPagination.total,
+              )}{' '}
+              of {controlledPagination.total} row(s)
+            </>
+          )}
         </div>
         <div className="flex items-center space-x-6 lg:space-x-8">
           <div className="flex items-center space-x-2">
@@ -152,7 +240,7 @@ export function DataTable<TData, TValue>({
               onValueChange={value => {
                 table.setPageSize(Number(value))
               }}
-              options={[10, 20, 30, 40, 50].map(pageSize => ({
+              options={pageSizeOptions.map(pageSize => ({
                 label: `${pageSize}`,
                 value: `${pageSize}`,
               }))}

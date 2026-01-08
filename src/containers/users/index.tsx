@@ -6,7 +6,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar'
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
 import { Checkbox } from '@/components/atoms/checkbox'
-import { DataTable } from '@/components/molecules/data-table'
+import { DataTable, PaginationOptions } from '@/components/molecules/data-table'
 
 type User = {
   id: string
@@ -258,7 +258,11 @@ export default function UserList() {
   const [sorting, setSorting] = useState<SortingState>([])
   const [loading, setLoading] = useState(false)
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
-  console.log('🚀 ~ UserList ~ rowSelection:', rowSelection)
+  const [pagination, setPagination] = useState<PaginationOptions>({
+    pageIndex: 0,
+    pageSize: 10,
+    total: 100, // Example: total rows from API
+  })
 
   const handleSortingChange: import('@tanstack/react-table').OnChangeFn<
     SortingState
@@ -272,6 +276,16 @@ export default function UserList() {
       setSorting(newSorting)
       setLoading(false)
     }, 1000)
+  }
+
+  const handlePaginationChange = (newPagination: PaginationOptions) => {
+    setLoading(true)
+    // Simulate API call
+    setTimeout(() => {
+      setPagination(newPagination)
+      setLoading(false)
+      // In real app: fetch new data based on newPagination.pageIndex and newPagination.pageSize
+    }, 500)
   }
 
   return (
@@ -291,6 +305,10 @@ export default function UserList() {
         onSortingChange={handleSortingChange}
         rowSelection={rowSelection}
         onRowSelectionChange={setRowSelection}
+        pagination={pagination}
+        onPaginationChange={handlePaginationChange}
+        manualPagination={true}
+        pageSizeOptions={[5, 10, 20, 50, 100]}
       />
     </div>
   )
