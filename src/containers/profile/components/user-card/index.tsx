@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
+import Avatar from '@/components/molecules/avatar'
 
 type UserCardProps = {}
 
@@ -14,10 +14,11 @@ const UserCard: React.FC<React.PropsWithChildren<UserCardProps>> = () => {
       <CardContent className="p-5">
         <div>
           <div className="pt-2.5 mx-auto table">
-            <Avatar className="w-[100px] h-[100px]">
-              <AvatarImage src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif" />
-              <AvatarFallback>U</AvatarFallback>
-            </Avatar>
+            <Avatar
+              src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
+              fallback="User"
+              className="w-[100px] h-[100px]"
+            />
           </div>
         </div>
       </CardContent>

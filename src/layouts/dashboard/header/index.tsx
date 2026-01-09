@@ -1,9 +1,9 @@
 import { Link, useNavigate } from '@tanstack/react-router'
 import React from 'react'
 
-import { Avatar, AvatarImage } from '@/components/atoms/avatar'
 import BreadCrumb from '@/components/breadcrumb'
 import Hamburger from '@/components/hamburger'
+import Avatar from '@/components/molecules/avatar'
 import { DropdownMenu } from '@/components/molecules/dropdown-menu'
 import { router_keys } from '@/routers/key'
 
@@ -59,12 +59,12 @@ const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () =>
       <div className="flex items-center gap-2">
         <DropdownMenu
           trigger={
-            <Avatar className="size-10 cursor-pointer">
-              <AvatarImage
-                src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
-                alt="User avatar"
-              />
-            </Avatar>
+            <Avatar
+              src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+              fallback="User"
+              className="cursor-pointer"
+              alt="User avatar"
+            />
           }
           items={menuItems}
         />

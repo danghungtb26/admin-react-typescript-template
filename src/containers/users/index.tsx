@@ -2,10 +2,10 @@ import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-tabl
 import { Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/atoms/avatar'
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
 import { Checkbox } from '@/components/atoms/checkbox'
+import Avatar from '@/components/molecules/avatar'
 import { DataTable, PaginationOptions } from '@/components/molecules/data-table'
 
 type User = {
@@ -182,10 +182,12 @@ const columns: ColumnDef<User>[] = [
     header: 'Name',
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
-        <Avatar className="h-9 w-9">
-          <AvatarImage src={row.original.avatar} alt={row.original.name} />
-          <AvatarFallback>{row.original.name.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <Avatar
+          src={row.original.avatar}
+          fallback={row.original.name}
+          size="sm"
+          alt={row.original.name}
+        />
         <div className="flex flex-col">
           <span className="font-medium">{row.original.name}</span>
           <span className="text-sm text-muted-foreground">{row.original.email}</span>
