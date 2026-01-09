@@ -2,6 +2,7 @@ import js from '@eslint/js'
 import prettierConfig from 'eslint-config-prettier'
 import importPlugin from 'eslint-plugin-import'
 import prettier from 'eslint-plugin-prettier'
+import storybook from 'eslint-plugin-storybook'
 import globals from 'globals'
 import { defineConfig } from 'eslint/config'
 import react from 'eslint-plugin-react'
@@ -10,16 +11,20 @@ import ts from 'typescript-eslint'
 
 export default defineConfig(
   {
-    ignores: ['eslint.config.mjs', 'src/database', '.husky', 'src/components/atoms'],
+    ignores: [
+      'eslint.config.mjs',
+      'src/database',
+      '.husky',
+      'src/components/atoms',
+      'storybook-static',
+    ],
   },
   js.configs.recommended,
   ts.configs.recommended,
-  prettierConfig,
   {
     files: ['**/*.{js,jsx,ts,tsx}'],
     plugins: {
       prettier,
-      import: importPlugin,
       react,
       'react-hooks': reactHooks,
     },
@@ -43,17 +48,6 @@ export default defineConfig(
       '@typescript-eslint/no-require-imports': 'off',
       '@typescript-eslint/no-empty-object-type': 'off',
       semi: 'off',
-      'import/order': [
-        'error',
-        {
-          groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index', 'object'],
-          'newlines-between': 'always',
-          alphabetize: { order: 'asc', caseInsensitive: true },
-        },
-      ],
-      'import/no-unresolved': 0,
-      'import/newline-after-import': ['error', { count: 1 }],
-      'import/namespace': 0,
       'no-useless-constructor': 'off',
       '@typescript-eslint/no-useless-constructor': 'off',
       'react/display-name': 'off',
@@ -64,4 +58,57 @@ export default defineConfig(
       },
     },
   },
+  {
+    name: 'Import plugin rules',
+    plugins: {
+      import: importPlugin,
+    },
+    rules: {
+      'import/order': [
+        'error',
+        {
+          groups: [
+            'builtin',
+            'external',
+            'internal',
+            'parent',
+            'sibling',
+            'index',
+            'object',
+            'type',
+          ],
+          'newlines-between': 'always',
+          alphabetize: { order: 'asc', caseInsensitive: true },
+          pathGroups: [
+            {
+              pattern: '@/**',
+              group: 'internal',
+            },
+          ],
+        },
+      ],
+      'import/no-unresolved': 0,
+      'import/newline-after-import': ['error', { count: 1 }],
+      'import/namespace': 0,
+    },
+  },
+  // Storybook specific configuration
+  {
+    files: ['**/*.stories.@(ts|tsx|js|jsx|mjs|cjs)'],
+    plugins: {
+      storybook,
+    },
+    rules: {
+      'storybook/await-interactions': 'error',
+      'storybook/context-in-play-function': 'error',
+      'storybook/default-exports': 'error',
+      'storybook/hierarchy-separator': 'warn',
+      'storybook/no-redundant-story-name': 'warn',
+      'storybook/prefer-pascal-case': 'warn',
+      'storybook/story-exports': 'error',
+      'storybook/use-storybook-expect': 'error',
+      'storybook/use-storybook-testing-library': 'error',
+    },
+  },
+  prettierConfig,
 )

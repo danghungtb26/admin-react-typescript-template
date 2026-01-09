@@ -3,10 +3,10 @@ import { last } from 'lodash'
 import React from 'react'
 import { Scrollbars } from 'react-custom-scrollbars'
 
-import { TagViewItem } from './tag-view-item'
-
 import { useTagView } from '@/contexts/tag-view/context'
 import { TagViewModel } from '@/models/tag-view'
+
+import { TagViewItem } from './tag-view-item'
 
 export const TAG_VIEW_HEIGHT = 34
 

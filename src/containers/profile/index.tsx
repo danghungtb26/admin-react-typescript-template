@@ -1,11 +1,11 @@
 import React from 'react'
 
-import AccountTab from './components/account'
-import UserCard from './components/user-card'
-
 import { Card, CardContent } from '@/components/atoms/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms/tabs'
 import { PageContainer } from '@/components/box/page-container'
+
+import AccountTab from './components/account'
+import UserCard from './components/user-card'
 
 type ProfileContainerProps = {}
 

@@ -1,13 +1,6 @@
 import { ChevronDown, FileText } from 'lucide-react'
 import React from 'react'
 
-import CountryStats from './components/country-stats'
-import DeviceStats from './components/device-stats'
-import LineChart from './components/line-chart'
-import PanelGroup from './components/panel-group'
-import RecentOrders from './components/recent-orders'
-import SideStats from './components/side-stats'
-
 import { Button } from '@/components/atoms/button'
 import {
   DropdownMenu,
@@ -15,6 +8,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/atoms/dropdown-menu'
+
+import CountryStats from './components/country-stats'
+import DeviceStats from './components/device-stats'
+import LineChart from './components/line-chart'
+import PanelGroup from './components/panel-group'
+import RecentOrders from './components/recent-orders'
+import SideStats from './components/side-stats'
 
 type DashboardContainerProps = {}
 

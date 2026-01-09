@@ -2,13 +2,14 @@ import { Link } from '@tanstack/react-router'
 import { ChevronDown } from 'lucide-react'
 import React, { useState } from 'react'
 
-import { useMenuContext } from './menu-context'
-import type { MenuItem } from './types'
-
 import { Popover } from '@/components/molecules/popover'
 import { Tooltip } from '@/components/molecules/tooltip'
 import { useSetting } from '@/contexts/setting/context'
 import { cn } from '@/lib/utils'
+
+import { useMenuContext } from './menu-context'
+
+import type { MenuItem } from './types'
 
 type MenuItemComponentProps = {
   item: MenuItem

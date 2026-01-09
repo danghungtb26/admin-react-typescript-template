@@ -1,10 +1,10 @@
 import React from 'react'
 
+import { cn } from '@/lib/utils'
+
 import { MenuProvider } from './menu-context'
 import { MenuItemComponent } from './menu-item'
 import { menuItems } from './menu-items'
-
-import { cn } from '@/lib/utils'
 
 const Menu: React.FC = () => {
   return (

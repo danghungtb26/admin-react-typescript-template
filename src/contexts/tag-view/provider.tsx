@@ -2,10 +2,10 @@ import { useNavigate, useRouterState } from '@tanstack/react-router'
 import { last, uniqBy } from 'lodash'
 import React, { useEffect, useState } from 'react'
 
-import { TagViewContext, TagViewContextType } from './context'
-
 import { TagViewModel } from '@/models/tag-view'
 import { router_keys } from '@/routers/key'
+
+import { TagViewContext, TagViewContextType } from './context'
 
 type TagViewProviderProps = {}
 

@@ -3,12 +3,12 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Edit, Trash } from 'lucide-react'
 import React from 'react'
 
-import TableSearch from './components/search'
-
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
 import { PageContainer } from '@/components/box/page-container'
 import { DataTable } from '@/components/molecules/data-table'
+
+import TableSearch from './components/search'
 
 type TableTemplateContainerProps = {}
 

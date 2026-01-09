@@ -1,7 +1,7 @@
-import { Base } from './base'
-
 import { field } from '@/decorators/field'
 import { model } from '@/decorators/model'
+
+import { Base } from './base'
 
 @model()
 export class Permission extends Base {

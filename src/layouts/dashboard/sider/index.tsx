@@ -1,11 +1,11 @@
 import React from 'react'
 
-import Logo from './logo'
-import Menu from './menu'
-
 import { useSetting } from '@/contexts/setting/context'
 import { useMobile } from '@/hooks/media'
 import { cn } from '@/lib/utils'
+
+import Logo from './logo'
+import Menu from './menu'
 
 type LayoutSiderProps = {}
 

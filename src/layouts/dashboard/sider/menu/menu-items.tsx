@@ -1,8 +1,8 @@
 import { LayoutDashboardIcon, FileExclamationPoint, HomeIcon, TableIcon, User } from 'lucide-react'
 
-import type { MenuItem } from './types'
-
 import { router_keys } from '@/routers/key'
+
+import type { MenuItem } from './types'
 
 export const menuItems: MenuItem[] = [
   {

@@ -1,12 +1,12 @@
 import { Outlet } from '@tanstack/react-router'
 import React from 'react'
 
+import { useSetting } from '@/contexts/setting/context'
+import { cn } from '@/lib/utils'
+
 import LayoutHeader from './header'
 import LayoutSider from './sider'
 import TagView from './tag-view'
-
-import { useSetting } from '@/contexts/setting/context'
-import { cn } from '@/lib/utils'
 
 type DashboardLayoutProps = {}
 

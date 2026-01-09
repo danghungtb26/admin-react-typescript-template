@@ -1,5 +1,3 @@
-import React from 'react'
-
 import OrdersTable from './components/orders-table'
 import ProductsList from './components/products-list'
 import RevenueChart from './components/revenue-chart'
