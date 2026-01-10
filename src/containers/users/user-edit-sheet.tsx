@@ -3,21 +3,22 @@ import { useTranslation } from 'react-i18next'
 
 import { Sheet } from '@/components/molecules/sheet'
 
-import { UserEditForm } from './components/user-edit-form'
+import { CreateUserForm } from './components/create-user-form'
+import { EditUserForm } from './components/edit-user-form'
 
 export type UserEditSheetProps = {
   onSuccess?: () => void
 }
 
 export function UserEditSheet({ onSuccess }: UserEditSheetProps) {
-  const { eUserId: userId, ...rest } = useSearch({ strict: false })
+  const { eUserId: userId, createUser: create, ...rest } = useSearch({ strict: false })
 
   const navigate = useNavigate()
 
   const { t } = useTranslation()
 
   const handleClose = () => {
-    navigate({ search: { ...rest, userId: undefined } })
+    navigate({ search: { ...rest, eUserId: undefined, createUser: undefined } })
   }
 
   const handleSuccess = () => {
@@ -29,7 +30,7 @@ export function UserEditSheet({ onSuccess }: UserEditSheetProps) {
     handleClose()
   }
 
-  const openState = Boolean(userId)
+  const openState = Boolean(create || userId)
 
   return (
     <Sheet
@@ -45,8 +46,13 @@ export function UserEditSheet({ onSuccess }: UserEditSheetProps) {
       side="right"
       contentClassName="sm:max-w-2xl"
       className="overflow-y-auto px-4 pb-4"
+      onOpenAutoFocus={e => e.preventDefault()}
     >
-      <UserEditForm userId={userId} onSuccess={handleSuccess} onCancel={handleCancel} />
+      {userId ? (
+        <EditUserForm userId={userId as string} onSuccess={handleSuccess} onCancel={handleCancel} />
+      ) : (
+        <CreateUserForm onSuccess={handleSuccess} onCancel={handleCancel} />
+      )}
     </Sheet>
   )
 }

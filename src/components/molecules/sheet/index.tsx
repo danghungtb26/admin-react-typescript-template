@@ -29,6 +29,7 @@ export type SheetProps = {
   className?: string
   contentClassName?: string
   onClose?: () => void
+  onOpenAutoFocus?: (event: Event) => void
 }
 
 export const Sheet: React.FC<SheetProps> = ({
@@ -49,6 +50,7 @@ export const Sheet: React.FC<SheetProps> = ({
   className,
   contentClassName,
   onClose,
+  onOpenAutoFocus,
 }) => {
   const closeSheet = () => {
     onOpenChange?.(false)
@@ -88,7 +90,12 @@ export const Sheet: React.FC<SheetProps> = ({
 
   return (
     <SheetPrimitive open={open} onOpenChange={onOpenChange}>
-      <SheetContent side={side} className={contentClassName} aria-describedby={undefined}>
+      <SheetContent
+        side={side}
+        className={contentClassName}
+        aria-describedby={undefined}
+        onOpenAutoFocus={onOpenAutoFocus}
+      >
         {(title || description) && (
           <SheetHeader>
             {title && <SheetTitle>{title}</SheetTitle>}

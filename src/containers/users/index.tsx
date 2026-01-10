@@ -1,6 +1,6 @@
 import { useNavigate } from '@tanstack/react-router'
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table'
-import { Pencil, Trash2 } from 'lucide-react'
+import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 import { useUsers } from '@/apis/user/hooks/use-users'
@@ -118,6 +118,7 @@ const columns: ColumnDef<User>[] = [
 ]
 
 export default function UserList() {
+  const navigate = useNavigate()
   const [sorting, setSorting] = useState<SortingState>([])
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
   const [pagination, setPagination] = useState<PaginationOptions>({
@@ -137,6 +138,11 @@ export default function UserList() {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">Users</h2>
           <p className="text-muted-foreground">Here&apos;s a list of your users for this month!</p>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Button onClick={() => navigate({ to: '/users/create' })}>
+            <Plus className="mr-2 h-4 w-4" /> Create User
+          </Button>
         </div>
       </div>
       <DataTable

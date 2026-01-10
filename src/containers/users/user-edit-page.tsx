@@ -5,7 +5,8 @@ import { Button } from '@/components/atoms/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/atoms/card'
 import { PageContainer } from '@/components/box/page-container'
 
-import { UserEditForm } from './components/user-edit-form'
+import { CreateUserForm } from './components/create-user-form'
+import { EditUserForm } from './components/edit-user-form'
 
 export function UserEditPage() {
   const { t } = useTranslation()
@@ -49,7 +50,11 @@ export function UserEditPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <UserEditForm userId={userId} onSuccess={handleSuccess} onCancel={handleCancel} />
+          {userId ? (
+            <EditUserForm userId={userId} onSuccess={handleSuccess} onCancel={handleCancel} />
+          ) : (
+            <CreateUserForm onSuccess={handleSuccess} onCancel={handleCancel} />
+          )}
         </CardContent>
       </Card>
     </PageContainer>

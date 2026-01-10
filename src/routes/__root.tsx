@@ -3,6 +3,7 @@ import { createRootRoute, Outlet } from '@tanstack/react-router'
 import { TanStackRouterDevtools } from '@tanstack/router-devtools'
 import { AnimatePresence } from 'framer-motion'
 
+import { Toaster } from '@/components/atoms/sonner'
 import SettingProvider from '@/contexts/setting/provider'
 import TagViewProvider from '@/contexts/tag-view/provider'
 
@@ -22,6 +23,7 @@ function RootComponent() {
       </SettingProvider>
 
       {import.meta.env.DEV && <TanStackRouterDevtools position="bottom-right" />}
+      <Toaster position="top-right" />
     </QueryClientProvider>
   )
 }

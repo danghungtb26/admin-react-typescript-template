@@ -40,7 +40,11 @@
     }
   },
   "common": {
+    "error": {
+      "something_went_wrong": "Đã có lỗi xảy ra. Vui lòng thử lại sau"
+    },
     "button": {
+      "back": "Quay lại",
       "save": "Lưu",
       "cancel": "Hủy",
       "saving": "Đang lưu..."
@@ -69,7 +73,17 @@
         "male": "Nam",
         "female": "Nữ",
         "other": "Khác"
-      }
+      },
+      "success_message": "Cập nhật người dùng thành công",
+      "page_title": "Chỉnh sửa người dùng",
+      "page_description": "Trang chỉnh sửa thông tin người dùng chi tiết"
+    },
+    "create_user": {
+      "title": "Tạo người dùng mới",
+      "description": "Nhập thông tin để tạo người dùng mới",
+      "page_title": "Tạo người dùng",
+      "page_description": "Trang tạo người dùng mới vào hệ thống",
+      "success_message": "Tạo người dùng thành công"
     }
   }
 }
