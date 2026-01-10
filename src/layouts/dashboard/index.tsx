@@ -1,6 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
 import React from 'react'
 
+import { UserEditSheet } from '@/containers/users/user-edit-sheet'
 import { useSetting } from '@/contexts/setting/context'
 import { cn } from '@/lib/utils'
 
@@ -34,6 +35,9 @@ const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> =
           <Outlet />
         </div>
       </div>
+
+      {/* Global User Edit Drawer */}
+      <UserEditSheet />
     </div>
   )
 }

@@ -1,4 +1,5 @@
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table'
+import { useNavigate } from '@tanstack/react-router'
 import { Pencil, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
@@ -236,13 +237,18 @@ const columns: ColumnDef<User>[] = [
   {
     id: 'actions',
     enableHiding: false,
-    cell: () => {
-      // used for actions
-      // const payment = row.original
+    cell: ({ row }) => {
+      const navigate = useNavigate()
 
       return (
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" className="h-8 w-8">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8"
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            onClick={() => navigate({ search: { editUser: row.original.id } as any })}
+          >
             <Pencil className="h-4 w-4" />
             <span className="sr-only">Edit</span>
           </Button>

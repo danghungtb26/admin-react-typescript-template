@@ -41,3 +41,5 @@ yarn-error.log*
 
 # TanStack Router
 routeTree.gen.ts
+debug-storybook.log
+.tanstack/tmp

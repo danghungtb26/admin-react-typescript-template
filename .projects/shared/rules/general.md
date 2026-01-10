@@ -186,9 +186,8 @@ This is a CRITICAL step - never skip it.
 
 ## Forms & Validation
 
-- Use `react-hook-form` for form management
 - Use `Zod` for schema validation
-- Integration: `@hookform/resolvers/zod`
+- Integration: `@common/validates/*`
 - Pattern:
 
   ```typescript
@@ -262,7 +261,7 @@ This is a CRITICAL step - never skip it.
 **After EVERY task:**
 
 ```bash
-pnpm lint
+pnpm lint --fix
 ```
 
 - Run this command without fail

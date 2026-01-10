@@ -38,5 +38,38 @@
     "actions": {
       "submit": "Lưu"
     }
+  },
+  "common": {
+    "button": {
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "saving": "Đang lưu..."
+    }
+  },
+  "users": {
+    "edit_user": {
+      "title": "Chỉnh sửa thông tin người dùng",
+      "description": "Cập nhật thông tin chi tiết của người dùng",
+      "fields": {
+        "name": "Tên",
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "birthday": "Ngày sinh",
+        "gender": "Giới tính",
+        "avatar": "Ảnh đại diện"
+      },
+      "placeholders": {
+        "name": "Nhập tên người dùng",
+        "email": "Nhập địa chỉ email",
+        "phone": "Nhập số điện thoại",
+        "gender": "Chọn giới tính",
+        "avatar": "Nhập URL ảnh đại diện"
+      },
+      "gender_options": {
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      }
+    }
   }
 }
