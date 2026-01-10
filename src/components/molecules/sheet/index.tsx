@@ -28,6 +28,7 @@ export type SheetProps = {
   cancelButtonProps?: React.ComponentProps<typeof Button>
   className?: string
   contentClassName?: string
+  onClose?: () => void
 }
 
 export const Sheet: React.FC<SheetProps> = ({
@@ -47,9 +48,11 @@ export const Sheet: React.FC<SheetProps> = ({
   cancelButtonProps,
   className,
   contentClassName,
+  onClose,
 }) => {
   const closeSheet = () => {
     onOpenChange?.(false)
+    onClose?.()
   }
 
   const handleCancel = () => {

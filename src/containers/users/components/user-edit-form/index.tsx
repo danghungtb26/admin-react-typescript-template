@@ -2,7 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
+import { toast } from 'sonner'
+import { z } from 'zod/v4'
 
+import { useCreateUser } from '@/apis/user/hooks/use-create-user'
+import { useUpdateUser } from '@/apis/user/hooks/use-update-user'
+import { useUserById } from '@/apis/user/hooks/use-user-by-id'
 import { UserEditFormData, userEditSchema } from '@/commons/validates/user'
 import { Button } from '@/components/atoms/button'
 import {
@@ -21,18 +26,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/atoms/select'
+import { Spinner } from '@/components/atoms/spinner'
 
 export type UserEditFormProps = {
   userId?: string
-  onSubmit: (data: UserEditFormData) => void | Promise<void>
+  onSuccess?: () => void
+  onError?: (error: unknown) => void
   onCancel: () => void
-  isSubmitting?: boolean
 }
 
-export function UserEditForm({ userId, onSubmit, onCancel, isSubmitting }: UserEditFormProps) {
+export function UserEditForm({ userId, onSuccess, onError, onCancel }: UserEditFormProps) {
   const { t } = useTranslation()
+  const createUserMutation = useCreateUser()
+  const updateUserMutation = useUpdateUser()
+  const { data: userData, isLoading: isLoadingUser } = useUserById(userId)
 
-  const form = useForm<UserEditFormData>({
+  const isSubmitting = createUserMutation.isPending || updateUserMutation.isPending
+
+  const form = useForm<z.input<typeof userEditSchema>, unknown, z.output<typeof userEditSchema>>({
+    // @ts-expect-error zodResolver types issue with zod v4
     resolver: zodResolver(userEditSchema),
     defaultValues: {
       name: '',
@@ -44,25 +56,48 @@ export function UserEditForm({ userId, onSubmit, onCancel, isSubmitting }: UserE
     },
   })
 
-  // Load user data when userId changes
+  // Load user data when fetched
   useEffect(() => {
-    if (userId) {
-      // TODO: Fetch user data by userId
-      // For now, using mock data
+    if (userData) {
       form.reset({
-        name: 'John Doe',
-        email: 'john@example.com',
-        phone: '(414) 907-1274',
-        avatar: 'https://github.com/shadcn.png',
-        birthday: '1990-01-01',
-        gender: 'male',
+        name: userData.name,
+        email: userData.email,
+        phone: userData.phone,
+        avatar: userData.avatar,
+        birthday: userData.birthday,
+        gender: userData.gender,
       })
     }
-  }, [userId, form])
+  }, [userData, form])
+
+  const handleSubmit = async (data: UserEditFormData) => {
+    try {
+      if (userId) {
+        await updateUserMutation.mutateAsync({ id: userId, data })
+        toast.success(t('users.edit_user.success_message'))
+      } else {
+        await createUserMutation.mutateAsync(data)
+        toast.success(t('users.create_user.success_message'))
+      }
+      onSuccess?.()
+    } catch (error) {
+      console.error('Failed to save user:', error)
+      toast.error(t('common.error.something_went_wrong'))
+      onError?.(error)
+    }
+  }
+
+  if (isLoadingUser) {
+    return (
+      <div className="flex h-40 items-center justify-center">
+        <Spinner />
+      </div>
+    )
+  }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
         <FormField
           control={form.control}
           name="name"

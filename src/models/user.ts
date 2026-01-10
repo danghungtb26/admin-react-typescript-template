@@ -16,13 +16,25 @@ export class User extends Base {
   birthday?: string
 
   @field()
-  gender?: number
+  gender?: 'male' | 'female' | 'other'
 
   @field()
   name?: string
 
   @field()
+  email?: string
+
+  @field()
   phone?: string
+
+  @field()
+  location?: string
+
+  @field()
+  company?: { name: string; logo: string }
+
+  @field()
+  status?: 'Online' | 'Offline'
 
   public toAddJson() {
     return {

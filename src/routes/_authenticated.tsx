@@ -15,6 +15,7 @@ export const Route = createFileRoute('/_authenticated')({
     }
   },
   component: AuthenticatedLayout,
+  search: {},
 })
 
 function AuthenticatedLayout() {

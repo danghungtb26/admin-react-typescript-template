@@ -1,59 +1,52 @@
-import { useState } from 'react'
+import { useNavigate, useSearch } from '@tanstack/react-router'
 import { useTranslation } from 'react-i18next'
 
-import { UserEditFormData } from '@/commons/validates/user'
 import { Sheet } from '@/components/molecules/sheet'
 
 import { UserEditForm } from './components/user-edit-form'
 
 export type UserEditSheetProps = {
-  userId?: string
-  open?: boolean
-  onOpenChange?: (open: boolean) => void
   onSuccess?: () => void
 }
 
-export function UserEditSheet({ userId, open, onOpenChange, onSuccess }: UserEditSheetProps) {
+export function UserEditSheet({ onSuccess }: UserEditSheetProps) {
+  const { eUserId: userId, ...rest } = useSearch({ strict: false })
+
+  const navigate = useNavigate()
+
   const { t } = useTranslation()
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const handleSubmit = async (data: UserEditFormData) => {
-    setIsSubmitting(true)
-    try {
-      // TODO: Implement API call to update user
-      console.log('Submitting user data:', data)
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Mock API call
+  const handleClose = () => {
+    navigate({ search: { ...rest, userId: undefined } })
+  }
 
-      // Close drawer and notify success
-      onOpenChange?.(false)
-      onSuccess?.()
-    } catch (error) {
-      console.error('Failed to update user:', error)
-    } finally {
-      setIsSubmitting(false)
-    }
+  const handleSuccess = () => {
+    handleClose()
+    onSuccess?.()
   }
 
   const handleCancel = () => {
-    onOpenChange?.(false)
+    handleClose()
   }
+
+  const openState = Boolean(userId)
 
   return (
     <Sheet
-      open={open}
-      onOpenChange={onOpenChange}
+      open={openState}
+      onOpenChange={open => {
+        if (!open) {
+          handleClose()
+        }
+      }}
+      onClose={handleClose}
       title={userId ? t('users.edit_user.title') : t('users.create_user.title')}
       description={userId ? t('users.edit_user.description') : t('users.create_user.description')}
       side="right"
       contentClassName="sm:max-w-2xl"
       className="overflow-y-auto px-4 pb-4"
     >
-      <UserEditForm
-        userId={userId}
-        onSubmit={handleSubmit}
-        onCancel={handleCancel}
-        isSubmitting={isSubmitting}
-      />
+      <UserEditForm userId={userId} onSuccess={handleSuccess} onCancel={handleCancel} />
     </Sheet>
   )
 }

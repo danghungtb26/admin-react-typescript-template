@@ -24,6 +24,7 @@ const support_paths = [
   'app',
   'lib',
   'contexts',
+  'apis',
 ]
 // https://vitejs.dev/config/
 export default defineConfig({
