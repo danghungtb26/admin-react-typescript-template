@@ -12,7 +12,7 @@ export const menuItems: MenuItem[] = [
     icon: <LayoutDashboardIcon />,
     children: [
       {
-        key: '/dashboard/default',
+        key: '/dashboard',
         label: 'Default',
         to: router_keys.dashboard,
         icon: <LayoutDashboardIcon className="size-4" />,
