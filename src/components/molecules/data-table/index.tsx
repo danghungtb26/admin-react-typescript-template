@@ -20,6 +20,7 @@ import {
   Loader2,
 } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Button } from '@/components/atoms/button'
 import {
@@ -116,6 +117,7 @@ export function DataTable<TData, TValue>({
   className,
   showPagination = true,
 }: DataTableProps<TData, TValue>) {
+  const { t } = useTranslation()
   // Use internal state if pagination is not controlled
   const [internalPagination, setInternalPagination] = useState<PaginationState>({
     pageIndex: 0,
@@ -222,7 +224,7 @@ export function DataTable<TData, TValue>({
             ) : (
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                  {t('data_table.no_results')}
                 </TableCell>
               </TableRow>
             )}
@@ -235,18 +237,19 @@ export function DataTable<TData, TValue>({
           <div className="flex-1 text-sm text-muted-foreground">
             {manualPagination && controlledPagination?.total !== undefined && (
               <>
-                Showing {paginationState.pageIndex * paginationState.pageSize + 1} to{' '}
+                {t('data_table.showing')} {paginationState.pageIndex * paginationState.pageSize + 1}{' '}
+                {t('data_table.to')}{' '}
                 {Math.min(
                   (paginationState.pageIndex + 1) * paginationState.pageSize,
                   controlledPagination.total,
                 )}{' '}
-                of {controlledPagination.total} row(s)
+                {t('data_table.of')} {controlledPagination.total} {t('data_table.rows')}
               </>
             )}
           </div>
           <div className="flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-2">
-              <p className="text-sm font-medium">Rows per page</p>
+              <p className="text-sm font-medium">{t('data_table.rows_per_page')}</p>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={value => {
@@ -261,7 +264,8 @@ export function DataTable<TData, TValue>({
               />
             </div>
             <div className="flex w-25 items-center justify-center text-sm font-medium">
-              Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+              {t('data_table.page')} {table.getState().pagination.pageIndex + 1}{' '}
+              {t('data_table.of')} {table.getPageCount()}
             </div>
             <div className="flex items-center space-x-2">
               <Button
@@ -270,7 +274,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(0)}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to first page</span>
+                <span className="sr-only">{t('data_table.go_to_first_page')}</span>
                 <ChevronsLeft className="h-4 w-4" />
               </Button>
               <Button
@@ -279,7 +283,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
-                <span className="sr-only">Go to previous page</span>
+                <span className="sr-only">{t('data_table.go_to_previous_page')}</span>
                 <ChevronLeft className="h-4 w-4" />
               </Button>
               <Button
@@ -288,7 +292,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to next page</span>
+                <span className="sr-only">{t('data_table.go_to_next_page')}</span>
                 <ChevronRight className="h-4 w-4" />
               </Button>
               <Button
@@ -297,7 +301,7 @@ export function DataTable<TData, TValue>({
                 onClick={() => table.setPageIndex(table.getPageCount() - 1)}
                 disabled={!table.getCanNextPage()}
               >
-                <span className="sr-only">Go to last page</span>
+                <span className="sr-only">{t('data_table.go_to_last_page')}</span>
                 <ChevronsRight className="h-4 w-4" />
               </Button>
             </div>

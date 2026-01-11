@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import cx from 'classnames'
 import { X } from 'lucide-react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { ContextMenu, ContextMenuItemType } from '@/components/molecules/context-menu'
 import { TagViewModel } from '@/models/tag-view'
@@ -21,25 +22,29 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
   onRemoveOthers,
   onRemoveAll,
 }) => {
+  const { t } = useTranslation()
+
+  const displayTitle = tag.titleKey ? t(tag.titleKey) : tag.title
+
   const contextMenuItems: ContextMenuItemType[] = []
 
   if (tag.deletable) {
     contextMenuItems.push({
       type: 'item',
-      label: 'Close',
+      label: t('common.actions.close'),
       onClick: () => onRemove(tag),
     })
   }
 
   contextMenuItems.push({
     type: 'item',
-    label: 'Close Others',
+    label: t('common.actions.close_others'),
     onClick: () => onRemoveOthers(tag),
   })
 
   contextMenuItems.push({
     type: 'item',
-    label: 'Close All',
+    label: t('common.actions.close_all'),
     onClick: onRemoveAll,
   })
 
@@ -57,7 +62,7 @@ export const TagViewItem: React.FC<TagViewItemProps> = ({
             },
           )}
         >
-          {tag.title}
+          {displayTitle}
           {tag.deletable ? (
             <X
               onClick={e => {

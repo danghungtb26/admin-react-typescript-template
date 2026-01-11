@@ -30,6 +30,7 @@ export class TagViewModel extends Base {
     if (!this._dashboard) {
       const tagView = TagViewModel.fromJson({
         title: 'Dashboard',
+        title_key: 'dashboard.title',
         path: '/dashboard',
         deletable: false,
       })

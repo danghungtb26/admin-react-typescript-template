@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils'
 
 import Logo from './logo'
 import Menu from './menu'
+import UserProfile from './user-profile'
 
 type LayoutSiderProps = {}
 
@@ -33,8 +34,13 @@ const LayoutSider: React.FC<React.PropsWithChildren<LayoutSiderProps>> = () => {
           },
         )}
       >
-        <Logo />
-        <Menu />
+        <div className="flex h-full flex-col">
+          <Logo />
+          <div className="flex-1 overflow-y-auto">
+            <Menu />
+          </div>
+          <UserProfile />
+        </div>
       </div>
     </>
   )

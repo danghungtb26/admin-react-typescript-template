@@ -58,7 +58,10 @@
     },
     "actions": {
       "select_all": "Chọn tất cả",
-      "select_row": "Chọn dòng"
+      "select_row": "Chọn dòng",
+      "close": "Đóng",
+      "close_others": "Đóng các tab khác",
+      "close_all": "Đóng tất cả"
     }
   },
   "users": {
@@ -223,5 +226,32 @@
         "draft": "Bản nháp"
       }
     }
+  },
+  "home": "Trang chủ",
+  "profile": {
+    "title": "Hồ sơ"
+  },
+  "menu": {
+    "dashboard": "Bảng điều khiển",
+    "dashboard_default": "Mặc định",
+    "analytics": "Phân tích",
+    "users": "Người dùng",
+    "home": "Trang chủ",
+    "template": "Mẫu",
+    "table": "Bảng",
+    "table_1": "Bảng 1"
+  },
+  "data_table": {
+    "no_results": "Không có kết quả.",
+    "showing": "Hiển thị",
+    "to": "đến",
+    "of": "của",
+    "rows": "dòng",
+    "rows_per_page": "Số dòng mỗi trang",
+    "page": "Trang",
+    "go_to_first_page": "Đến trang đầu",
+    "go_to_previous_page": "Đến trang trước",
+    "go_to_next_page": "Đến trang kế",
+    "go_to_last_page": "Đến trang cuối"
   }
 }

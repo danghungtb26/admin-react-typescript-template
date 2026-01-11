@@ -5,6 +5,7 @@ import BreadCrumb from '@/components/breadcrumb'
 import Hamburger from '@/components/hamburger'
 import Avatar from '@/components/molecules/avatar'
 import { DropdownMenu } from '@/components/molecules/dropdown-menu'
+import LanguageSwitcher from '@/components/molecules/language-switcher'
 import { router_keys } from '@/routers/key'
 
 type LayoutHeaderProps = {}
@@ -57,14 +58,16 @@ const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () =>
       </div>
 
       <div className="flex items-center gap-2">
+        <LanguageSwitcher />
         <DropdownMenu
           trigger={
-            <Avatar
-              src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
-              fallback="User"
-              className="cursor-pointer"
-              alt="User avatar"
-            />
+            <div className="cursor-pointer">
+              <Avatar
+                src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+                fallback="User"
+                alt="User avatar"
+              />
+            </div>
           }
           items={menuItems}
         />

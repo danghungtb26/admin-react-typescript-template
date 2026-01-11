@@ -7,6 +7,7 @@ export const Route = createFileRoute('/_authenticated/users/$userId/edit')({
   staticData: {
     meta: {
       title: 'Edit User',
+      titleKey: 'users.edit_user.page_title',
     },
   },
 })

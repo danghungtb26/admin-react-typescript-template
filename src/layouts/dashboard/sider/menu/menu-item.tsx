@@ -1,6 +1,7 @@
 import { Link } from '@tanstack/react-router'
 import { ChevronDown } from 'lucide-react'
 import React, { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Popover } from '@/components/molecules/popover'
 import { Tooltip } from '@/components/molecules/tooltip'
@@ -19,10 +20,15 @@ type MenuItemComponentProps = {
 export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, level = 0 }) => {
   const { selectedKeys, openKeys } = useMenuContext()
   const { sidebarCollapsed } = useSetting()
-
+  const { t } = useTranslation()
   const hasChildren = item.children && item.children.length > 0
+  const [isOpen, setIsOpen] = useState(() => {
+    return hasChildren && openKeys.includes(item.key)
+  })
 
   const isSelected = selectedKeys.includes(item.key)
+
+  const displayLabel = item.labelKey ? t(item.labelKey) : item.label
 
   const handleClick = (e: React.MouseEvent) => {
     if (hasChildren) {
@@ -55,11 +61,12 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
       const popoverContent = (closePopover: () => void) => (
         <>
           <div className="px-4 py-3 font-semibold text-sidebar-text border-b border-sidebar-border">
-            {item.label}
+            {displayLabel}
           </div>
           <div>
             {item.children!.map(child => {
               const isChildSelected = selectedKeys.includes(child.key)
+              const childLabel = child.labelKey ? t(child.labelKey) : child.label
               return (
                 <Link
                   key={child.key}
@@ -72,7 +79,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
                   )}
                 >
                   {child.icon && <span className="mr-3 text-base">{child.icon}</span>}
-                  <span>{child.label}</span>
+                  <span className="truncate">{childLabel}</span>
                 </Link>
               )
             })}
@@ -95,17 +102,13 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
 
     // Regular item: show tooltip with label
     return (
-      <Tooltip content={item.label} side="right" align="center">
+      <Tooltip content={displayLabel} side="right" align="center">
         <Link to={item.to} onClick={handleClick}>
           {iconContent}
         </Link>
       </Tooltip>
     )
   }
-
-  const [isOpen, setIsOpen] = useState(() => {
-    return hasChildren && openKeys.includes(item.key)
-  })
 
   return (
     <>
@@ -119,7 +122,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           onClick={handleClick}
         >
           {item.icon && <span className="mr-4 text-base">{item.icon}</span>}
-          <span className="flex-1">{item.label}</span>
+          <span className="flex-1 truncate">{displayLabel}</span>
           <ChevronDown
             className={cn('mr-4 text-xs transition-transform duration-200', isOpen && 'rotate-180')}
           />
@@ -136,7 +139,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           )}
         >
           {item.icon && <span className="mr-4 text-base">{item.icon}</span>}
-          <span>{item.label}</span>
+          <span className="truncate">{displayLabel}</span>
         </Link>
       )}
 
