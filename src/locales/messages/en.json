@@ -1,0 +1,257 @@
+{
+  "auth": {
+    "labels": {
+      "sign_in": "Sign In",
+      "email_or_username": "Email / Username",
+      "password": "Password"
+    },
+    "placeholder": {
+      "email_or_username": "Please enter your email address or username",
+      "password": "Minimum 8 characters including both letters and numbers"
+    },
+    "actions": {
+      "sign_in": "Sign In"
+    },
+    "errors": {
+      "email": {
+        "required": "Enter your email or username"
+      },
+      "password": {
+        "required": "Enter your password"
+      }
+    },
+    "messages": {
+      "sign_in_failed": "Sign in failed. Please try again"
+    }
+  },
+  "account_form": {
+    "labels": {
+      "name": "Name",
+      "username": "Username",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm Password",
+      "phone": "Phone Number",
+      "birthday": "Birthday",
+      "gender": "Gender"
+    },
+    "actions": {
+      "submit": "Save"
+    }
+  },
+  "common": {
+    "error": {
+      "something_went_wrong": "Something went wrong. Please try again later"
+    },
+    "button": {
+      "back": "Back",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "create": "Create",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "status": {
+      "online": "Online",
+      "offline": "Offline"
+    },
+    "actions": {
+      "select_all": "Select All",
+      "select_row": "Select Row",
+      "close": "Close",
+      "close_others": "Close Others",
+      "close_all": "Close All"
+    }
+  },
+  "users": {
+    "title": "Users",
+    "description": "List of users this month!",
+    "create_button": "Create User",
+    "table": {
+      "columns": {
+        "name": "Name",
+        "phone": "Phone",
+        "location": "Location",
+        "company": "Company",
+        "status": "Status",
+        "actions": "Actions"
+      }
+    },
+    "edit_user": {
+      "title": "Edit User Information",
+      "description": "Update user details",
+      "fields": {
+        "name": "Name",
+        "email": "Email",
+        "phone": "Phone",
+        "birthday": "Birthday",
+        "gender": "Gender",
+        "avatar": "Avatar"
+      },
+      "placeholders": {
+        "name": "Enter user name",
+        "email": "Enter email address",
+        "phone": "Enter phone number",
+        "gender": "Select gender",
+        "avatar": "Enter avatar URL"
+      },
+      "gender_options": {
+        "male": "Male",
+        "female": "Female",
+        "other": "Other"
+      },
+      "success_message": "User updated successfully",
+      "page_title": "Edit User",
+      "page_description": "Edit user information page"
+    },
+    "create_user": {
+      "title": "Create New User",
+      "description": "Enter information to create a new user",
+      "page_title": "Create User",
+      "page_description": "Page to create a new user in the system",
+      "success_message": "User created successfully"
+    }
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "reports_overview": "Reports Overview",
+    "select_data": "Select Data",
+    "export_data": "Export Data",
+    "create_report": "Create Report",
+    "total_revenue": "Total Revenue",
+    "total_profit": "Total Profit",
+    "total_sessions": "Total Sessions",
+    "recent_orders": "Recent Orders",
+    "device_stats": "Device Statistics",
+    "country_stats": "Country Statistics",
+    "users_by_device": "Users by Device",
+    "users_by_country": "Users by Country",
+    "export": "Export",
+    "device_types": {
+      "desktop": "Desktop",
+      "phone_app": "Phone App",
+      "laptop": "Laptop"
+    },
+    "countries": {
+      "united_states": "United States",
+      "united_kingdom": "United Kingdom",
+      "canada": "Canada",
+      "australia": "Australia",
+      "spain": "Spain"
+    },
+    "table": {
+      "columns": {
+        "order_id": "Order ID",
+        "date": "Date",
+        "status": "Status",
+        "total": "Total"
+      }
+    },
+    "status": {
+      "paid": "Paid",
+      "pending": "Pending"
+    }
+  },
+  "analytics": {
+    "stats": {
+      "save_products": "Saved Products",
+      "stock_products": "Stock Products",
+      "sale_products": "Products Sold",
+      "average_revenue": "Average Revenue"
+    },
+    "visitors": {
+      "title": "Website Visitors",
+      "label": "Visitors",
+      "export": "Export",
+      "sources": {
+        "organic": "Organic",
+        "social": "Social",
+        "direct": "Direct"
+      }
+    },
+    "revenue": {
+      "title": "Revenue by Customer Type",
+      "current_clients": "Current Clients",
+      "subscribers": "Subscribers",
+      "new_customers": "New Customers",
+      "this_month": "This Month",
+      "last_month": "Last Month"
+    },
+    "products": {
+      "title": "Products",
+      "label": "Products"
+    },
+    "team": {
+      "title": "Team Progress"
+    },
+    "gauge": {
+      "title": "Website Visitors",
+      "transactions": "Transactions",
+      "sell": "Sell",
+      "distribute": "Distribute",
+      "return": "Return"
+    },
+    "orders": {
+      "title": "Order Status",
+      "columns": {
+        "order_id": "Order ID",
+        "customer": "Customer",
+        "date": "Date",
+        "status": "Status",
+        "country": "Country",
+        "total": "Total"
+      },
+      "status": {
+        "delivered": "Delivered",
+        "pending": "Pending",
+        "canceled": "Canceled"
+      }
+    }
+  },
+  "template": {
+    "table": {
+      "columns": {
+        "id": "ID",
+        "title": "Title",
+        "author": "Author",
+        "readings": "Readings",
+        "star": "Rating",
+        "status": "Status",
+        "date": "Date",
+        "actions": "Actions"
+      },
+      "status": {
+        "published": "Published",
+        "draft": "Draft"
+      }
+    }
+  },
+  "home": "Home",
+  "profile": {
+    "title": "Profile"
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "dashboard_default": "Default",
+    "analytics": "Analytics",
+    "users": "Users",
+    "home": "Home",
+    "template": "Template",
+    "table": "Table",
+    "table_1": "Table 1"
+  },
+  "data_table": {
+    "no_results": "No results.",
+    "showing": "Showing",
+    "to": "to",
+    "of": "of",
+    "rows": "row(s)",
+    "rows_per_page": "Rows per page",
+    "page": "Page",
+    "go_to_first_page": "Go to first page",
+    "go_to_previous_page": "Go to previous page",
+    "go_to_next_page": "Go to next page",
+    "go_to_last_page": "Go to last page"
+  }
+}
