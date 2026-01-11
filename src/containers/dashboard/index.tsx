@@ -9,6 +9,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/atoms/dropdown-menu'
+import { PageLayout } from '@/components/molecules/page-layout'
 
 import CountryStats from './components/country-stats'
 import DeviceStats from './components/device-stats'
@@ -23,7 +24,7 @@ const DashboardContainer: React.FC<React.PropsWithChildren<DashboardContainerPro
   const { t } = useTranslation()
 
   return (
-    <div className="relative bg-gray-50/50 p-6 space-y-6">
+    <PageLayout variant="dashboard" spacing="lg">
       {/* Stats Row */}
       <PanelGroup />
 
@@ -82,7 +83,7 @@ const DashboardContainer: React.FC<React.PropsWithChildren<DashboardContainerPro
           <RecentOrders />
         </div>
       </div>
-    </div>
+    </PageLayout>
   )
 }
 

@@ -1,3 +1,5 @@
+import { PageLayout } from '@/components/molecules/page-layout'
+
 import OrdersTable from './components/orders-table'
 import ProductsList from './components/products-list'
 import RevenueChart from './components/revenue-chart'
@@ -8,16 +10,16 @@ import VisitorsGauge from './components/visitors-gauge'
 
 const AnalyticsDashboard = () => {
   return (
-    <div className="relative bg-gray-50/50 p-6 space-y-6">
+    <PageLayout variant="dashboard" spacing="lg">
       {/* Stats Row */}
       <StatsRow />
 
       {/* Top Section: Visitors & Revenue */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-1 h-[400px]">
+        <div className="lg:col-span-1 h-100">
           <VisitorsChart />
         </div>
-        <div className="lg:col-span-2 h-[400px]">
+        <div className="lg:col-span-2 h-100">
           <RevenueChart />
         </div>
       </div>
@@ -39,7 +41,7 @@ const AnalyticsDashboard = () => {
       <div>
         <OrdersTable />
       </div>
-    </div>
+    </PageLayout>
   )
 }
 

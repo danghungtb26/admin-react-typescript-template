@@ -6,8 +6,8 @@ import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
-import { PageContainer } from '@/components/box/page-container'
 import { DataTable } from '@/components/molecules/data-table'
+import { PageLayout } from '@/components/molecules/page-layout'
 
 import TableSearch from './components/search'
 
@@ -129,11 +129,11 @@ const TableTemplateContainer: React.FC<
   React.PropsWithChildren<TableTemplateContainerProps>
 > = () => {
   return (
-    <PageContainer>
+    <PageLayout>
       <TableSearch />
       <div className="my-4" />
       <DataTable columns={columns} data={data} />
-    </PageContainer>
+    </PageLayout>
   )
 }
 

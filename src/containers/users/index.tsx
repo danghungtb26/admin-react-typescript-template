@@ -10,6 +10,7 @@ import { Button } from '@/components/atoms/button'
 import { Checkbox } from '@/components/atoms/checkbox'
 import Avatar from '@/components/molecules/avatar'
 import { DataTable, PaginationOptions } from '@/components/molecules/data-table'
+import { PageLayout } from '@/components/molecules/page-layout'
 import { User } from '@/models/user'
 
 const columns: ColumnDef<User>[] = [
@@ -121,21 +122,16 @@ const columns: ColumnDef<User>[] = [
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
-      const navigate = useNavigate()
-      const query = useSearch({ strict: false })
       const { t } = useTranslation()
 
       return (
         <div className="flex items-center gap-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="h-8 w-8"
-            onClick={() => navigate({ search: { ...query, eUserId: row.original.id } })}
-          >
-            <Pencil className="h-4 w-4" />
-            <span className="sr-only">{t('common.button.edit')}</span>
-          </Button>
+          <Link to="/users/$userId/edit" params={{ userId: row.original.id }}>
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <Pencil className="h-4 w-4" />
+              <span className="sr-only">{t('common.button.edit')}</span>
+            </Button>
+          </Link>
           <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
             <Trash2 className="h-4 w-4" />
             <span className="sr-only">{t('common.button.delete')}</span>
@@ -165,25 +161,24 @@ export default function UserList() {
   const query = useSearch({ strict: false })
 
   return (
-    <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
-      <div className="flex items-center justify-between space-y-2">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight">{t('users.title')}</h2>
-          <p className="text-muted-foreground">{t('users.description')}</p>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Link to="/users/new">
-            <Button
-              onClick={e => {
-                e.preventDefault()
-                navigate({ search: { ...query, createUser: true } })
-              }}
-            >
-              <Plus className="mr-2 h-4 w-4" /> {t('users.create_button')}
-            </Button>
-          </Link>
-        </div>
-      </div>
+    <PageLayout
+      fullHeight
+      spacing="lg"
+      title={t('users.title')}
+      description={t('users.description')}
+      actions={
+        <Link to="/users/create">
+          <Button
+            onClick={e => {
+              e.preventDefault()
+              navigate({ search: { ...query, createUser: true } })
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" /> {t('users.create_button')}
+          </Button>
+        </Link>
+      }
+    >
       <DataTable
         data={userResponse?.data || []}
         columns={columns}
@@ -202,6 +197,6 @@ export default function UserList() {
         manualPagination={true}
         pageSizeOptions={[5, 10, 20, 50, 100]}
       />
-    </div>
+    </PageLayout>
   )
 }

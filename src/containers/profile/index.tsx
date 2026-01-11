@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Card, CardContent } from '@/components/atoms/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/atoms/tabs'
-import { PageContainer } from '@/components/box/page-container'
+import { PageLayout } from '@/components/molecules/page-layout'
 
 import AccountTab from './components/account'
 import UserCard from './components/user-card'
@@ -11,7 +11,7 @@ type ProfileContainerProps = {}
 
 const ProfileContainer: React.FC<React.PropsWithChildren<ProfileContainerProps>> = () => {
   return (
-    <PageContainer>
+    <PageLayout>
       <div className="grid grid-cols-1 xl:grid-cols-4 gap-5">
         <div className="col-span-1">
           <UserCard />
@@ -31,7 +31,7 @@ const ProfileContainer: React.FC<React.PropsWithChildren<ProfileContainerProps>>
           </Card>
         </div>
       </div>
-    </PageContainer>
+    </PageLayout>
   )
 }
 

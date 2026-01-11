@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 
-import { UserEditPage } from '@/containers/users/user-edit-page'
+import { UserCreatePage } from '@/containers/users/user-create-page'
 
 export const Route = createFileRoute('/_authenticated/users/create')({
-  component: UserEditPage,
+  component: UserCreatePage,
   staticData: {
     meta: {
       title: 'Create User',
