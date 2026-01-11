@@ -2,6 +2,7 @@ import * as echarts from 'echarts'
 import { debounce } from 'lodash'
 import { ChevronDown } from 'lucide-react'
 import React, { HTMLProps, useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
@@ -17,8 +18,9 @@ import { useSetting } from '@/contexts/setting/context'
 type LineChartProps = {} & HTMLProps<HTMLDivElement>
 
 const LineChart: React.FC<React.PropsWithChildren<LineChartProps>> = ({ ...p }) => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
-  const chart = useRef<echarts.ECharts>(null)
+  const chart = useRef<echarts.ECharts | null>(null)
   const { sidebarCollapsed } = useSetting()
 
   useEffect(() => {
@@ -142,7 +144,7 @@ const LineChart: React.FC<React.PropsWithChildren<LineChartProps>> = ({ ...p }) 
       <CardHeader className="pb-0 pt-6 px-6">
         <div className="flex flex-row items-center justify-between">
           <div>
-            <h3 className="text-sm font-medium text-gray-500">Total revenue</h3>
+            <h3 className="text-sm font-medium text-gray-500">{t('dashboard.total_revenue')}</h3>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-2xl font-bold text-gray-900">$240.8K</span>
               <Badge className="bg-emerald-100 text-emerald-600 hover:bg-emerald-100">

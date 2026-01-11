@@ -97,7 +97,7 @@ src/components/molecules/
 1. Run the lint command:
 
 ```bash
-pnpm lint
+pnpm lint --fix
 ```
 
 2. **ONLY show errors in the output**
@@ -242,7 +242,7 @@ This is a CRITICAL step - never skip it.
 6. **Create molecules** - If creating complex components, add molecule wrappers
 7. **Add Storybook stories** - Create stories for all new molecule components
 8. **Test mentally** - Review your changes for correctness
-9. **Run linting** - `pnpm lint` and report errors (DO NOT FIX)
+9. **Run linting** - `pnpm lint --fix` and report errors (DO NOT FIX)
 10. **Never create documentation** - Unless explicitly requested by the user
 
 ## CRITICAL Rules (Never Break These)
@@ -314,7 +314,7 @@ pnpm lint --fix
 - ✅ Use shadcn CLI for component installation
 - ✅ Create molecule wrappers for complex components
 - ✅ Add Storybook stories for molecules
-- ✅ Run `pnpm lint` after every task
+- ✅ Run `pnpm lint --fix` after every task
 - ✅ Report lint errors without fixing
 - ✅ Follow TypeScript best practices
 - ✅ Use proper component layering (atoms → molecules → containers)

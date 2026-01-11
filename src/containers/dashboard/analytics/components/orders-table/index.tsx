@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { Edit2, Trash2, ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
@@ -90,37 +91,50 @@ const orders: Order[] = [
 const columns: ColumnDef<Order>[] = [
   {
     id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="rounded border-gray-300 text-indigo-600"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="rounded border-gray-300 text-indigo-600"
-      />
-    ),
+    header: ({ table }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t('common.actions.select_all')}
+          className="rounded border-gray-300 text-indigo-600"
+        />
+      )
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={value => row.toggleSelected(!!value)}
+          aria-label={t('common.actions.select_row')}
+          className="rounded border-gray-300 text-indigo-600"
+        />
+      )
+    },
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'id',
-    header: 'Order',
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.order_id')
+    },
     cell: ({ row }) => (
       <div className="font-semibold text-gray-700 font-mono text-xs">{row.original.id}</div>
     ),
   },
   {
     accessorKey: 'client',
-    header: 'Client',
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.customer')
+    },
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <div
@@ -137,36 +151,56 @@ const columns: ColumnDef<Order>[] = [
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.date')
+    },
     cell: ({ row }) => <div className="text-xs text-gray-500">{row.original.date}</div>,
   },
   {
     accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <Badge
-        className={
-          row.original.status === 'Delivered'
-            ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 shadow-none font-normal'
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.status')
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Badge
+          className={
+            row.original.status === 'Delivered'
+              ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 shadow-none font-normal'
+              : row.original.status === 'Pending'
+                ? 'bg-amber-100 text-amber-600 hover:bg-amber-100 shadow-none font-normal'
+                : 'bg-rose-100 text-rose-600 hover:bg-rose-100 shadow-none font-normal'
+          }
+        >
+          •{' '}
+          {row.original.status === 'Delivered'
+            ? t('analytics.orders.status.delivered')
             : row.original.status === 'Pending'
-              ? 'bg-amber-100 text-amber-600 hover:bg-amber-100 shadow-none font-normal'
-              : 'bg-rose-100 text-rose-600 hover:bg-rose-100 shadow-none font-normal'
-        }
-      >
-        • {row.original.status}
-      </Badge>
-    ),
+              ? t('analytics.orders.status.pending')
+              : t('analytics.orders.status.canceled')}
+        </Badge>
+      )
+    },
   },
   {
     accessorKey: 'country',
-    header: 'Country',
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.country')
+    },
     cell: ({ row }) => (
       <div className="text-xs text-gray-600 font-medium">{row.original.country}</div>
     ),
   },
   {
     accessorKey: 'total',
-    header: 'Total',
+    header: () => {
+      const { t } = useTranslation()
+      return t('analytics.orders.columns.total')
+    },
     cell: ({ row }) => (
       <div className="text-xs font-bold text-gray-900 text-right">{row.original.total}</div>
     ),
@@ -185,10 +219,14 @@ const columns: ColumnDef<Order>[] = [
 ]
 
 const OrdersTable = () => {
+  const { t } = useTranslation()
+
   return (
     <Card className="border-none shadow-sm rounded-xl">
       <CardHeader className="flex flex-row items-center justify-between py-4 px-6">
-        <CardTitle className="text-base font-bold text-gray-800">Orders Status</CardTitle>
+        <CardTitle className="text-base font-bold text-gray-800">
+          {t('analytics.orders.title')}
+        </CardTitle>
         <div className="flex gap-2">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>

@@ -1,6 +1,7 @@
 import * as echarts from 'echarts'
 import { ChevronDown } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
@@ -13,6 +14,7 @@ import {
 } from '@/components/atoms/dropdown-menu'
 
 const RevenueChart = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -44,7 +46,7 @@ const RevenueChart = () => {
       },
       series: [
         {
-          name: 'Current clients',
+          name: t('analytics.revenue.current_clients'),
           type: 'bar',
           stack: 'total',
           barWidth: 6,
@@ -52,7 +54,7 @@ const RevenueChart = () => {
           data: [120, 132, 101, 134, 90, 230, 210, 120, 132, 101, 134, 90],
         },
         {
-          name: 'Subscribers',
+          name: t('analytics.revenue.subscribers'),
           type: 'bar',
           stack: 'total',
           barWidth: 6,
@@ -60,7 +62,7 @@ const RevenueChart = () => {
           data: [220, 182, 191, 234, 290, 330, 310, 220, 182, 191, 234, 290],
         },
         {
-          name: 'New customers',
+          name: t('analytics.revenue.new_customers'),
           type: 'bar',
           stack: 'total',
           barWidth: 6,
@@ -83,7 +85,9 @@ const RevenueChart = () => {
       <CardHeader className="pb-2 pt-6 px-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-gray-500 text-sm font-medium mb-1">Revenue by customer type</div>
+            <div className="text-gray-500 text-sm font-medium mb-1">
+              {t('analytics.revenue.title')}
+            </div>
             <div className="flex items-center gap-2">
               <span className="text-2xl font-bold text-gray-900">$240.8K</span>
               <Badge className="bg-emerald-100 text-emerald-600 hover:bg-emerald-100 font-normal">
@@ -95,13 +99,16 @@ const RevenueChart = () => {
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-3 text-xs text-gray-500 font-medium">
               <div className="flex items-center gap-1.5">
-                <div className="size-2 rounded-full bg-[#d946ef]" /> Current clients
+                <div className="size-2 rounded-full bg-[#d946ef]" />{' '}
+                {t('analytics.revenue.current_clients')}
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="size-2 rounded-full bg-[#8b5cf6]" /> Subscribers
+                <div className="size-2 rounded-full bg-[#8b5cf6]" />{' '}
+                {t('analytics.revenue.subscribers')}
               </div>
               <div className="flex items-center gap-1.5">
-                <div className="size-2 rounded-full bg-[#3b82f6]" /> New
+                <div className="size-2 rounded-full bg-[#3b82f6]" />{' '}
+                {t('analytics.revenue.new_customers')}
               </div>
             </div>
             <DropdownMenu>

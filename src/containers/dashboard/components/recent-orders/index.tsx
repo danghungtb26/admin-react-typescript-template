@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table'
 import { ChevronDown } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
@@ -32,30 +33,40 @@ const ordersData: OrderData[] = [
 const columns: ColumnDef<OrderData>[] = [
   {
     id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="rounded border-gray-300 text-indigo-600"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="rounded border-gray-300 text-indigo-600"
-      />
-    ),
+    header: ({ table }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t('common.actions.select_all')}
+          className="rounded border-gray-300 text-indigo-600"
+        />
+      )
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={value => row.toggleSelected(!!value)}
+          aria-label={t('common.actions.select_row')}
+          className="rounded border-gray-300 text-indigo-600"
+        />
+      )
+    },
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'id',
-    header: 'Order',
+    header: () => {
+      const { t } = useTranslation()
+      return t('dashboard.table.columns.order_id')
+    },
     cell: ({ row }) => (
       <div className="font-semibold text-gray-700 flex items-center gap-2">
         <div className="size-2 bg-purple-500 rounded-sm"></div>
@@ -65,28 +76,43 @@ const columns: ColumnDef<OrderData>[] = [
   },
   {
     accessorKey: 'date',
-    header: 'Date',
+    header: () => {
+      const { t } = useTranslation()
+      return t('dashboard.table.columns.date')
+    },
     cell: ({ row }) => <div className="text-gray-500 text-xs">{row.original.date}</div>,
   },
   {
     accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <Badge
-        variant="secondary"
-        className={
-          row.original.status === 'Paid'
-            ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 rounded-sm font-normal py-0'
-            : 'bg-amber-100 text-amber-600 hover:bg-amber-100 rounded-sm font-normal py-0'
-        }
-      >
-        • {row.original.status}
-      </Badge>
-    ),
+    header: () => {
+      const { t } = useTranslation()
+      return t('dashboard.table.columns.status')
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Badge
+          variant="secondary"
+          className={
+            row.original.status === 'Paid'
+              ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-100 rounded-sm font-normal py-0'
+              : 'bg-amber-100 text-amber-600 hover:bg-amber-100 rounded-sm font-normal py-0'
+          }
+        >
+          •{' '}
+          {row.original.status === 'Paid'
+            ? t('dashboard.status.paid')
+            : t('dashboard.status.pending')}
+        </Badge>
+      )
+    },
   },
   {
     accessorKey: 'total',
-    header: 'Total',
+    header: () => {
+      const { t } = useTranslation()
+      return t('dashboard.table.columns.total')
+    },
     cell: ({ row }) => (
       <div className="text-right font-medium text-gray-700">{row.original.total}</div>
     ),
@@ -94,10 +120,14 @@ const columns: ColumnDef<OrderData>[] = [
 ]
 
 const RecentOrders = () => {
+  const { t } = useTranslation()
+
   return (
     <Card className="border-none shadow-sm rounded-xl h-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4 pt-6 px-6">
-        <CardTitle className="text-sm font-medium text-gray-700">Recent orders</CardTitle>
+        <CardTitle className="text-sm font-medium text-gray-700">
+          {t('dashboard.recent_orders')}
+        </CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button

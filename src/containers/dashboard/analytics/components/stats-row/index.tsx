@@ -1,62 +1,64 @@
 import { Heart, Package, ShoppingBag, DollarSign } from 'lucide-react'
 import CountUp from 'react-countup'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Card, CardContent } from '@/components/atoms/card'
 import { cn } from '@/lib/utils'
 
-const statsData = [
-  {
-    title: 'Save Products',
-    icon: Heart,
-    value: 50800,
-    prefix: '',
-    suffix: 'K',
-    decimals: 1,
-    trend: '20.4%',
-    trendUp: true,
-    iconColor: 'text-purple-600',
-    iconBg: 'bg-purple-100',
-  },
-  {
-    title: 'Stock Products',
-    icon: ShoppingBag,
-    value: 23600,
-    prefix: '',
-    suffix: 'K',
-    decimals: 1,
-    trend: '12.6%',
-    trendUp: false,
-    iconColor: 'text-pink-600',
-    iconBg: 'bg-pink-100',
-  },
-  {
-    title: 'Sale Products',
-    icon: Package,
-    value: 756,
-    prefix: '',
-    suffix: '',
-    decimals: 0,
-    trend: '3.1%',
-    trendUp: true,
-    iconColor: 'text-orange-600',
-    iconBg: 'bg-orange-100',
-  },
-  {
-    title: 'Average Revenue',
-    icon: DollarSign,
-    value: 2300,
-    prefix: '',
-    suffix: 'K',
-    decimals: 1,
-    trend: '11.3%',
-    trendUp: true,
-    iconColor: 'text-blue-600',
-    iconBg: 'bg-blue-100',
-  },
-]
-
 const StatsRow = () => {
+  const { t } = useTranslation()
+
+  const statsData = [
+    {
+      title: t('analytics.stats.save_products'),
+      icon: Heart,
+      value: 50800,
+      prefix: '',
+      suffix: 'K',
+      decimals: 1,
+      trend: '20.4%',
+      trendUp: true,
+      iconColor: 'text-purple-600',
+      iconBg: 'bg-purple-100',
+    },
+    {
+      title: t('analytics.stats.stock_products'),
+      icon: ShoppingBag,
+      value: 23600,
+      prefix: '',
+      suffix: 'K',
+      decimals: 1,
+      trend: '12.6%',
+      trendUp: false,
+      iconColor: 'text-pink-600',
+      iconBg: 'bg-pink-100',
+    },
+    {
+      title: t('analytics.stats.sale_products'),
+      icon: Package,
+      value: 756,
+      prefix: '',
+      suffix: '',
+      decimals: 0,
+      trend: '3.1%',
+      trendUp: true,
+      iconColor: 'text-orange-600',
+      iconBg: 'bg-orange-100',
+    },
+    {
+      title: t('analytics.stats.average_revenue'),
+      icon: DollarSign,
+      value: 2300,
+      prefix: '',
+      suffix: 'K',
+      decimals: 1,
+      trend: '11.3%',
+      trendUp: true,
+      iconColor: 'text-blue-600',
+      iconBg: 'bg-blue-100',
+    },
+  ]
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {statsData.map((stat, index) => (

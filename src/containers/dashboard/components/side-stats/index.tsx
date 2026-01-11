@@ -1,10 +1,12 @@
 import * as echarts from 'echarts'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Card, CardContent, CardHeader } from '@/components/atoms/card'
 
 const ProfitChart = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -54,7 +56,7 @@ const ProfitChart = () => {
   return (
     <Card className="border-none shadow-sm rounded-xl mb-6">
       <CardHeader className="pb-2 pt-6 px-6">
-        <h3 className="text-sm font-medium text-gray-500">Total profit</h3>
+        <h3 className="text-sm font-medium text-gray-500">{t('dashboard.total_profit')}</h3>
         <div className="flex items-center gap-2 mt-1">
           <span className="text-2xl font-bold text-gray-900">$144.6K</span>
           <Badge className="bg-emerald-100 text-emerald-600 hover:bg-emerald-100">28.5% ↗</Badge>
@@ -74,6 +76,7 @@ const ProfitChart = () => {
 }
 
 const SessionsChart = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -108,7 +111,7 @@ const SessionsChart = () => {
   return (
     <Card className="border-none shadow-sm rounded-xl">
       <CardHeader className="pb-2 pt-6 px-6">
-        <h3 className="text-sm font-medium text-gray-500">Total sessions</h3>
+        <h3 className="text-sm font-medium text-gray-500">{t('dashboard.total_sessions')}</h3>
         <div className="flex items-center gap-2 mt-1">
           <span className="text-2xl font-bold text-gray-900">400</span>
           <Badge className="bg-emerald-100 text-emerald-600 hover:bg-emerald-100">16.8% ↗</Badge>

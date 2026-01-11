@@ -1,7 +1,8 @@
-import { useNavigate } from '@tanstack/react-router'
+import { Link, useNavigate, useSearch } from '@tanstack/react-router'
 import { ColumnDef, RowSelectionState, SortingState } from '@tanstack/react-table'
 import { Pencil, Plus, Trash2 } from 'lucide-react'
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { useUsers } from '@/apis/user/hooks/use-users'
 import { Badge } from '@/components/atoms/badge'
@@ -14,28 +15,38 @@ import { User } from '@/models/user'
 const columns: ColumnDef<User>[] = [
   {
     id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
+    header: ({ table }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && 'indeterminate')
+          }
+          onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+          aria-label={t('common.actions.select_all')}
+        />
+      )
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={value => row.toggleSelected(!!value)}
+          aria-label={t('common.actions.select_row')}
+        />
+      )
+    },
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'name',
-    header: 'Name',
+    header: () => {
+      const { t } = useTranslation()
+      return t('users.table.columns.name')
+    },
     cell: ({ row }) => (
       <div className="flex items-center gap-3">
         <Avatar
@@ -53,15 +64,24 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'phone',
-    header: 'Phone',
+    header: () => {
+      const { t } = useTranslation()
+      return t('users.table.columns.phone')
+    },
   },
   {
     accessorKey: 'location',
-    header: 'Location',
+    header: () => {
+      const { t } = useTranslation()
+      return t('users.table.columns.location')
+    },
   },
   {
     accessorKey: 'company',
-    header: 'Company',
+    header: () => {
+      const { t } = useTranslation()
+      return t('users.table.columns.company')
+    },
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
         <img
@@ -75,25 +95,35 @@ const columns: ColumnDef<User>[] = [
   },
   {
     accessorKey: 'status',
-    header: 'Status',
-    cell: ({ row }) => (
-      <Badge
-        variant={row.original.status === 'Online' ? 'default' : 'secondary'}
-        className={
-          row.original.status === 'Online'
-            ? 'bg-green-500/15 text-green-700 hover:bg-green-500/25 dark:text-green-400'
-            : 'bg-slate-500/15 text-slate-700 hover:bg-slate-500/25 dark:text-slate-400'
-        }
-      >
-        {row.original.status}
-      </Badge>
-    ),
+    header: () => {
+      const { t } = useTranslation()
+      return t('users.table.columns.status')
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <Badge
+          variant={row.original.status === 'Online' ? 'default' : 'secondary'}
+          className={
+            row.original.status === 'Online'
+              ? 'bg-green-500/15 text-green-700 hover:bg-green-500/25 dark:text-green-400'
+              : 'bg-slate-500/15 text-slate-700 hover:bg-slate-500/25 dark:text-slate-400'
+          }
+        >
+          {row.original.status === 'Online'
+            ? t('common.status.online')
+            : t('common.status.offline')}
+        </Badge>
+      )
+    },
   },
   {
     id: 'actions',
     enableHiding: false,
     cell: ({ row }) => {
       const navigate = useNavigate()
+      const query = useSearch({ strict: false })
+      const { t } = useTranslation()
 
       return (
         <div className="flex items-center gap-2">
@@ -101,15 +131,14 @@ const columns: ColumnDef<User>[] = [
             variant="ghost"
             size="icon"
             className="h-8 w-8"
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            onClick={() => navigate({ search: { eUserId: row.original.id } as any })}
+            onClick={() => navigate({ search: { ...query, eUserId: row.original.id } })}
           >
             <Pencil className="h-4 w-4" />
-            <span className="sr-only">Edit</span>
+            <span className="sr-only">{t('common.button.edit')}</span>
           </Button>
           <Button variant="ghost" size="icon" className="h-8 w-8 text-destructive">
             <Trash2 className="h-4 w-4" />
-            <span className="sr-only">Delete</span>
+            <span className="sr-only">{t('common.button.delete')}</span>
           </Button>
         </div>
       )
@@ -118,6 +147,7 @@ const columns: ColumnDef<User>[] = [
 ]
 
 export default function UserList() {
+  const { t } = useTranslation()
   const navigate = useNavigate()
   const [sorting, setSorting] = useState<SortingState>([])
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({})
@@ -132,17 +162,26 @@ export default function UserList() {
     sorting: sorting as { id: string; desc: boolean }[],
   })
 
+  const query = useSearch({ strict: false })
+
   return (
     <div className="h-full flex-1 flex-col space-y-8 p-8 md:flex">
       <div className="flex items-center justify-between space-y-2">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight">Users</h2>
-          <p className="text-muted-foreground">Here&apos;s a list of your users for this month!</p>
+          <h2 className="text-2xl font-bold tracking-tight">{t('users.title')}</h2>
+          <p className="text-muted-foreground">{t('users.description')}</p>
         </div>
         <div className="flex items-center space-x-2">
-          <Button onClick={() => navigate({ to: '/users/create' })}>
-            <Plus className="mr-2 h-4 w-4" /> Create User
-          </Button>
+          <Link to="/users/new">
+            <Button
+              onClick={e => {
+                e.preventDefault()
+                navigate({ search: { ...query, createUser: true } })
+              }}
+            >
+              <Plus className="mr-2 h-4 w-4" /> {t('users.create_button')}
+            </Button>
+          </Link>
         </div>
       </div>
       <DataTable

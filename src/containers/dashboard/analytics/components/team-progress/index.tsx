@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next'
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 
 const team = [
@@ -7,10 +9,14 @@ const team = [
 ]
 
 const TeamProgress = () => {
+  const { t } = useTranslation()
+
   return (
     <Card className="border-none shadow-sm rounded-xl h-full">
       <CardHeader className="pb-4">
-        <CardTitle className="text-sm font-bold text-gray-800">Team progress</CardTitle>
+        <CardTitle className="text-sm font-bold text-gray-800">
+          {t('analytics.team.title')}
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {team.map((m, i) => (

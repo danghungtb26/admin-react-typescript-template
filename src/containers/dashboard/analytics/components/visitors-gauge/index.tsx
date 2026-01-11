@@ -1,9 +1,11 @@
 import * as echarts from 'echarts'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 
 const VisitorsGauge = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -51,7 +53,9 @@ const VisitorsGauge = () => {
   return (
     <Card className="border-none shadow-sm rounded-xl h-full">
       <CardHeader className="pb-0">
-        <CardTitle className="text-sm font-bold text-gray-800">Website Visitors</CardTitle>
+        <CardTitle className="text-sm font-bold text-gray-800">
+          {t('analytics.gauge.title')}
+        </CardTitle>
       </CardHeader>
       <CardContent className="h-[200px] relative flex flex-col justify-end items-center pb-6">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -59,18 +63,18 @@ const VisitorsGauge = () => {
         </div>
         <div className="relative text-center -mt-10">
           <div className="text-3xl font-bold text-gray-900">80%</div>
-          <div className="text-xs text-gray-500">Transactions</div>
+          <div className="text-xs text-gray-500">{t('analytics.gauge.transactions')}</div>
         </div>
 
         <div className="w-full flex justify-between px-2 mt-4 text-[10px] text-gray-400 font-medium tracking-wide uppercase">
           <div className="flex items-center gap-1">
-            <span className="size-1.5 rounded-full bg-purple-500" /> Sell
+            <span className="size-1.5 rounded-full bg-purple-500" /> {t('analytics.gauge.sell')}
           </div>
           <div className="flex items-center gap-1">
-            <span className="size-1.5 rounded-full bg-blue-500" /> Distribute
+            <span className="size-1.5 rounded-full bg-blue-500" /> {t('analytics.gauge.distribute')}
           </div>
           <div className="flex items-center gap-1">
-            <span className="size-1.5 rounded-full bg-gray-300" /> Return
+            <span className="size-1.5 rounded-full bg-gray-300" /> {t('analytics.gauge.return')}
           </div>
         </div>
       </CardContent>

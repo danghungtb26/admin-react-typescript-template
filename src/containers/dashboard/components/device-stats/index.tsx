@@ -1,10 +1,12 @@
 import * as echarts from 'echarts'
 import { MoreHorizontal } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent } from '@/components/atoms/card'
 
 const DeviceStats = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -26,9 +28,21 @@ const DeviceStats = () => {
           avoidLabelOverlap: false,
           label: { show: false },
           data: [
-            { value: 15624, name: 'Desktop users', itemStyle: { color: '#d946ef' } }, // Fuschia/Purple
-            { value: 5546, name: 'Phone app users', itemStyle: { color: '#8b5cf6' } }, // Purple
-            { value: 2478, name: 'Laptop users', itemStyle: { color: '#3b82f6' } }, // Blue
+            {
+              value: 15624,
+              name: t('dashboard.device_types.desktop'),
+              itemStyle: { color: '#d946ef' },
+            }, // Fuschia/Purple
+            {
+              value: 5546,
+              name: t('dashboard.device_types.phone_app'),
+              itemStyle: { color: '#8b5cf6' },
+            }, // Purple
+            {
+              value: 2478,
+              name: t('dashboard.device_types.laptop'),
+              itemStyle: { color: '#3b82f6' },
+            }, // Blue
           ],
         },
       ],
@@ -46,7 +60,7 @@ const DeviceStats = () => {
           <div ref={ref} className="w-full h-full" />
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-[20%] text-center">
             <div className="text-3xl font-bold text-gray-900">23,648</div>
-            <div className="text-xs text-gray-500">Users by device</div>
+            <div className="text-xs text-gray-500">{t('dashboard.users_by_device')}</div>
           </div>
         </div>
 
@@ -54,21 +68,21 @@ const DeviceStats = () => {
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center gap-2 text-gray-600">
               <div className="size-2 rounded-full bg-[#d946ef]" />
-              Desktop users
+              {t('dashboard.device_types.desktop')}
             </div>
             <span className="font-bold text-gray-900">15,624</span>
           </div>
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center gap-2 text-gray-600">
               <div className="size-2 rounded-full bg-[#8b5cf6]" />
-              Phone app users
+              {t('dashboard.device_types.phone_app')}
             </div>
             <span className="font-bold text-gray-900">5,546</span>
           </div>
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center gap-2 text-gray-600">
               <div className="size-2 rounded-full bg-[#3b82f6]" />
-              Laptop users
+              {t('dashboard.device_types.laptop')}
             </div>
             <span className="font-bold text-gray-900">2,478</span>
           </div>

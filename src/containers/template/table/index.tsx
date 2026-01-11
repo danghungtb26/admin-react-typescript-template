@@ -2,6 +2,7 @@ import { Link } from '@tanstack/react-router'
 import { ColumnDef } from '@tanstack/react-table'
 import { Edit, Trash } from 'lucide-react'
 import React from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Badge } from '@/components/atoms/badge'
 import { Button } from '@/components/atoms/button'
@@ -37,48 +38,77 @@ const data: TableData[] = [
 const columns: ColumnDef<TableData>[] = [
   {
     accessorKey: 'id',
-    header: '序号',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.id')
+    },
     cell: ({ row }) => <div className="text-center font-medium">{row.original.id}</div>,
   },
   {
     accessorKey: 'title',
-    header: '标题',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.title')
+    },
     cell: ({ row }) => <div className="text-center">{row.original.title}</div>,
   },
   {
     accessorKey: 'author',
-    header: '作者',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.author')
+    },
     cell: ({ row }) => <div className="text-center">{row.original.author}</div>,
   },
   {
     accessorKey: 'readings',
-    header: '阅读量',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.readings')
+    },
     cell: ({ row }) => <div className="text-center">{row.original.readings}</div>,
   },
   {
     accessorKey: 'star',
-    header: '推荐指数',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.star')
+    },
     cell: ({ row }) => <div className="text-center">{row.original.star}</div>,
   },
   {
     accessorKey: 'status',
-    header: '状态',
-    cell: ({ row }) => (
-      <div className="text-center">
-        <Badge variant={row.original.status === 'published' ? 'default' : 'destructive'}>
-          {row.original.status}
-        </Badge>
-      </div>
-    ),
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.status')
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <div className="text-center">
+          <Badge variant={row.original.status === 'published' ? 'default' : 'destructive'}>
+            {row.original.status === 'published'
+              ? t('template.table.status.published')
+              : t('template.table.status.draft')}
+          </Badge>
+        </div>
+      )
+    },
   },
   {
     accessorKey: 'date',
-    header: '时间',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.date')
+    },
     cell: ({ row }) => <div className="text-center">{row.original.date}</div>,
   },
   {
     id: 'actions',
-    header: '操作',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.actions')
+    },
     cell: () => (
       <div className="flex items-center justify-center gap-2">
         <Link to="/template/table/1">

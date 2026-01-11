@@ -1,10 +1,12 @@
 import * as echarts from 'echarts'
 import { ArrowDown } from 'lucide-react'
 import { useEffect, useRef } from 'react'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 
 const VisitorsChart = () => {
+  const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const chart = useRef<echarts.ECharts>(null)
 
@@ -16,7 +18,7 @@ const VisitorsChart = () => {
       legend: { show: false },
       series: [
         {
-          name: 'Visitors',
+          name: t('analytics.visitors.label'),
           type: 'pie',
           radius: ['70%', '85%'],
           avoidLabelOverlap: false,
@@ -46,27 +48,32 @@ const VisitorsChart = () => {
   return (
     <Card className="border-none shadow-sm rounded-xl h-full relative">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-base font-bold text-gray-800">Website Visitors</CardTitle>
+        <CardTitle className="text-base font-bold text-gray-800">
+          {t('analytics.visitors.title')}
+        </CardTitle>
         <div className="flex items-center gap-1 text-xs font-medium text-gray-500 cursor-pointer">
-          Export <ArrowDown className="size-3" />
+          {t('analytics.visitors.export')} <ArrowDown className="size-3" />
         </div>
       </CardHeader>
       <CardContent className="h-[300px] relative">
         <div ref={ref} className="w-full h-full" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center pointer-events-none">
           <div className="text-3xl font-bold text-gray-900">150k</div>
-          <div className="text-xs text-gray-400 font-medium">Visitors</div>
+          <div className="text-xs text-gray-400 font-medium">{t('analytics.visitors.label')}</div>
         </div>
 
         <div className="absolute bottom-4 left-0 w-full px-6 flex justify-between text-xs font-medium text-gray-500">
           <div className="flex items-center gap-1.5">
-            <div className="size-2 rounded-full bg-[#d946ef]" /> Organic 30%
+            <div className="size-2 rounded-full bg-[#d946ef]" />{' '}
+            {t('analytics.visitors.sources.organic')} 30%
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="size-2 rounded-full bg-[#8b5cf6]" /> Social 50%
+            <div className="size-2 rounded-full bg-[#8b5cf6]" />{' '}
+            {t('analytics.visitors.sources.social')} 50%
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="size-2 rounded-full bg-[#3b82f6]" /> Direct 20%
+            <div className="size-2 rounded-full bg-[#3b82f6]" />{' '}
+            {t('analytics.visitors.sources.direct')} 20%
           </div>
         </div>
       </CardContent>

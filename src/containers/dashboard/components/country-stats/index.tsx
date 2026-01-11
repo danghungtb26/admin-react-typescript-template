@@ -1,21 +1,25 @@
 import { ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 
-const countryData = [
-  { name: 'United states', users: '30%', color: 'bg-purple-600' },
-  { name: 'United Kingdom', users: '20%', color: 'bg-indigo-500' },
-  { name: 'Canada', users: '20%', color: 'bg-blue-500' },
-  { name: 'Australia', users: '15%', color: 'bg-sky-500' },
-  { name: 'Spain', users: '15%', color: 'bg-cyan-500' },
-]
-
 const CountryStats = () => {
+  const { t } = useTranslation()
+
+  const countryData = [
+    { name: t('dashboard.countries.united_states'), users: '30%', color: 'bg-purple-600' },
+    { name: t('dashboard.countries.united_kingdom'), users: '20%', color: 'bg-indigo-500' },
+    { name: t('dashboard.countries.canada'), users: '20%', color: 'bg-blue-500' },
+    { name: t('dashboard.countries.australia'), users: '15%', color: 'bg-sky-500' },
+    { name: t('dashboard.countries.spain'), users: '15%', color: 'bg-cyan-500' },
+  ]
   return (
     <Card className="border-none shadow-sm rounded-xl h-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-6 pt-6 px-6">
         <div>
-          <CardTitle className="text-sm font-bold text-gray-700">Users by country</CardTitle>
+          <CardTitle className="text-sm font-bold text-gray-700">
+            {t('dashboard.users_by_country')}
+          </CardTitle>
           <div className="flex items-center gap-2 mt-1">
             <span className="text-xl font-bold text-gray-900">12.4 K</span>
             <span className="bg-emerald-100 text-emerald-600 text-[10px] px-1.5 py-0.5 rounded-sm">
@@ -24,7 +28,7 @@ const CountryStats = () => {
           </div>
         </div>
         <div className="flex items-center gap-2 text-xs font-medium text-gray-400 cursor-pointer">
-          Export <ArrowRight className="size-3" />
+          {t('dashboard.export')} <ArrowRight className="size-3" />
         </div>
       </CardHeader>
       <CardContent className="px-6 pb-6 space-y-6">

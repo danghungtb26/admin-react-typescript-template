@@ -1,4 +1,5 @@
 import { Smartphone, Watch } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
 
@@ -8,14 +9,18 @@ const products = [
 ]
 
 const ProductsList = () => {
+  const { t } = useTranslation()
+
   return (
     <Card className="border-none shadow-sm rounded-xl h-full">
       <CardHeader className="flex flex-row items-center justify-between pb-4">
-        <CardTitle className="text-sm font-bold text-gray-800">Products</CardTitle>
+        <CardTitle className="text-sm font-bold text-gray-800">
+          {t('analytics.products.title')}
+        </CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex justify-between text-xs font-medium text-gray-400 mb-2">
-          <span>Products</span>
+          <span>{t('analytics.products.label')}</span>
           <span>Price</span>
         </div>
         {products.map((p, i) => (
