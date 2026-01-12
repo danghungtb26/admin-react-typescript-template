@@ -18,11 +18,19 @@ interface SelectProps {
   options: Option[]
   placeholder?: string
   className?: string
+  disabled?: boolean
 }
 
-export function Select({ value, onValueChange, options, placeholder, className }: SelectProps) {
+export function Select({
+  value,
+  onValueChange,
+  options,
+  placeholder,
+  className,
+  disabled,
+}: SelectProps) {
   return (
-    <SelectRoot value={value} onValueChange={onValueChange}>
+    <SelectRoot value={value} onValueChange={onValueChange} disabled={disabled}>
       <SelectTrigger className={cn('cursor-pointer', className)}>
         <SelectValue placeholder={placeholder} />
       </SelectTrigger>

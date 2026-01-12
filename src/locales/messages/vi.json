@@ -43,6 +43,7 @@
     "error": {
       "something_went_wrong": "Đã có lỗi xảy ra. Vui lòng thử lại sau"
     },
+    "retry": "Thử lại",
     "button": {
       "back": "Quay lại",
       "save": "Lưu",
@@ -242,6 +243,7 @@
         "bio": "Tiểu sử",
         "age": "Tuổi",
         "country": "Quốc gia",
+        "category": "Danh mục",
         "gender": "Giới tính",
         "hobbies": "Sở thích",
         "birthday": "Ngày sinh",
@@ -261,6 +263,8 @@
         "bio": "Giới thiệu về bản thân",
         "age": "Nhập tuổi",
         "select_country": "Chọn quốc gia",
+        "select_category": "Chọn danh mục",
+        "select_gender": "Chọn giới tính",
         "select_date": "Chọn ngày",
         "select_date_range": "Chọn khoảng ngày",
         "otp_code": "Nhập mã 6 chữ số"

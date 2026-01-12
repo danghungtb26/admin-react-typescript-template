@@ -27,8 +27,9 @@ import { Textarea } from '@/components/atoms/textarea'
 import { DatePicker } from '@/components/molecules/date-picker'
 import { DateRangePicker } from '@/components/molecules/date-range-picker'
 import { OTPInput } from '@/components/molecules/input-otp'
-import { RadioGroupField } from '@/components/molecules/radio-group'
 import { Select } from '@/components/molecules/select'
+import { CategorySelect } from '@/components/molecules/selectors/category-select'
+import { GenderSelect } from '@/components/molecules/selectors/gender-select'
 
 const formSchema = z.object({
   username: z.string().min(3, 'Username must be at least 3 characters'),
@@ -37,6 +38,7 @@ const formSchema = z.object({
   bio: z.string().optional(),
   age: z.number().min(1).max(150).optional(),
   country: z.string().optional(),
+  category: z.string().optional(),
   gender: z.enum(['male', 'female', 'other']).optional(),
   hobbies: z.array(z.string()).optional(),
   birthday: z.date().optional(),
@@ -226,19 +228,35 @@ export default function FormTemplateContainer() {
 
               <FormField
                 control={form.control}
+                name="category"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t('template.form.labels.category')}</FormLabel>
+                    <FormControl>
+                      <CategorySelect
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder={t('template.form.placeholders.select_category')}
+                        className="w-full"
+                        searchable
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
                 name="gender"
                 render={({ field }) => (
-                  <FormItem className="space-y-3">
+                  <FormItem>
                     <FormLabel>{t('template.form.labels.gender')}</FormLabel>
                     <FormControl>
-                      <RadioGroupField
-                        options={[
-                          { value: 'male', label: t('template.form.options.gender.male') },
-                          { value: 'female', label: t('template.form.options.gender.female') },
-                          { value: 'other', label: t('template.form.options.gender.other') },
-                        ]}
+                      <GenderSelect
                         value={field.value}
-                        onValueChange={field.onChange}
+                        onChange={field.onChange}
+                        className="w-full"
                       />
                     </FormControl>
                     <FormMessage />

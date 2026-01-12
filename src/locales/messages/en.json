@@ -43,6 +43,7 @@
     "error": {
       "something_went_wrong": "Something went wrong. Please try again later"
     },
+    "retry": "Retry",
     "button": {
       "back": "Back",
       "save": "Save",
@@ -242,6 +243,7 @@
         "bio": "Biography",
         "age": "Age",
         "country": "Country",
+        "category": "Category",
         "gender": "Gender",
         "hobbies": "Hobbies",
         "birthday": "Birthday",
@@ -261,6 +263,8 @@
         "bio": "Tell us about yourself",
         "age": "Enter your age",
         "select_country": "Select your country",
+        "select_category": "Select a category",
+        "select_gender": "Select gender",
         "select_date": "Pick a date",
         "select_date_range": "Pick a date range",
         "otp_code": "Enter 6-digit code"
@@ -311,5 +315,14 @@
     "no_results": "No results.",
     "pagination_info": "Showing {{from}} to {{to}} of {{total}} row(s)",
     "rows_per_page": "Rows per page"
+  },
+  "selectors": {
+    "gender": {
+      "placeholder": "Select gender"
+    },
+    "category": {
+      "placeholder": "Select category",
+      "search_placeholder": "Search categories..."
+    }
   }
 }

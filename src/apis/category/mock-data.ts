@@ -1,0 +1,17 @@
+export const mockCategories = [
+  { id: '1', name: 'Electronics', description: 'Electronic devices and gadgets' },
+  { id: '2', name: 'Clothing', description: 'Fashion and apparel' },
+  { id: '3', name: 'Books', description: 'Books and literature' },
+  { id: '4', name: 'Home & Garden', description: 'Home improvement and gardening' },
+  { id: '5', name: 'Sports', description: 'Sports equipment and accessories' },
+  { id: '6', name: 'Toys & Games', description: 'Toys and games for all ages' },
+  { id: '7', name: 'Automotive', description: 'Car parts and accessories' },
+  { id: '8', name: 'Beauty', description: 'Beauty and personal care' },
+  { id: '9', name: 'Food & Beverage', description: 'Food and drinks' },
+  { id: '10', name: 'Health', description: 'Health and wellness products' },
+  { id: '11', name: 'Music', description: 'Musical instruments and accessories' },
+  { id: '12', name: 'Pet Supplies', description: 'Products for pets' },
+  { id: '13', name: 'Office Supplies', description: 'Office and stationery items' },
+  { id: '14', name: 'Jewelry', description: 'Jewelry and accessories' },
+  { id: '15', name: 'Baby Products', description: 'Products for babies and toddlers' },
+]
