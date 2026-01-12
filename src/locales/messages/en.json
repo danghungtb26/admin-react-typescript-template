@@ -225,6 +225,71 @@
         "published": "Published",
         "draft": "Draft"
       }
+    },
+    "form": {
+      "title": "Form Template",
+      "description": "Comprehensive form template with various input types",
+      "sections": {
+        "basic_inputs": "Basic Inputs",
+        "selections": "Selections & Choices",
+        "date_time": "Date & Time",
+        "advanced": "Advanced Inputs"
+      },
+      "labels": {
+        "username": "Username",
+        "email": "Email Address",
+        "password": "Password",
+        "bio": "Biography",
+        "age": "Age",
+        "country": "Country",
+        "gender": "Gender",
+        "hobbies": "Hobbies",
+        "birthday": "Birthday",
+        "vacation_dates": "Vacation Dates",
+        "newsletter": "Subscribe to newsletter",
+        "upload_avatar": "Upload Avatar",
+        "notification": "Enable notifications",
+        "volume": "Volume",
+        "rating": "Rating",
+        "favorite_color": "Favorite Color",
+        "otp_code": "Verification Code"
+      },
+      "placeholders": {
+        "username": "Enter your username",
+        "email": "your.email@example.com",
+        "password": "Enter a strong password",
+        "bio": "Tell us about yourself",
+        "age": "Enter your age",
+        "select_country": "Select your country",
+        "select_date": "Pick a date",
+        "select_date_range": "Pick a date range",
+        "otp_code": "Enter 6-digit code"
+      },
+      "options": {
+        "gender": {
+          "male": "Male",
+          "female": "Female",
+          "other": "Other"
+        },
+        "hobbies": {
+          "reading": "Reading",
+          "sports": "Sports",
+          "music": "Music",
+          "travel": "Travel",
+          "cooking": "Cooking"
+        },
+        "countries": {
+          "us": "United States",
+          "uk": "United Kingdom",
+          "ca": "Canada",
+          "au": "Australia",
+          "de": "Germany"
+        }
+      },
+      "actions": {
+        "submit": "Submit Form",
+        "reset": "Reset"
+      }
     }
   },
   "home": "Home",
@@ -239,7 +304,8 @@
     "home": "Home",
     "template": "Template",
     "table": "Table",
-    "table_1": "Table 1"
+    "table_1": "Table 1",
+    "form": "Form"
   },
   "data_table": {
     "no_results": "No results.",

@@ -225,6 +225,71 @@
         "published": "Đã xuất bản",
         "draft": "Bản nháp"
       }
+    },
+    "form": {
+      "title": "Mẫu Biểu mẫu",
+      "description": "Mẫu biểu mẫu toàn diện với nhiều loại input",
+      "sections": {
+        "basic_inputs": "Input Cơ bản",
+        "selections": "Lựa chọn",
+        "date_time": "Ngày & Giờ",
+        "advanced": "Input Nâng cao"
+      },
+      "labels": {
+        "username": "Tên đăng nhập",
+        "email": "Địa chỉ Email",
+        "password": "Mật khẩu",
+        "bio": "Tiểu sử",
+        "age": "Tuổi",
+        "country": "Quốc gia",
+        "gender": "Giới tính",
+        "hobbies": "Sở thích",
+        "birthday": "Ngày sinh",
+        "vacation_dates": "Ngày nghỉ",
+        "newsletter": "Đăng ký nhận tin",
+        "upload_avatar": "Tải lên ảnh đại diện",
+        "notification": "Bật thông báo",
+        "volume": "Âm lượng",
+        "rating": "Đánh giá",
+        "favorite_color": "Màu yêu thích",
+        "otp_code": "Mã xác thực"
+      },
+      "placeholders": {
+        "username": "Nhập tên đăng nhập",
+        "email": "email.cua.ban@example.com",
+        "password": "Nhập mật khẩu mạnh",
+        "bio": "Giới thiệu về bản thân",
+        "age": "Nhập tuổi",
+        "select_country": "Chọn quốc gia",
+        "select_date": "Chọn ngày",
+        "select_date_range": "Chọn khoảng ngày",
+        "otp_code": "Nhập mã 6 chữ số"
+      },
+      "options": {
+        "gender": {
+          "male": "Nam",
+          "female": "Nữ",
+          "other": "Khác"
+        },
+        "hobbies": {
+          "reading": "Đọc sách",
+          "sports": "Thể thao",
+          "music": "Âm nhạc",
+          "travel": "Du lịch",
+          "cooking": "Nấu ăn"
+        },
+        "countries": {
+          "us": "Hoa Kỳ",
+          "uk": "Vương quốc Anh",
+          "ca": "Canada",
+          "au": "Úc",
+          "de": "Đức"
+        }
+      },
+      "actions": {
+        "submit": "Gửi biểu mẫu",
+        "reset": "Đặt lại"
+      }
     }
   },
   "home": "Trang chủ",
@@ -239,7 +304,8 @@
     "home": "Trang chủ",
     "template": "Mẫu",
     "table": "Bảng",
-    "table_1": "Bảng 1"
+    "table_1": "Bảng 1",
+    "form": "Biểu mẫu"
   },
   "data_table": {
     "no_results": "",

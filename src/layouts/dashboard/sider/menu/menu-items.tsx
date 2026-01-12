@@ -1,4 +1,11 @@
-import { LayoutDashboardIcon, FileExclamationPoint, HomeIcon, TableIcon, User } from 'lucide-react'
+import {
+  LayoutDashboardIcon,
+  FileExclamationPoint,
+  HomeIcon,
+  TableIcon,
+  User,
+  FileText,
+} from 'lucide-react'
 
 import { router_keys } from '@/routers/key'
 
@@ -62,6 +69,13 @@ export const menuItems: MenuItem[] = [
         labelKey: 'menu.table_1',
         to: router_keys.template.table.detail('1'),
         icon: <TableIcon />,
+      },
+      {
+        key: '/template/form',
+        label: 'Form',
+        labelKey: 'menu.form',
+        to: router_keys.template.form,
+        icon: <FileText />,
       },
     ],
   },

@@ -10,6 +10,7 @@ export const router_keys = {
       list: '/template/table',
       detail: (id: string) => `/template/table/${id}`,
     },
+    form: '/template/form',
   },
   profile: '/profile',
 }
