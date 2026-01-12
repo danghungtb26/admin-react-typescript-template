@@ -10,19 +10,10 @@ import {
   SortingState,
   useReactTable,
 } from '@tanstack/react-table'
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  ChevronLeft,
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  Loader2,
-} from 'lucide-react'
+import { ArrowDownIcon, ArrowUpIcon, Loader2 } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Button } from '@/components/atoms/button'
 import {
   Table,
   TableBody,
@@ -31,6 +22,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/atoms/table'
+import { Pagination } from '@/components/molecules/pagination'
 import { Select } from '@/components/molecules/select'
 import { cn } from '@/lib/utils'
 
@@ -234,22 +226,25 @@ export function DataTable<TData, TValue>({
 
       {showPagination && (
         <div className="flex items-center justify-between px-2">
-          <div className="flex-1 text-sm text-muted-foreground">
+          <div className="">
             {manualPagination && controlledPagination?.total !== undefined && (
-              <>
-                {t('data_table.showing')} {paginationState.pageIndex * paginationState.pageSize + 1}{' '}
-                {t('data_table.to')}{' '}
-                {Math.min(
-                  (paginationState.pageIndex + 1) * paginationState.pageSize,
-                  controlledPagination.total,
-                )}{' '}
-                {t('data_table.of')} {controlledPagination.total} {t('data_table.rows')}
-              </>
+              <span className="text-sm text-muted-foreground">
+                {t('data_table.pagination_info', {
+                  from: paginationState.pageIndex * paginationState.pageSize + 1,
+                  to: Math.min(
+                    (paginationState.pageIndex + 1) * paginationState.pageSize,
+                    controlledPagination.total,
+                  ),
+                  total: controlledPagination.total,
+                })}
+              </span>
             )}
           </div>
           <div className="flex items-center space-x-6 lg:space-x-8">
             <div className="flex items-center space-x-2">
-              <p className="text-sm font-medium">{t('data_table.rows_per_page')}</p>
+              <p className="text-sm font-medium whitespace-nowrap">
+                {t('data_table.rows_per_page')}
+              </p>
               <Select
                 value={`${table.getState().pagination.pageSize}`}
                 onValueChange={value => {
@@ -263,48 +258,12 @@ export function DataTable<TData, TValue>({
                 placeholder={table.getState().pagination.pageSize.toString()}
               />
             </div>
-            <div className="flex w-25 items-center justify-center text-sm font-medium">
-              {t('data_table.page')} {table.getState().pagination.pageIndex + 1}{' '}
-              {t('data_table.of')} {table.getPageCount()}
-            </div>
-            <div className="flex items-center space-x-2">
-              <Button
-                variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
-                onClick={() => table.setPageIndex(0)}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <span className="sr-only">{t('data_table.go_to_first_page')}</span>
-                <ChevronsLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="h-8 w-8 p-0"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
-              >
-                <span className="sr-only">{t('data_table.go_to_previous_page')}</span>
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="h-8 w-8 p-0"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <span className="sr-only">{t('data_table.go_to_next_page')}</span>
-                <ChevronRight className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="outline"
-                className="hidden h-8 w-8 p-0 lg:flex"
-                onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-                disabled={!table.getCanNextPage()}
-              >
-                <span className="sr-only">{t('data_table.go_to_last_page')}</span>
-                <ChevronsRight className="h-4 w-4" />
-              </Button>
-            </div>
+            <Pagination
+              currentPage={table.getState().pagination.pageIndex + 1}
+              totalPages={table.getPageCount()}
+              onPageChange={page => table.setPageIndex(page - 1)}
+              siblingCount={1}
+            />
           </div>
         </div>
       )}

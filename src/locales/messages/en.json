@@ -243,15 +243,7 @@
   },
   "data_table": {
     "no_results": "No results.",
-    "showing": "Showing",
-    "to": "to",
-    "of": "of",
-    "rows": "row(s)",
-    "rows_per_page": "Rows per page",
-    "page": "Page",
-    "go_to_first_page": "Go to first page",
-    "go_to_previous_page": "Go to previous page",
-    "go_to_next_page": "Go to next page",
-    "go_to_last_page": "Go to last page"
+    "pagination_info": "Showing {{from}} to {{to}} of {{total}} row(s)",
+    "rows_per_page": "Rows per page"
   }
 }
