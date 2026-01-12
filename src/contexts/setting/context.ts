@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 
+import { Theme } from '@/commons/cookies'
+
 export type SettingContextType = {
   sidebarCollapsed: boolean
 
@@ -12,6 +14,14 @@ export type SettingContextType = {
   drawerOpened: boolean
 
   toggleDrawerOpened: () => void
+
+  theme: Theme
+
+  setTheme: (theme: Theme) => void
+
+  toggleFixedHeader: () => void
+
+  toggleShowTagView: () => void
 }
 
 export const SettingContext = React.createContext<SettingContextType>({
@@ -21,6 +31,10 @@ export const SettingContext = React.createContext<SettingContextType>({
   showTagView: true,
   drawerOpened: false,
   toggleDrawerOpened: () => {},
+  theme: 'system',
+  setTheme: () => {},
+  toggleFixedHeader: () => {},
+  toggleShowTagView: () => {},
 })
 
 export const useSetting = () => useContext(SettingContext)

@@ -31,11 +31,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         <TooltipTrigger asChild>
           <div className={className}>{children}</div>
         </TooltipTrigger>
-        <TooltipContent
-          side={side}
-          align={align}
-          className={cn('bg-tooltip-bg/90 text-tooltip-text', contentClassName)}
-        >
+        <TooltipContent side={side} align={align} className={cn(contentClassName)}>
           {content}
         </TooltipContent>
       </TooltipPrimitive>

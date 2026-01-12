@@ -46,10 +46,10 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
     const iconContent = (
       <div
         className={cn(
-          'relative flex h-menu-item w-full items-center justify-center text-base text-sidebar-text transition-none',
-          'hover:bg-sidebar-item-hover',
+          'relative flex h-menu-item w-full items-center justify-center text-base text-sidebar-foreground transition-none',
+          'hover:bg-sidebar-accent',
           (isSelected || hasSelectedChild) &&
-            'bg-transparent text-sidebar-text-active before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-item-active before:content-[""]',
+            'bg-transparent text-sidebar-primary before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-primary before:content-[""]',
         )}
       >
         {item.icon}
@@ -60,7 +60,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
     if (hasChildren) {
       const popoverContent = (closePopover: () => void) => (
         <>
-          <div className="px-4 py-3 font-semibold text-sidebar-text border-b border-sidebar-border">
+          <div className="px-4 py-3 font-semibold text-sidebar-foreground border-b border-sidebar-border">
             {displayLabel}
           </div>
           <div>
@@ -73,9 +73,9 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
                   to={child.to}
                   onClick={closePopover}
                   className={cn(
-                    'flex items-center px-4 py-3 text-sm font-semibold text-sidebar-text transition-colors',
-                    'hover:bg-sidebar-item-hover',
-                    isChildSelected && 'text-sidebar-text-active',
+                    'flex items-center px-4 py-3 text-sm font-semibold text-sidebar-foreground transition-colors',
+                    'hover:bg-sidebar-accent',
+                    isChildSelected && 'text-sidebar-primary',
                   )}
                 >
                   {child.icon && <span className="mr-3 text-base">{child.icon}</span>}
@@ -95,7 +95,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           align="start"
           triggerMode="hover"
           className="cursor-pointer"
-          contentClassName="min-w-50 w-auto border-sidebar-border bg-white p-0 shadow-lg"
+          contentClassName="min-w-50 w-auto border-sidebar-border bg-sidebar p-0 shadow-lg"
         />
       )
     }
@@ -115,9 +115,9 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
       {hasChildren ? (
         <div
           className={cn(
-            'flex h-menu-item cursor-pointer items-center text-sm font-semibold leading-12.5 text-sidebar-text transition-none relative',
+            'flex h-menu-item cursor-pointer items-center text-sm font-semibold leading-12.5 text-sidebar-foreground transition-none relative',
             paddingLeft,
-            'hover:bg-sidebar-item-hover',
+            'hover:bg-sidebar-accent',
           )}
           onClick={handleClick}
         >
@@ -131,11 +131,11 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
         <Link
           to={item.to}
           className={cn(
-            'relative flex h-menu-item items-center text-sm font-semibold leading-12.5 text-sidebar-text transition-none',
+            'relative flex h-menu-item items-center text-sm font-semibold leading-12.5 text-sidebar-foreground transition-none',
             paddingLeft,
-            'hover:bg-sidebar-item-hover',
+            'hover:bg-sidebar-accent',
             isSelected &&
-              'bg-transparent text-sidebar-text-active before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-item-active',
+              'bg-transparent text-sidebar-primary before:absolute before:left-0 before:top-0 before:h-full before:w-1 before:bg-sidebar-primary',
           )}
         >
           {item.icon && <span className="mr-4 text-base">{item.icon}</span>}
@@ -146,7 +146,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
       {hasChildren && !sidebarCollapsed && (
         <div
           className={cn(
-            'overflow-hidden bg-sidebar-sub-bg transition-all duration-300 ease-in-out',
+            'overflow-hidden bg-sidebar-accent/50 transition-all duration-300 ease-in-out',
             isOpen ? 'opacity-100' : 'opacity-0',
           )}
           style={{

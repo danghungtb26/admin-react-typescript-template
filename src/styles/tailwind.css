@@ -1,6 +1,7 @@
 @import 'tailwindcss';
-
 @custom-variant dark (&:is(.dark *));
+
+@plugin 'tailwind-scrollbar';
 @plugin 'tailwindcss-animate';
 
 /* Custom theme cho project */
@@ -218,4 +219,8 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.disable-color-transitions * {
+  @apply transition-none;
 }

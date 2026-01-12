@@ -1,4 +1,5 @@
 import React from 'react'
+import { Scrollbars } from 'react-custom-scrollbars'
 
 import { cn } from '@/lib/utils'
 
@@ -8,20 +9,23 @@ import { menuItems } from './menu-items'
 
 const Menu: React.FC = () => {
   return (
-    <nav
-      className={cn(
-        'h-[calc(100vh-81px)] overflow-y-auto bg-sidebar-bg',
-        '[scrollbar-width:thin] [scrollbar-color:#e0e0e0_transparent]',
-        '[&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent',
-        '[&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-sidebar-divider',
+    <Scrollbars
+      autoHide
+      autoHideTimeout={500}
+      autoHideDuration={200}
+      hideTracksWhenNotNeeded={true}
+      renderThumbVertical={({ ...props }) => (
+        <div {...props} className="dark:bg-white/20! w-1 rounded-1 bg-black" />
       )}
     >
-      <MenuProvider>
-        {menuItems.map(item => (
-          <MenuItemComponent key={item.key} item={item} />
-        ))}
-      </MenuProvider>
-    </nav>
+      <nav className={cn('h-full bg-sidebar')}>
+        <MenuProvider>
+          {menuItems.map(item => (
+            <MenuItemComponent key={item.key} item={item} />
+          ))}
+        </MenuProvider>
+      </nav>
+    </Scrollbars>
   )
 }
 

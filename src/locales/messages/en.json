@@ -324,5 +324,27 @@
       "placeholder": "Select category",
       "search_placeholder": "Search categories..."
     }
+  },
+  "settings": {
+    "title": "Settings",
+    "theme": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "sections": {
+      "appearance": "Appearance",
+      "appearance_description": "Customize the theme of the application",
+      "layout": "Layout",
+      "layout_description": "Configure layout preferences"
+    },
+    "layout": {
+      "fixed_header": "Fixed Header",
+      "fixed_header_description": "Keep header visible when scrolling",
+      "show_tagview": "Show Tag View",
+      "show_tagview_description": "Display navigation tabs below header",
+      "collapsed_sidebar": "Collapsed Sidebar",
+      "collapsed_sidebar_description": "Minimize sidebar to icons only"
+    }
   }
 }

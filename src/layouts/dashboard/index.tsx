@@ -1,6 +1,7 @@
 import { Outlet } from '@tanstack/react-router'
 import React from 'react'
 
+import { FloatingSettingsButton } from '@/components/molecules/floating-settings-button'
 import { UserEditSheet } from '@/containers/users/user-edit-sheet'
 import { useSetting } from '@/contexts/setting/context'
 import { cn } from '@/lib/utils'
@@ -12,7 +13,7 @@ import TagView from './tag-view'
 type DashboardLayoutProps = {}
 
 const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> = () => {
-  const { sidebarCollapsed, showTagView } = useSetting()
+  const { sidebarCollapsed, showTagView, fixedHeader } = useSetting()
 
   return (
     <div className="h-full w-full">
@@ -26,7 +27,7 @@ const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> =
           'max-xs:ml-0',
         )}
       >
-        <div className="sticky top-0 z-9 w-full bg-white">
+        <div className={cn('z-9 w-full bg-card', fixedHeader && 'sticky top-0')}>
           <LayoutHeader />
           {showTagView && <TagView />}
         </div>
@@ -38,6 +39,9 @@ const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> =
 
       {/* Global User Edit Drawer */}
       <UserEditSheet />
+
+      {/* Floating Settings Button */}
+      <FloatingSettingsButton />
     </div>
   )
 }

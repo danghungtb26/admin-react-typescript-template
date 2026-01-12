@@ -315,5 +315,36 @@
     "no_results": "",
     "pagination_info": "Hiển thị {{from}} đến {{to}} của {{total}} dòng",
     "rows_per_page": "Số dòng mỗi trang"
+  },
+  "selectors": {
+    "gender": {
+      "placeholder": "Chọn giới tính"
+    },
+    "category": {
+      "placeholder": "Chọn danh mục",
+      "search_placeholder": "Tìm kiếm danh mục..."
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "theme": {
+      "light": "Sáng",
+      "dark": "Tối",
+      "system": "Hệ thống"
+    },
+    "sections": {
+      "appearance": "Giao diện",
+      "appearance_description": "Tùy chỉnh giao diện của ứng dụng",
+      "layout": "Bố cục",
+      "layout_description": "Cấu hình tùy chọn bố cục"
+    },
+    "layout": {
+      "fixed_header": "Cố định Header",
+      "fixed_header_description": "Giữ header hiển thị khi cuộn trang",
+      "show_tagview": "Hiển thị Tag View",
+      "show_tagview_description": "Hiển thị các tab điều hướng bên dưới header",
+      "collapsed_sidebar": "Thu gọn Sidebar",
+      "collapsed_sidebar_description": "Thu nhỏ sidebar chỉ hiển thị biểu tượng"
+    }
   }
 }

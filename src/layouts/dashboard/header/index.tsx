@@ -51,7 +51,7 @@ const LayoutHeader: React.FC<React.PropsWithChildren<LayoutHeaderProps>> = () =>
   ]
 
   return (
-    <header className="relative z-9 flex h-header items-center justify-between bg-white px-6 shadow-[0_1px_4px_rgba(0,21,41,0.08)]">
+    <header className="relative z-9 flex h-header items-center justify-between bg-card px-6 shadow-[0_1px_4px_rgba(0,21,41,0.08)] dark:shadow-[0_1px_4px_rgba(0,0,0,0.3)]">
       <div className="flex items-center gap-4">
         <Hamburger />
         <BreadCrumb />

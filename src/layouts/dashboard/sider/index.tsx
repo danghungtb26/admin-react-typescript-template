@@ -24,7 +24,7 @@ const LayoutSider: React.FC<React.PropsWithChildren<LayoutSiderProps>> = () => {
       ) : null}
       <div
         className={cn(
-          'fixed top-0 bottom-0 left-0 z-10 h-full overflow-hidden overscroll-contain bg-white transition-[width] duration-280 border-r border-sidebar-border',
+          'fixed top-0 bottom-0 left-0 z-10 h-full overflow-hidden overscroll-contain bg-sidebar transition-[width] duration-280 border-r border-sidebar-border',
           mobile && 'duration-300 -translate-x-60',
           mobile && drawerOpened && 'translate-x-0',
           mobile && !drawerOpened && 'pointer-events-none',

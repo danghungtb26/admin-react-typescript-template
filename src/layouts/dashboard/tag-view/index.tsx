@@ -40,7 +40,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
   }
 
   return (
-    <div className="h-tag-view w-full bg-white border-b border-tag-border relative shadow-[0_1px_3px_0_rgba(0,0,0,0.12),0_0_3px_0_rgba(0,0,0,0.04)] [&>div]:overflow-clip! [&>div>div]:whitespace-nowrap">
+    <div className="h-tag-view w-full bg-card border-b border-sidebar-border relative shadow-[0_1px_3px_0_rgba(0,0,0,0.12),0_0_3px_0_rgba(0,0,0,0.04)] dark:shadow-[0_1px_3px_0_rgba(0,0,0,0.3)] [&>div]:overflow-clip! [&>div>div]:whitespace-nowrap">
       <Scrollbars
         autoHide
         autoHideTimeout={500}

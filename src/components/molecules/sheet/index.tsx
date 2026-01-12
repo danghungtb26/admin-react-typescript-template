@@ -10,6 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/atoms/sheet'
+import { cn } from '@/lib/utils'
 
 export type SheetProps = {
   open?: boolean
@@ -102,7 +103,7 @@ export const Sheet: React.FC<SheetProps> = ({
             {description && <SheetDescription>{description}</SheetDescription>}
           </SheetHeader>
         )}
-        <div className={className}>{children}</div>
+        <div className={cn('px-4 pb-4', className)}>{children}</div>
         {(footer || showDefaultFooter) && <SheetFooter>{renderFooter()}</SheetFooter>}
       </SheetContent>
     </SheetPrimitive>
