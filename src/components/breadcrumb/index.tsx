@@ -58,7 +58,7 @@ const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
   }, [matches])
 
   return (
-    <div className="float-left text-sm leading-header h-full ml-4 flex items-center">
+    <div className="float-left text-sm leading-header h-full ml-4 items-center hidden md:flex">
       <BaseBreadcrumb>
         <BreadcrumbList className="flex relative">
           {items.map((item, index) => {

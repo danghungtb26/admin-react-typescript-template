@@ -60,7 +60,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
     if (hasChildren) {
       const popoverContent = (closePopover: () => void) => (
         <>
-          <div className="px-4 py-3 font-semibold text-sidebar-foreground border-b border-sidebar-border">
+          <div className="px-4 py-3 text-sidebar-foreground border-b border-sidebar-border">
             {displayLabel}
           </div>
           <div>
@@ -73,7 +73,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
                   to={child.to}
                   onClick={closePopover}
                   className={cn(
-                    'flex items-center px-4 py-3 text-sm font-semibold text-sidebar-foreground transition-colors',
+                    'flex items-center px-4 py-3 text-sm text-sidebar-foreground transition-colors',
                     'hover:bg-sidebar-accent',
                     isChildSelected && 'text-sidebar-primary',
                   )}
@@ -115,7 +115,7 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
       {hasChildren ? (
         <div
           className={cn(
-            'flex h-menu-item cursor-pointer items-center text-sm font-semibold leading-12.5 text-sidebar-foreground transition-none relative',
+            'flex h-menu-item cursor-pointer items-center text-sm leading-12.5 text-sidebar-foreground transition-none relative',
             paddingLeft,
             'hover:bg-sidebar-accent',
           )}
@@ -124,14 +124,17 @@ export const MenuItemComponent: React.FC<MenuItemComponentProps> = ({ item, leve
           {item.icon && <span className="mr-4 text-base">{item.icon}</span>}
           <span className="flex-1 truncate">{displayLabel}</span>
           <ChevronDown
-            className={cn('mr-4 text-xs transition-transform duration-200', isOpen && 'rotate-180')}
+            className={cn(
+              'mr-4 text-xs transition-transform duration-200 size-4',
+              isOpen && 'rotate-180',
+            )}
           />
         </div>
       ) : (
         <Link
           to={item.to}
           className={cn(
-            'relative flex h-menu-item items-center text-sm font-semibold leading-12.5 text-sidebar-foreground transition-none',
+            'relative flex h-menu-item items-center text-sm leading-12.5 text-sidebar-foreground transition-none',
             paddingLeft,
             'hover:bg-sidebar-accent',
             isSelected &&

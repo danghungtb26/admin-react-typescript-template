@@ -22,8 +22,8 @@ const DashboardLayout: React.FC<React.PropsWithChildren<DashboardLayoutProps>> =
       <div
         className={cn(
           'h-full transition-[margin] duration-280',
-          'ml-(--width-sidebar)',
-          sidebarCollapsed && 'ml-(--width-sidebar-collapsed)',
+          'md:ml-(--width-sidebar)',
+          sidebarCollapsed && 'md:ml-(--width-sidebar-collapsed)',
           'max-xs:ml-0',
         )}
       >
