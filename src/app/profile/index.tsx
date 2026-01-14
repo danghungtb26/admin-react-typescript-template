@@ -1,6 +1,7 @@
-import PageAnimation from '@components/animation/page'
-import ProfileContainer from '@containers/profile'
 import React from 'react'
+
+import PageAnimation from '@/components/animation/page'
+import ProfileContainer from '@/containers/profile'
 
 type ProfilePageProps = {}
 

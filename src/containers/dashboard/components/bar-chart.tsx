@@ -1,4 +1,5 @@
 import React, { HTMLProps, useRef } from 'react'
+
 type BarChartProps = {} & HTMLProps<HTMLDivElement>
 
 const BarChart: React.FC<React.PropsWithChildren<BarChartProps>> = ({ ...p }) => {

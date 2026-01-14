@@ -1,5 +1,5 @@
-import { field } from '@decorators/field'
-import { model } from '@decorators/model'
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
 
 @model()
 export class Pagination {
@@ -18,12 +18,12 @@ export class Pagination {
   @field()
   limit: number = 10
 
-  // @ts-ignore
-  // eslint-disable-next-line no-useless-constructor, no-empty-function, @typescript-eslint/no-unused-vars
-  constructor(json?: any) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+  constructor(_json?: any) {}
 
   afterMounted() {}
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   static fromJson(json?: any) {
     return new this(json)
   }

@@ -2,17 +2,11 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@*": [
-        "./src/*"
-      ],
+      "@/*": ["./src/*"]
     },
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": [
-      "ES2020",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "allowJs": true,
     "skipLibCheck": true,
@@ -36,16 +30,8 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": [
-    "vite-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "@types/**/*.d.ts",
-    "global.d.ts"
-  ],
-  "exclude": [
-    "node_module"
-  ],
+  "include": ["vite-env.d.ts", "**/*.ts", "**/*.tsx", "@types/**/*.d.ts", "global.d.ts"],
+  "exclude": ["node_module", "vite.config.ts", "vite.config.js"],
   "references": [
     {
       "path": "./tsconfig.node.json"

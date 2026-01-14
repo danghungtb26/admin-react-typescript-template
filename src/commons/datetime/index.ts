@@ -1,21 +1,19 @@
-import dayjs from 'dayjs'
-import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
-import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
-import minMax from 'dayjs/plugin/minMax'
-import isoWeek from 'dayjs/plugin/isoWeek'
-import relativeTime from 'dayjs/plugin/relativeTime'
-import utc from 'dayjs/plugin/utc'
-import customParseFormat from 'dayjs/plugin/customParseFormat'
-import vi from 'dayjs/locale/vi'
+import dayjs, { OptionType, OpUnitType } from 'dayjs'
 import en from 'dayjs/locale/en'
-
+import vi from 'dayjs/locale/vi'
 import advancedFormat from 'dayjs/plugin/advancedFormat'
+import customParseFormat from 'dayjs/plugin/customParseFormat'
+import isoWeek from 'dayjs/plugin/isoWeek'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import localeData from 'dayjs/plugin/localeData'
+import minMax from 'dayjs/plugin/minMax'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import weekday from 'dayjs/plugin/weekday'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import weekYear from 'dayjs/plugin/weekYear'
-
-import timezone from 'dayjs/plugin/timezone'
 
 dayjs.extend(customParseFormat)
 dayjs.extend(advancedFormat)
@@ -35,10 +33,12 @@ dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.extend(customParseFormat)
 
+type OriginalType = string | number | dayjs.Dayjs | Date | null | undefined
+
 export class DateTime {
   date: dayjs.Dayjs
 
-  constructor(d?: any, cfg?: any) {
+  constructor(d?: OriginalType, cfg?: OptionType) {
     if (typeof d === 'number') {
       this.date = dayjs(d)
       return
@@ -78,24 +78,24 @@ export class DateTime {
     return this.date.hour
   }
 
-  isBefore(d: DateTime, ...arg: any[]) {
-    return this.date.isBefore(d.date, ...arg)
+  isBefore(d: DateTime, unit: ISOUnitType) {
+    return this.date.isBefore(d.date, unit)
   }
 
-  isSameOrBefore(d: DateTime, ...arg: any[]) {
-    return this.date.isSameOrBefore(d.date, ...arg)
+  isSameOrBefore(d: DateTime, unit: OpUnitType) {
+    return this.date.isSameOrBefore(d.date, unit)
   }
 
-  isAfter(d: DateTime, ...arg: any[]) {
-    return this.date.isAfter(d.date, ...arg)
+  isAfter(d: DateTime, unit: ISOUnitType) {
+    return this.date.isAfter(d.date, unit)
   }
 
-  isSameOrAfter(d: DateTime, ...arg: any[]) {
-    return this.date.isSameOrAfter(d.date, ...arg)
+  isSameOrAfter(d: DateTime, unit: OpUnitType) {
+    return this.date.isSameOrAfter(d.date, unit)
   }
 
-  isSame(d: DateTime, ...arg: any[]) {
-    return this.date.isSame(d.date, ...arg)
+  isSame(d: DateTime, unit: ISOUnitType) {
+    return this.date.isSame(d.date, unit)
   }
 
   minute() {
@@ -127,7 +127,7 @@ export class DateTime {
     return this.clone().$utc()
   }
 
-  $add(number: any, unit: dayjs.ManipulateType): DateTime {
+  $add(number: number, unit: dayjs.ManipulateType): DateTime {
     this.date = this.date.add(number, unit)
     return this
   }
@@ -149,7 +149,7 @@ export class DateTime {
     return dateTime(this.date)
   }
 
-  locale(locale: string, obj?: any) {
+  locale(locale: string, obj?: Partial<ILocale>) {
     this.date.locale(locale, obj)
     return this
   }
@@ -161,7 +161,7 @@ export class DateTime {
 
 export type DateType = DateTime
 
-function dateTime(d?: any, format?: any): DateType {
+function dateTime(d?: OriginalType | DateType, format?: string): DateType {
   if (d instanceof DateTime) {
     return d as DateType
   }
@@ -192,3 +192,5 @@ export const updateLocale = (locale: string) => {
     dayjs.locale(en)
   }
 }
+
+type ISOUnitType = OpUnitType | 'isoWeek'

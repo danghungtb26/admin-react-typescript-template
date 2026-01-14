@@ -38,3 +38,8 @@ yarn-error.log*
 
 #eslint
 .eslintcache
+
+# TanStack Router
+routeTree.gen.ts
+debug-storybook.log
+.tanstack/tmp

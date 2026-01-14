@@ -38,5 +38,313 @@
     "actions": {
       "submit": "Lưu"
     }
+  },
+  "common": {
+    "error": {
+      "something_went_wrong": "Đã có lỗi xảy ra. Vui lòng thử lại sau"
+    },
+    "retry": "Thử lại",
+    "button": {
+      "back": "Quay lại",
+      "save": "Lưu",
+      "cancel": "Hủy",
+      "saving": "Đang lưu...",
+      "create": "Tạo mới",
+      "edit": "Chỉnh sửa",
+      "delete": "Xóa"
+    },
+    "status": {
+      "online": "Trực tuyến",
+      "offline": "Ngoại tuyến"
+    },
+    "actions": {
+      "select_all": "Chọn tất cả",
+      "select_row": "Chọn dòng",
+      "close": "Đóng",
+      "close_others": "Đóng các tab khác",
+      "close_all": "Đóng tất cả"
+    }
+  },
+  "users": {
+    "title": "Người dùng",
+    "description": "Danh sách người dùng trong tháng này!",
+    "create_button": "Tạo người dùng",
+    "table": {
+      "columns": {
+        "name": "Tên",
+        "phone": "Số điện thoại",
+        "location": "Địa điểm",
+        "company": "Công ty",
+        "status": "Trạng thái",
+        "actions": "Hành động"
+      }
+    },
+    "edit_user": {
+      "title": "Chỉnh sửa thông tin người dùng",
+      "description": "Cập nhật thông tin chi tiết của người dùng",
+      "fields": {
+        "name": "Tên",
+        "email": "Email",
+        "phone": "Số điện thoại",
+        "birthday": "Ngày sinh",
+        "gender": "Giới tính",
+        "avatar": "Ảnh đại diện"
+      },
+      "placeholders": {
+        "name": "Nhập tên người dùng",
+        "email": "Nhập địa chỉ email",
+        "phone": "Nhập số điện thoại",
+        "gender": "Chọn giới tính",
+        "avatar": "Nhập URL ảnh đại diện"
+      },
+      "gender_options": {
+        "male": "Nam",
+        "female": "Nữ",
+        "other": "Khác"
+      },
+      "success_message": "Cập nhật người dùng thành công",
+      "page_title": "Chỉnh sửa người dùng",
+      "page_description": "Trang chỉnh sửa thông tin người dùng chi tiết"
+    },
+    "create_user": {
+      "title": "Tạo người dùng mới",
+      "description": "Nhập thông tin để tạo người dùng mới",
+      "page_title": "Tạo người dùng",
+      "page_description": "Trang tạo người dùng mới vào hệ thống",
+      "success_message": "Tạo người dùng thành công"
+    }
+  },
+  "dashboard": {
+    "title": "Bảng điều khiển",
+    "reports_overview": "Tổng quan báo cáo",
+    "select_data": "Chọn dữ liệu",
+    "export_data": "Xuất dữ liệu",
+    "create_report": "Tạo báo cáo",
+    "total_revenue": "Tổng doanh thu",
+    "total_profit": "Tổng lợi nhuận",
+    "total_sessions": "Tổng phiên",
+    "recent_orders": "Đơn hàng gần đây",
+    "device_stats": "Thống kê thiết bị",
+    "country_stats": "Thống kê quốc gia",
+    "users_by_device": "Người dùng theo thiết bị",
+    "users_by_country": "Người dùng theo quốc gia",
+    "export": "Xuất",
+    "device_types": {
+      "desktop": "Máy tính để bàn",
+      "phone_app": "Ứng dụng điện thoại",
+      "laptop": "Máy tính xách tay"
+    },
+    "countries": {
+      "united_states": "Hoa Kỳ",
+      "united_kingdom": "Vương quốc Anh",
+      "canada": "Canada",
+      "australia": "Úc",
+      "spain": "Tây Ban Nha"
+    },
+    "table": {
+      "columns": {
+        "order_id": "Mã đơn",
+        "date": "Ngày",
+        "status": "Trạng thái",
+        "total": "Tổng tiền"
+      }
+    },
+    "status": {
+      "paid": "Đã thanh toán",
+      "pending": "Chờ xử lý"
+    }
+  },
+  "analytics": {
+    "stats": {
+      "save_products": "Sản phẩm đã lưu",
+      "stock_products": "Sản phẩm tồn kho",
+      "sale_products": "Sản phẩm đã bán",
+      "average_revenue": "Doanh thu trung bình"
+    },
+    "visitors": {
+      "title": "Khách truy cập trang web",
+      "label": "Khách truy cập",
+      "export": "Xuất",
+      "sources": {
+        "organic": "Tự nhiên",
+        "social": "Mạng xã hội",
+        "direct": "Trực tiếp"
+      }
+    },
+    "revenue": {
+      "title": "Doanh thu theo loại khách hàng",
+      "current_clients": "Khách hàng hiện tại",
+      "subscribers": "Khách đăng ký",
+      "new_customers": "Khách hàng mới",
+      "this_month": "Tháng này",
+      "last_month": "Tháng trước"
+    },
+    "products": {
+      "title": "Sản phẩm",
+      "label": "Sản phẩm"
+    },
+    "team": {
+      "title": "Tiến trình nhóm"
+    },
+    "gauge": {
+      "title": "Khách truy cập trang web",
+      "transactions": "Giao dịch",
+      "sell": "Bán",
+      "distribute": "Phân phối",
+      "return": "Trả lại"
+    },
+    "orders": {
+      "title": "Trạng thái đơn hàng",
+      "columns": {
+        "order_id": "Mã đơn",
+        "customer": "Khách hàng",
+        "date": "Ngày",
+        "status": "Trạng thái",
+        "country": "Quốc gia",
+        "total": "Tổng tiền"
+      },
+      "status": {
+        "delivered": "Đã giao",
+        "pending": "Chờ xử lý",
+        "canceled": "Đã hủy"
+      }
+    }
+  },
+  "template": {
+    "table": {
+      "columns": {
+        "id": "Số thứ tự",
+        "title": "Tiêu đề",
+        "author": "Tác giả",
+        "readings": "Lượt đọc",
+        "star": "Đánh giá",
+        "status": "Trạng thái",
+        "date": "Thời gian",
+        "actions": "Thao tác"
+      },
+      "status": {
+        "published": "Đã xuất bản",
+        "draft": "Bản nháp"
+      }
+    },
+    "form": {
+      "title": "Mẫu Biểu mẫu",
+      "description": "Mẫu biểu mẫu toàn diện với nhiều loại input",
+      "sections": {
+        "basic_inputs": "Input Cơ bản",
+        "selections": "Lựa chọn",
+        "date_time": "Ngày & Giờ",
+        "advanced": "Input Nâng cao"
+      },
+      "labels": {
+        "username": "Tên đăng nhập",
+        "email": "Địa chỉ Email",
+        "password": "Mật khẩu",
+        "bio": "Tiểu sử",
+        "age": "Tuổi",
+        "country": "Quốc gia",
+        "category": "Danh mục",
+        "gender": "Giới tính",
+        "hobbies": "Sở thích",
+        "birthday": "Ngày sinh",
+        "vacation_dates": "Ngày nghỉ",
+        "newsletter": "Đăng ký nhận tin",
+        "upload_avatar": "Tải lên ảnh đại diện",
+        "notification": "Bật thông báo",
+        "volume": "Âm lượng",
+        "rating": "Đánh giá",
+        "favorite_color": "Màu yêu thích",
+        "otp_code": "Mã xác thực"
+      },
+      "placeholders": {
+        "username": "Nhập tên đăng nhập",
+        "email": "email.cua.ban@example.com",
+        "password": "Nhập mật khẩu mạnh",
+        "bio": "Giới thiệu về bản thân",
+        "age": "Nhập tuổi",
+        "select_country": "Chọn quốc gia",
+        "select_category": "Chọn danh mục",
+        "select_gender": "Chọn giới tính",
+        "select_date": "Chọn ngày",
+        "select_date_range": "Chọn khoảng ngày",
+        "otp_code": "Nhập mã 6 chữ số"
+      },
+      "options": {
+        "gender": {
+          "male": "Nam",
+          "female": "Nữ",
+          "other": "Khác"
+        },
+        "hobbies": {
+          "reading": "Đọc sách",
+          "sports": "Thể thao",
+          "music": "Âm nhạc",
+          "travel": "Du lịch",
+          "cooking": "Nấu ăn"
+        },
+        "countries": {
+          "us": "Hoa Kỳ",
+          "uk": "Vương quốc Anh",
+          "ca": "Canada",
+          "au": "Úc",
+          "de": "Đức"
+        }
+      },
+      "actions": {
+        "submit": "Gửi biểu mẫu",
+        "reset": "Đặt lại"
+      }
+    }
+  },
+  "home": "Trang chủ",
+  "profile": {
+    "title": "Hồ sơ"
+  },
+  "menu": {
+    "dashboard": "Bảng điều khiển",
+    "dashboard_default": "Mặc định",
+    "analytics": "Phân tích",
+    "users": "Người dùng",
+    "home": "Trang chủ",
+    "template": "Mẫu",
+    "table": "Bảng",
+    "table_1": "Bảng 1",
+    "form": "Biểu mẫu"
+  },
+  "data_table": {
+    "no_results": "",
+    "pagination_info": "Hiển thị {{from}} đến {{to}} của {{total}} dòng",
+    "rows_per_page": "Số dòng mỗi trang"
+  },
+  "selectors": {
+    "gender": {
+      "placeholder": "Chọn giới tính"
+    },
+    "category": {
+      "placeholder": "Chọn danh mục",
+      "search_placeholder": "Tìm kiếm danh mục..."
+    }
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "theme": {
+      "light": "Sáng",
+      "dark": "Tối",
+      "system": "Hệ thống"
+    },
+    "sections": {
+      "appearance": "Giao diện",
+      "appearance_description": "Tùy chỉnh giao diện của ứng dụng",
+      "layout": "Bố cục",
+      "layout_description": "Cấu hình tùy chọn bố cục"
+    },
+    "layout": {
+      "fixed_header": "Cố định Header",
+      "fixed_header_description": "Giữ header hiển thị khi cuộn trang",
+      "show_tagview": "Hiển thị Tag View",
+      "show_tagview_description": "Hiển thị các tab điều hướng bên dưới header",
+      "collapsed_sidebar": "Thu gọn Sidebar",
+      "collapsed_sidebar_description": "Thu nhỏ sidebar chỉ hiển thị biểu tượng"
+    }
   }
 }

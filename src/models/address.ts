@@ -1,4 +1,5 @@
-import { model } from '@decorators/model'
+import { model } from '@/decorators/model'
+
 import { Base } from './base'
 
 @model()
@@ -18,8 +19,4 @@ export class Address extends Base {
   district?: string
 
   ward?: string
-
-  static override fromJson(json?: any) {
-    return new Address(json)
-  }
 }

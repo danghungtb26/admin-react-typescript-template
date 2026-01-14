@@ -1,10 +1,14 @@
-import { model } from '@decorators/model'
+import { generateRandomId } from '@/commons/id'
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
+
 import { Base } from './base'
-import { field } from '@decorators/field'
-import { generateRandomId } from '@commons/id'
 
 @model()
 export class TagViewModel extends Base {
+  @field()
+  override id: string = generateRandomId()
+
   @field()
   title?: string
 
@@ -15,25 +19,10 @@ export class TagViewModel extends Base {
   path?: string
 
   @field()
-  params?: any
-
-  //   constructor(json) {
-  //     super(json)
-  //     console.log('🚀 ~ TagViewModel ~ constructor ~ json:', json)
-  //   }
+  params?: unknown
 
   @field()
   deletable: boolean = true
-
-  static override fromJson(json: {
-    title?: string
-    title_key?: string
-    path: string
-    params?: any
-    deletable?: boolean
-  }): TagViewModel {
-    return new TagViewModel({ ...json, id: generateRandomId() })
-  }
 
   static _dashboard: TagViewModel
 
@@ -41,6 +30,7 @@ export class TagViewModel extends Base {
     if (!this._dashboard) {
       const tagView = TagViewModel.fromJson({
         title: 'Dashboard',
+        title_key: 'dashboard.title',
         path: '/dashboard',
         deletable: false,
       })

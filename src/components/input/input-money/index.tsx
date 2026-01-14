@@ -1,14 +1,9 @@
-import { InputNumber } from 'antd'
-import { styled } from 'styled-components'
+import React from 'react'
 
-const InputVNDMoney = styled(InputNumber).attrs(() => {
-  return {
-    formatter: (value: any) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ','),
-    parser: (value: any) => value.replace(/\$\s?|(,*)/g, ''),
-    style: { width: '100%' },
-  }
-})`
-  width: 100%;
-`
+import { Input } from '@/components/atoms/input'
+
+const InputVNDMoney: React.FC<React.ComponentProps<typeof Input>> = props => {
+  return <Input {...props} className="w-full" style={{ width: '100%' }} />
+}
 
 export default InputVNDMoney

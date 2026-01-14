@@ -1,5 +1,6 @@
-import { TagViewModel } from '@models/tag-view'
 import { createContext, useContext } from 'react'
+
+import { TagViewModel } from '@/models/tag-view'
 
 export type TagViewContextType = {
   tagViews: TagViewModel[]

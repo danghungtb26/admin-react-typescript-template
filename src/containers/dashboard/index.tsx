@@ -1,16 +1,89 @@
+import { ChevronDown, FileText } from 'lucide-react'
 import React from 'react'
-import PanelGroup from './components/panel-group'
-import { Container } from './styles'
+import { useTranslation } from 'react-i18next'
+
+import { Button } from '@/components/atoms/button'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/atoms/dropdown-menu'
+import { PageLayout } from '@/components/molecules/page-layout'
+
+import CountryStats from './components/country-stats'
+import DeviceStats from './components/device-stats'
 import LineChart from './components/line-chart'
+import PanelGroup from './components/panel-group'
+import RecentOrders from './components/recent-orders'
+import SideStats from './components/side-stats'
 
 type DashboardContainerProps = {}
 
 const DashboardContainer: React.FC<React.PropsWithChildren<DashboardContainerProps>> = () => {
+  const { t } = useTranslation()
+
   return (
-    <Container>
+    <PageLayout variant="dashboard" spacing="lg">
+      {/* Stats Row */}
       <PanelGroup />
-      <LineChart />
-    </Container>
+
+      {/* Revenue Component Row */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 h-100">
+          <LineChart />
+        </div>
+        <div className="lg:col-span-1">
+          <SideStats />
+        </div>
+      </div>
+
+      {/* Reports Overview Header */}
+      <div className="flex items-center justify-between pt-4">
+        <h2 className="text-xl font-bold text-gray-800">{t('dashboard.reports_overview')}</h2>
+        <div className="flex items-center gap-4">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="h-9 gap-2 text-xs font-medium bg-white border-gray-200 text-gray-600"
+              >
+                <FileText className="size-3.5" /> {t('dashboard.select_data')}{' '}
+                <ChevronDown className="size-3 opacity-50" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Data 1</DropdownMenuItem>
+              <DropdownMenuItem>Data 2</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <div className="flex items-center gap-2 text-sm text-gray-500 font-medium cursor-pointer hover:text-indigo-600 transition-colors">
+            {t('dashboard.export_data')} <ChevronDown className="size-3" />
+          </div>
+          <Button className="h-9 bg-[#d946ef] hover:bg-[#c026d3] text-white text-xs font-medium">
+            {t('dashboard.create_report')}
+          </Button>
+        </div>
+      </div>
+
+      {/* Reports Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column: Device & Country */}
+        <div className="lg:col-span-1 space-y-6">
+          <div className="h-95">
+            <DeviceStats />
+          </div>
+          <div className="h-75">
+            <CountryStats />
+          </div>
+        </div>
+
+        {/* Right Column: Recent Orders */}
+        <div className="lg:col-span-2 h-full min-h-125">
+          <RecentOrders />
+        </div>
+      </div>
+    </PageLayout>
   )
 }
 

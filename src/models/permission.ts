@@ -1,7 +1,7 @@
-import { model } from '@decorators/model'
-import { clone } from 'lodash'
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
+
 import { Base } from './base'
-import { field } from '@decorators/field'
 
 @model()
 export class Permission extends Base {
@@ -20,16 +20,8 @@ export class Permission extends Base {
   @field()
   scopes?: string[]
 
-  static override fromJson(json?: any) {
-    return new Permission(json)
-  }
-
   static get default() {
     return this.fromJson({})
-  }
-
-  static clone(p?: Permission) {
-    return p ? clone(p) : new this({})
   }
 }
 
