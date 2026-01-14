@@ -46,6 +46,7 @@ const TagView: React.FC<React.PropsWithChildren<TagViewProps>> = () => {
         autoHideTimeout={500}
         autoHideDuration={200}
         hideTracksWhenNotNeeded={true}
+        className="[&_>div]:first:scrollbar-none"
       >
         <div className="flex items-center gap-2 mt-1">
           {tagViews.map(tag => (

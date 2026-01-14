@@ -14,6 +14,7 @@ const Menu: React.FC = () => {
       autoHideTimeout={500}
       autoHideDuration={200}
       hideTracksWhenNotNeeded={true}
+      className="[&_>div]:first:scrollbar-none"
       renderThumbVertical={({ ...props }) => (
         <div {...props} className="dark:bg-white/20! w-1 rounded-1 bg-black" />
       )}

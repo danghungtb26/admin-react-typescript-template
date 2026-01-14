@@ -19,7 +19,7 @@ const Logo: React.FC<React.PropsWithChildren<LogoProps>> = () => {
           className="text-[20px] font-extrabold leading-[1.364] text-sidebar-item-active"
           style={{ fontFamily: 'Nunito Sans' }}
         >
-          DashStack
+          TechStack
         </span>
       )}
       {sidebarCollapsed && (
