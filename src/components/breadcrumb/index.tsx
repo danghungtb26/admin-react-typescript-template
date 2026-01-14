@@ -1,70 +1,98 @@
-import { findRouter, findRouterById } from '@routers'
-import { router_keys } from '@routers/key'
+import { Link, useMatches } from '@tanstack/react-router'
+import { AnimatePresence, HTMLMotionProps, motion } from 'framer-motion'
 import { uniqBy } from 'lodash'
 import React, { useMemo } from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { Breadcrumb as BreadcrumbAntd } from 'antd'
-import styled from 'styled-components'
+import { useTranslation } from 'react-i18next'
 
-const BreadcrumbStyled = styled.div`
-  float: left;
-  font-size: 1.4rem;
-  line-height: 5rem;
-  height: 100%;
-  margin-left: 1.6rem;
-  display: flex;
-  align-items: center;
-`
+import {
+  Breadcrumb as BaseBreadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from '@/components/atoms/breadcrumb'
+import { cn } from '@/lib/utils'
 
 type BreadCrumbProps = {}
 
+const animationConfig: {
+  initial: HTMLMotionProps<'span'>['initial']
+  animate: HTMLMotionProps<'span'>['animate']
+  exit: HTMLMotionProps<'span'>['exit']
+  transition: HTMLMotionProps<'span'>['transition']
+} = {
+  initial: { opacity: 0, x: 30 },
+  animate: { opacity: 1, x: 0 },
+  exit: { opacity: 0, x: 30 },
+  transition: { duration: 0.3, ease: 'easeIn' },
+}
+
 const BreadCrumb: React.FC<React.PropsWithChildren<BreadCrumbProps>> = () => {
-  const location = useLocation()
+  const matches = useMatches()
+  const { t } = useTranslation()
 
   const items = useMemo(() => {
-    const r = findRouter(location.pathname)
-    const parent = r?.parent ? findRouterById(r.parent) : undefined
-    const dashboard = findRouter(router_keys.dashboard)
-    const items = []
+    // Get the last 2 matches, excluding layout routes (__root and _authenticated)
+    const lastMatches = matches
+      .filter(
+        match =>
+          !match.id.startsWith('__root') &&
+          !match.id.startsWith('_authenticated') &&
+          match.pathname !== '/',
+      )
+      .slice(-2)
 
-    if (dashboard) {
-      items.push({
-        link: `/${dashboard.pathString}`,
-        title: dashboard.meta?.title,
-        titleKey: dashboard.meta?.titleKey,
-      })
-    }
+    const uniqItems = uniqBy(
+      [
+        { link: '/dashboard/', title: 'Dashboard', titleKey: 'dashboard.title', display: true },
+        ...lastMatches.map(match => ({
+          link: match.pathname,
+          title: match.staticData?.meta?.title,
+          titleKey: match.staticData?.meta?.titleKey,
+          display: true,
+        })),
+      ],
+      'link',
+    )
 
-    if (r) {
-      if (parent) {
-        items.push({
-          link: `/${parent.pathString}`,
-          title: parent.meta?.title,
-          titleKey: parent.meta?.titleKey,
-        })
-      }
-      items.push({
-        link: `/${r.pathString}`,
-        title: r.meta?.title,
-        titleKey: r.meta?.titleKey,
-      })
-    }
-    return uniqBy(items, 'link')
-  }, [location.pathname])
+    return uniqItems
+  }, [matches])
 
   return (
-    <BreadcrumbStyled>
-      <BreadcrumbAntd
-        items={items.map((i, id) => ({
-          title:
-            id === items.length - 1 ? (
-              i.title ?? i.link
-            ) : (
-              <Link to={i.link}>{i.title ?? i.link}</Link>
-            ),
-        }))}
-      />
-    </BreadcrumbStyled>
+    <div className="float-left text-sm leading-header h-full ml-4 items-center hidden md:flex">
+      <BaseBreadcrumb>
+        <BreadcrumbList className="flex relative">
+          {items.map((item, index) => {
+            const displayText = item.titleKey ? t(item.titleKey) : item.title
+            return (
+              <React.Fragment key={item.link}>
+                <BreadcrumbItem key={index}>
+                  <AnimatePresence mode="popLayout">
+                    <motion.span {...animationConfig} className={cn('relative')}>
+                      {index === items.length - 1 ? (
+                        <span className="font-normal text-foreground">{displayText}</span>
+                      ) : (
+                        <Link to={item.link} className="hover:text-foreground transition-colors">
+                          {displayText}
+                        </Link>
+                      )}
+                    </motion.span>
+                  </AnimatePresence>
+                </BreadcrumbItem>
+                <BreadcrumbSeparator
+                  key={`separator-${item.link}`}
+                  className={cn(
+                    index >= items.length - 1 ? 'opacity-0' : 'inline-flex',
+                    'inline-flex transition-opacity duration-300 ease-in-out',
+                  )}
+                >
+                  <motion.span {...animationConfig}>/</motion.span>
+                </BreadcrumbSeparator>
+              </React.Fragment>
+            )
+          })}
+        </BreadcrumbList>
+      </BaseBreadcrumb>
+    </div>
   )
 }
 

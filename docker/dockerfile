@@ -1,0 +1,48 @@
+FROM node:20-alpine AS base
+
+FROM base AS deps
+
+RUN apk add --no-cache libc6-compat
+
+WORKDIR /app
+
+COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
+
+RUN \
+  if [ -f yarn.lock ]; then yarn --frozen-lockfile; \
+  elif [ -f package-lock.json ]; then npm ci; \
+  elif [ -f pnpm-lock.yaml ]; then yarn global add pnpm && pnpm i; \
+  else echo "Lockfile not found." && exit 1; \
+  fi
+
+FROM base AS builder
+
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Thực hiện quá trình build trong lớp "builder"
+RUN yarn build
+
+FROM --platform=linux/amd64 caddy:2.7.6-alpine 
+ 
+# Copy Caddyfile
+COPY /caddy_server/Caddyfile /etc/caddy/Caddyfile
+
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S vitejs -u 1001
+
+COPY --from=builder --chown=vitejs:nodejs /app/dist /srv
+COPY --from=builder --chown=vitejs:nodejs /app/dist /var/www/html
+
+USER vitejs
+
+EXPOSE 3000
+
+ENV HOSTNAME "0.0.0.0"
+
+USER root
+
+RUN caddy fmt --overwrite /etc/caddy/Caddyfile
+
+USER vitejs

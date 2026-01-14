@@ -1,0 +1,5 @@
+:3000 {
+	root * /var/www/html
+	try_files {path} /index.html
+	file_server
+}

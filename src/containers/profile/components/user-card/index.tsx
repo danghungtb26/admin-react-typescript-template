@@ -1,49 +1,28 @@
-import { Avatar, Card } from 'antd'
 import React from 'react'
-import styled from 'styled-components'
 
-const Header = styled.div`
-  padding: 1.8rem 2rem;
-  border-bottom: 1px solid #ebeef5;
-`
-
-const Body = styled.div`
-  padding: 2rem;
-`
-
-const UserProfile = styled.div``
-
-const BoxCenter = styled.div`
-  padding-top: 1rem;
-  margin: 0 auto;
-  display: table;
-`
-
-const CardStyled = styled(Card)`
-  .ant-card-body {
-    padding: 0;
-  }
-`
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/atoms/card'
+import Avatar from '@/components/molecules/avatar'
 
 type UserCardProps = {}
 
 const UserCard: React.FC<React.PropsWithChildren<UserCardProps>> = () => {
   return (
-    <CardStyled>
-      <Header>
-        <span>About me</span>
-      </Header>
-      <Body>
-        <UserProfile>
-          <BoxCenter>
+    <Card className="p-0">
+      <CardHeader className="px-5 py-5 border-b border-gray-200 p-0">
+        <CardTitle className="text-base font-medium">About me</CardTitle>
+      </CardHeader>
+      <CardContent className="p-5">
+        <div>
+          <div className="pt-2.5 mx-auto table">
             <Avatar
-              size={100}
               src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif"
+              fallback="User"
+              className="w-[100px] h-[100px]"
             />
-          </BoxCenter>
-        </UserProfile>
-      </Body>
-    </CardStyled>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
   )
 }
 

@@ -1,45 +1,71 @@
-import { SearchOutlined } from '@ant-design/icons'
-import { Button, Collapse, Form, Input, Select } from 'antd'
+import { Search } from 'lucide-react'
 import React from 'react'
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/atoms/accordion'
+import { Button } from '@/components/atoms/button'
+import { Input } from '@/components/atoms/input'
+import { Label } from '@/components/atoms/label'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/atoms/select'
 
 type TableSearchProps = {}
 
 const TableSearch: React.FC<React.PropsWithChildren<TableSearchProps>> = () => {
   return (
-    <Collapse
-      defaultActiveKey={['1']}
-      items={[
-        {
-          key: 1,
-          label: 'Search',
-          children: (
-            <Form layout="inline" name="table_name">
-              <Form.Item name="search" label="Search:">
-                <Input />
-              </Form.Item>
-              <Form.Item label="Status:" name="status">
-                <Select style={{ width: 120 }}>
-                  <Select.Option value="published">published</Select.Option>
-                  <Select.Option value="draft">draft</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item label="Star:" name="start">
-                <Select style={{ width: 120 }}>
-                  <Select.Option value={1}>★</Select.Option>
-                  <Select.Option value={2}>★★</Select.Option>
-                  <Select.Option value={3}>★★★</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item>
-                <Button type="primary" icon={<SearchOutlined />}>
-                  Search
-                </Button>
-              </Form.Item>
-            </Form>
-          ),
-        },
-      ]}
-    />
+    <Accordion type="single" collapsible defaultValue="search" className="w-full">
+      <AccordionItem value="search" className="border-b-0">
+        <AccordionTrigger className="hover:no-underline py-2">Search</AccordionTrigger>
+        <AccordionContent>
+          <div className="flex flex-wrap gap-4 items-end p-1">
+            <div className="grid gap-2">
+              <Label htmlFor="search">Search:</Label>
+              <Input id="search" placeholder="Search..." className="w-[200px]" />
+            </div>
+            <div className="grid gap-2">
+              <Label>Status:</Label>
+              <Select>
+                <SelectTrigger className="w-[120px]">
+                  <SelectValue placeholder="Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="published">published</SelectItem>
+                  <SelectItem value="draft">draft</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label>Star:</Label>
+              <Select>
+                <SelectTrigger className="w-[120px]">
+                  <SelectValue placeholder="Star" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">★</SelectItem>
+                  <SelectItem value="2">★★</SelectItem>
+                  <SelectItem value="3">★★★</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
+              <Button type="button">
+                <Search className="mr-2 h-4 w-4" />
+                Search
+              </Button>
+            </div>
+          </div>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
   )
 }
 

@@ -1,9 +1,11 @@
-import { Account } from '@models/account'
-import { getScopesOfPermissions } from '@models/permission'
 import { uniq } from 'lodash'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
+
+import { Account } from '@/models/account'
+import { getScopesOfPermissions } from '@/models/permission'
+import { flattenScope } from '@/models/scope'
+
 import { AuthContext, AuthContextType } from './context'
-import { flattenScope } from '@models/scope'
 
 type AuthProviderProps = {
   children?: React.ReactNode

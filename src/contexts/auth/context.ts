@@ -1,7 +1,8 @@
-import { checkScope } from '@constants/permission'
-import { Account } from '@models/account'
-import { ScopeType } from '@models/scope'
 import React, { useContext } from 'react'
+
+import { checkScope } from '@/constants/permission'
+import { Account } from '@/models/account'
+import { ScopeType } from '@/models/scope'
 
 export type AuthContextType = {
   login: boolean

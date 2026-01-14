@@ -1,8 +1,8 @@
-export const getFieldType = (fieldType: any) => {
+export const getFieldType = (fieldType: unknown) => {
   if (typeof fieldType === 'function') {
     try {
       return fieldType()
-    } catch (error) {
+    } catch {
       return fieldType
     }
   }

@@ -1,20 +1,13 @@
-import { Spin } from 'antd'
+import { Loader2 } from 'lucide-react'
 import React from 'react'
-import { styled } from 'styled-components'
 
 type LoadingCenterProps = {}
-export const Center = styled.div`
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  min-height: 30rem;
-  display: flex;
-`
+
 const LoadingCenter: React.FC<LoadingCenterProps> = () => {
   return (
-    <Center>
-      <Spin />
-    </Center>
+    <div className="w-full flex items-center justify-center min-h-loading">
+      <Loader2 className="h-8 w-8 animate-spin text-primary" />
+    </div>
   )
 }
 

@@ -1,7 +1,8 @@
-import { router_keys } from '@routers/key'
+import { Outlet, useNavigate, useNavigation } from '@tanstack/react-router'
 import nProgress from 'nprogress'
 import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate, useNavigation } from 'react-router-dom'
+
+import { router_keys } from '@/routers/key'
 
 type AppProps = {}
 
@@ -37,7 +38,7 @@ const App: React.FC<React.PropsWithChildren<AppProps>> = () => {
 
       setLoading(false)
     }, 2000)
-  }, [])
+  }, [navigate])
 
   if (loading) return <div>This is splash screen</div>
 

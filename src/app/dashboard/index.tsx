@@ -1,6 +1,7 @@
-import PageAnimation from '@components/animation/page'
-import DashboardContainer from '@containers/dashboard'
 import React from 'react'
+
+import PageAnimation from '@/components/animation/page'
+import DashboardContainer from '@/containers/dashboard'
 
 type DashboardPageProps = {}
 

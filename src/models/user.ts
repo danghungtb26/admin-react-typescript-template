@@ -1,8 +1,8 @@
-import { field } from '@decorators/field'
-import { model } from '@decorators/model'
-import { Base } from './base'
-import { clone } from 'lodash'
+import { field } from '@/decorators/field'
+import { model } from '@/decorators/model'
+
 import { Address } from './address'
+import { Base } from './base'
 
 @model()
 export class User extends Base {
@@ -16,29 +16,29 @@ export class User extends Base {
   birthday?: string
 
   @field()
-  gender?: number
+  gender?: 'male' | 'female' | 'other'
 
   @field()
   name?: string
 
   @field()
+  email?: string
+
+  @field()
   phone?: string
+
+  @field()
+  location?: string
+
+  @field()
+  company?: { name: string; logo: string }
+
+  @field()
+  status?: 'Online' | 'Offline'
 
   public toAddJson() {
     return {
       ...this.toJson(),
     }
-  }
-
-  static override fromJson(json?: any) {
-    return new User(json ?? {})
-  }
-
-  static get default() {
-    return this.fromJson({})
-  }
-
-  static clone(d?: User) {
-    return d ? clone(d) : new User({})
   }
 }

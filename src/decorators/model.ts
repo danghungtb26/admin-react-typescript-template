@@ -1,15 +1,16 @@
-import get from 'lodash/get'
-import forEach from 'lodash/forEach'
 import 'reflect-metadata'
-import isUndefined from 'lodash/isUndefined'
 import { isNull } from 'lodash'
+import forEach from 'lodash/forEach'
+import get from 'lodash/get'
+import isUndefined from 'lodash/isUndefined'
+
 import { fieldsKey } from './constants'
 
-const getFieldType = (fieldType: any) => {
+const getFieldType = (fieldType: unknown) => {
   if (typeof fieldType === 'function') {
     try {
       return fieldType()
-    } catch (error) {
+    } catch {
       return fieldType
     }
   }
@@ -18,33 +19,12 @@ const getFieldType = (fieldType: any) => {
 }
 
 export const model = () => {
-  return <T extends { new (...args: any[]): {} }>(constructor: T) => {
-    // const original = constructor
-
-    // const decoratedConstructor: any = function (...args: any[]): void {
-    //   console.log('Before construction:', original)
-    //   const newArgs = [...args].reverse()
-    //   const keys = getAllKeys(original)
-    //   console.log('🚀 ~ file: model.ts:17 ~ return<Textends{new ~ keys:', keys)
-    //   const instance = new original(...newArgs)
-    //   console.log('After construction')
-    //   instance.base_name = constructor.name
-    //   return instance
-    // }
-
-    // decoratedConstructor.prototype = original.prototype
-    // // Copy static members too
-    // Object.keys(original).forEach((name: string) => {
-    //   decoratedConstructor[name] = (<any>original)[name]
-    // })
-
-    // // Return new constructor (will override original)
-    // return decoratedConstructor
-    // @ts-ignore
+  return <T extends { new (...args: unknown[]): object }>(constructor: T) => {
+    // @ts-expect-error - Complex generic type inheritance
     return class extends constructor {
       base_name = constructor.name
 
-      constructor(json: any) {
+      constructor(json: Record<string, unknown>) {
         super(json)
         const keys = getAllKeys(this)
         forEach(keys, key => {
@@ -56,41 +36,41 @@ export const model = () => {
               if (FieldType) {
                 if (Array.isArray(FieldType) && FieldType.length === 1) {
                   if (Array.isArray(value)) {
-                    // @ts-ignore
+                    // @ts-expect-error - Dynamic key assignment
                     this[propertyKey] = value.map(i => new FieldType[0](i))
                     return
                   }
-                  // @ts-ignore
                   throw new Error(
                     `Không thể convert dữ liệu JSON sang dạng mảng được. PropertyKey: ${propertyKey}, Contructor: ${this.base_name}`,
                   )
-                  // this[propertyKey] = new FieldType[0](value)
                 }
-                // @ts-ignore
+                // @ts-expect-error - Dynamic key assignment
                 this[propertyKey] = new FieldType(value)
                 return
               }
 
-              // @ts-ignore
+              // @ts-expect-error - Dynamic key assignment
               this[propertyKey] = value
             }
           }
         })
-        // @ts-ignore
+        // @ts-expect-error - Dynamic method call
         this.afterMounted?.(json)
       }
     }
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getField = (target: any, key: string) => {
   const fields =
     Reflect.getMetadata(fieldsKey, target, target.base_name || target.constructor.name) || []
 
-  const fieldData = fields.find((field: any) => field.propertyKey === key)
+  const fieldData = fields.find((field: { propertyKey: string }) => field.propertyKey === key)
   return fieldData?.fieldName
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getAllKeys = (target: any) => {
   return Reflect.getMetadata(fieldsKey, target, target.base_name)
 }

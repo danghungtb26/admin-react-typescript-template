@@ -1,5 +1,5 @@
-import React from 'react'
 import { Variants, motion } from 'framer-motion'
+import React from 'react'
 
 export const MOTION_VARIANTS: Variants = {
   initial: ({ direction }) => ({

@@ -1,0 +1,8 @@
+/node_modules
+/docker
+/dist
+.eslint
+.gitignore
+.prettierrc
+lint-staged.config.cjs
+*.md

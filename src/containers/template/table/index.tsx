@@ -1,65 +1,139 @@
-import { PageContainer } from '@components/box/page-container'
-import { Button, Divider, Table, Tag } from 'antd'
+import { Link } from '@tanstack/react-router'
+import { ColumnDef } from '@tanstack/react-table'
+import { Edit, Trash } from 'lucide-react'
 import React from 'react'
-import TableSearch from './components/search'
-import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { Link } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 
-const { Column } = Table
+import { Badge } from '@/components/atoms/badge'
+import { Button } from '@/components/atoms/button'
+import { DataTable } from '@/components/molecules/data-table'
+import { PageLayout } from '@/components/molecules/page-layout'
+
+import TableSearch from './components/search'
 
 type TableTemplateContainerProps = {}
+
+type TableData = {
+  id: number
+  title: string
+  author: string
+  readings: number
+  star: string
+  status: string
+  date: string
+}
+
+const data: TableData[] = [
+  {
+    id: 1,
+    title: 'Admin Template',
+    author: 'Hungdv',
+    readings: 1203,
+    star: '★★★★★',
+    status: 'published',
+    date: '2023-01-01',
+  },
+]
+
+const columns: ColumnDef<TableData>[] = [
+  {
+    accessorKey: 'id',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.id')
+    },
+    cell: ({ row }) => <div className="text-center font-medium">{row.original.id}</div>,
+  },
+  {
+    accessorKey: 'title',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.title')
+    },
+    cell: ({ row }) => <div className="text-center">{row.original.title}</div>,
+  },
+  {
+    accessorKey: 'author',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.author')
+    },
+    cell: ({ row }) => <div className="text-center">{row.original.author}</div>,
+  },
+  {
+    accessorKey: 'readings',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.readings')
+    },
+    cell: ({ row }) => <div className="text-center">{row.original.readings}</div>,
+  },
+  {
+    accessorKey: 'star',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.star')
+    },
+    cell: ({ row }) => <div className="text-center">{row.original.star}</div>,
+  },
+  {
+    accessorKey: 'status',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.status')
+    },
+    cell: ({ row }) => {
+      const { t } = useTranslation()
+      return (
+        <div className="text-center">
+          <Badge variant={row.original.status === 'published' ? 'default' : 'destructive'}>
+            {row.original.status === 'published'
+              ? t('template.table.status.published')
+              : t('template.table.status.draft')}
+          </Badge>
+        </div>
+      )
+    },
+  },
+  {
+    accessorKey: 'date',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.date')
+    },
+    cell: ({ row }) => <div className="text-center">{row.original.date}</div>,
+  },
+  {
+    id: 'actions',
+    header: () => {
+      const { t } = useTranslation()
+      return t('template.table.columns.actions')
+    },
+    cell: () => (
+      <div className="flex items-center justify-center gap-2">
+        <Link to="/template/table/1">
+          <Button size="icon" variant="outline">
+            <Edit className="h-4 w-4" />
+          </Button>
+        </Link>
+        <Button size="icon" variant="destructive">
+          <Trash className="h-4 w-4" />
+        </Button>
+      </div>
+    ),
+    enableSorting: false,
+  },
+]
 
 const TableTemplateContainer: React.FC<
   React.PropsWithChildren<TableTemplateContainerProps>
 > = () => {
   return (
-    <PageContainer>
+    <PageLayout>
       <TableSearch />
-      <br />
-      <Table rowKey={i => i.id} dataSource={[{ id: 1 }]}>
-        <Column title="序号" dataIndex="id" key="id" width={200} align="center" />
-        <Column title="标题" dataIndex="title" key="title" width={200} align="center" />
-        <Column title="作者" dataIndex="author" key="author" width={100} align="center" />
-        <Column title="阅读量" dataIndex="readings" key="readings" width={195} align="center" />
-        <Column title="推荐指数" dataIndex="star" key="star" width={195} align="center" />
-        <Column
-          title="状态"
-          dataIndex="status"
-          key="status"
-          width={195}
-          align="center"
-          render={status => {
-            const color = status === 'published' ? 'green' : status === 'deleted' ? 'red' : ''
-            return (
-              <Tag color={color} key={status}>
-                {status}
-              </Tag>
-            )
-          }}
-        />
-        <Column title="时间" dataIndex="date" key="date" width={195} align="center" />
-        <Column
-          title="操作"
-          key="action"
-          width={195}
-          align="center"
-          render={() => (
-            <span>
-              <Link
-                to="/template/table/1"
-                state={{
-                  aaa: 's',
-                }}
-              >
-                <Button type="primary" shape="circle" icon={<EditOutlined />} title="编辑" />
-              </Link>
-              <Divider type="vertical" />
-              <Button type="primary" shape="circle" icon={<DeleteOutlined />} danger title="删除" />
-            </span>
-          )}
-        />
-      </Table>
-    </PageContainer>
+      <div className="my-4" />
+      <DataTable columns={columns} data={data} />
+    </PageLayout>
   )
 }
 
