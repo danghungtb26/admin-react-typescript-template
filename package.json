@@ -11,7 +11,10 @@
     "type": "tsc --noEmit --composite false",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "@apollo/client": "^4.0.11",
@@ -93,6 +96,9 @@
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/router-devtools": "^1.141.6",
     "@tanstack/router-plugin": "^1.141.7",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.17.21",
     "@types/node": "^25.0.3",
@@ -105,6 +111,8 @@
     "@typescript-eslint/parser": "^8.50.0",
     "@typescript-eslint/typescript-estree": "^8.50.0",
     "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/coverage-v8": "^4.0.18",
+    "@vitest/ui": "^4.0.18",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "eslint": "^9.39.2",
@@ -117,7 +125,9 @@
     "eslint-plugin-storybook": "^10.1.11",
     "globals": "^16.5.0",
     "husky": "^9.1.7",
+    "jsdom": "^27.4.0",
     "lint-staged": "^16.2.7",
+    "msw": "^2.12.7",
     "prettier": "^3.7.4",
     "storybook": "^10.1.11",
     "tailwind-merge": "^3.4.0",
@@ -128,6 +138,7 @@
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.50.0",
     "vite": "^7.3.0",
-    "vite-plugin-i18n-ally": "^6.1.0"
+    "vite-plugin-i18n-ally": "^6.1.0",
+    "vitest": "^4.0.18"
   }
 }

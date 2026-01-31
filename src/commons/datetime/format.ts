@@ -17,8 +17,8 @@ export const formatDate = (date: string, format?: string) => {
 }
 
 export const formatScheduleTime = (start: string, end: string) => {
-  const startTime = dateTime(start)
-  const endTime = dateTime(end)
+  const startTime = dateTime(start).utc()
+  const endTime = dateTime(end).utc()
 
   const dStart = startTime.format(DD_MM_YYYY)
   const dEnd = endTime.format(DD_MM_YYYY)
