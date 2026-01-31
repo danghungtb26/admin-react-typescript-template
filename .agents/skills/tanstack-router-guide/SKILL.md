@@ -1,6 +1,7 @@
 ---
 name: tanstack-router-guide
 description: Guide for using TanStack Router in React applications. Use when implementing routing, creating routes, handling navigation, working with route parameters, search params, loaders, or protected routes. Apply when the user asks about TanStack Router, file-based routing, type-safe navigation, or route authentication.
+keywords: tanstack-router, routing, routes, navigation, loaders, search-params, file-based-routing, protected-routes, createFileRoute
 ---
 
 # TanStack Router Guide

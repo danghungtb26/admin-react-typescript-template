@@ -1,6 +1,7 @@
 ---
 name: project-conventions
 description: Project-specific coding standards, naming conventions, and folder structure for this React TypeScript admin template. Use when creating new files, components, APIs, hooks, or organizing code. Apply these conventions when the user asks to create components, pages, APIs, hooks, containers, routes, or any project files.
+keywords: conventions, naming, kebab-case, folder-structure, api-structure, models, routing, i18n, no-else, utils, project-structure, file-naming, container, hooks-pattern
 ---
 
 # Project Conventions

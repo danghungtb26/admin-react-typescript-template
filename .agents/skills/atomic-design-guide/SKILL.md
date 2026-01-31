@@ -1,6 +1,7 @@
 ---
 name: atomic-design-guide
 description: Guide for organizing React components using Atomic Design methodology. Use when creating or organizing components, deciding component placement, refactoring component structure, or when the user asks about component architecture, atoms, molecules, organisms, or where to place a component.
+keywords: atomic-design, atoms, molecules, organisms, component-placement, component-structure, component-architecture, feature-component, container
 ---
 
 # Atomic Design Guide

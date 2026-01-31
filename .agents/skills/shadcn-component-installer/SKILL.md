@@ -1,6 +1,7 @@
 ---
 name: shadcn-component-installer
 description: Install and verify shadcn/ui components using the official CLI. Use when the user requests to add shadcn components, needs UI components like button, dialog, table, form elements, or mentions installing shadcn components. Always use the CLI installation method - never manually create shadcn component code.
+keywords: shadcn, shadcn-ui, radix, ui-components, install-component, npx-shadcn, tailwind, component-install
 ---
 
 # shadcn/ui Component Installer

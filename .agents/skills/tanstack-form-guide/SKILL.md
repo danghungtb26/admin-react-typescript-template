@@ -1,6 +1,7 @@
 ---
 name: tanstack-form-guide
 description: Guide for using TanStack Form for building type-safe, performant forms with validation. Use when implementing forms, form validation, dynamic fields, or form state management. Apply when the user asks about TanStack Form, form handling, form validation, field arrays, or schema validation with Zod/Yup/Valibot.
+keywords: tanstack-form, form, validation, zod, valibot, yup, field-arrays, form-state, useForm
 ---
 
 # TanStack Form Guide

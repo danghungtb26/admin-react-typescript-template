@@ -1,6 +1,7 @@
 ---
 name: frontend-design-patterns
 description: Guide for designing and decomposing UI screens into components with proper data flow and API integration following project conventions. Use when designing new features, breaking down complex UIs, planning component structure, or connecting components to APIs. All examples follow @project-conventions with form/logic separation, atomic design, and API cores/hooks structure.
+keywords: screen-design, list-screen, form-screen, filter, table, data-flow, dashboard, wizard, component-decomposition, tabbed-form, detail-screen, url-sync
 ---
 
 # Frontend Design Patterns

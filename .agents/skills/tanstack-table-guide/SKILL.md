@@ -1,6 +1,7 @@
 ---
 name: tanstack-table-guide
 description: Guide for using TanStack Table for building powerful data tables with sorting, filtering, pagination, and row selection. Use when implementing data tables, grids, or any tabular data display. Apply when the user asks about TanStack Table, data tables, table sorting, filtering, pagination, or row selection.
+keywords: tanstack-table, data-table, table, sorting, filtering, pagination, row-selection, useReactTable, columns
 ---
 
 # TanStack Table Guide

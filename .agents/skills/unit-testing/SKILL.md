@@ -1,6 +1,7 @@
 ---
 name: unit-testing
 description: Unit testing guide for React TypeScript projects using Vitest, React Testing Library, and MSW. Use when creating tests, writing test cases, mocking APIs, testing components, hooks, or utilities. Covers AAA pattern, mocking strategies, MSW setup, and coverage guidelines.
+keywords: unit-test, vitest, react-testing-library, msw, mock, test, jest, coverage, aaa-pattern
 ---
 
 # Unit Testing

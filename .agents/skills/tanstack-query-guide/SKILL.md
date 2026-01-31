@@ -1,6 +1,7 @@
 ---
 name: tanstack-query-guide
 description: Guide for using TanStack Query (React Query) for server state management in React applications. Use when implementing data fetching, caching, mutations, optimistic updates, or managing server state. Apply when the user asks about TanStack Query, React Query, useQuery, useMutation, cache management, or data synchronization.
+keywords: tanstack-query, react-query, useQuery, useMutation, data-fetching, cache, optimistic-update, query-client
 ---
 
 # TanStack Query Guide
