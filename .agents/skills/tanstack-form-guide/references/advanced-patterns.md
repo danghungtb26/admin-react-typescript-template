@@ -30,7 +30,7 @@ useEffect(() => {
 ```typescript
 function WizardForm() {
   const [step, setStep] = useState(1)
-  
+
   const form = useForm({
     defaultValues: {
       // Step 1
@@ -68,7 +68,7 @@ function WizardForm() {
   return (
     <div>
       <div className="progress">Step {step} of 3</div>
-      
+
       <form onSubmit={(e) => {
         e.preventDefault()
         if (step === 3) {
@@ -87,7 +87,7 @@ function WizardForm() {
             )} />
           </div>
         )}
-        
+
         {step === 2 && (
           <div>
             <form.Field name="email" children={(field) => (
@@ -98,7 +98,7 @@ function WizardForm() {
             )} />
           </div>
         )}
-        
+
         {step === 3 && (
           <div>
             <form.Field name="address" children={(field) => (
@@ -109,7 +109,7 @@ function WizardForm() {
             )} />
           </div>
         )}
-        
+
         <div className="buttons">
           {step > 1 && (
             <button type="button" onClick={() => setStep(step - 1)}>
@@ -401,7 +401,7 @@ const form = useForm({
   onSubmit: async ({ value }) => {
     // Show success immediately
     toast.success('Saved!')
-    
+
     try {
       await api.submit(value)
     } catch (error) {
