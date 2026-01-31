@@ -3,15 +3,18 @@
 Skill Initializer - Creates a new skill from template
 
 Usage:
-    init_skill.py <skill-name> --path <path>
+    init_skill.py <skill-name> [--path <path>]
 
 Examples:
-    init_skill.py my-new-skill --path skills/public
-    init_skill.py my-api-helper --path skills/private
-    init_skill.py custom-skill --path /custom/location
+    init_skill.py my-new-skill
+    init_skill.py my-new-skill --path /custom/location
+    
+Note: If --path is not provided, defaults to .agents/skills and creates 
+a symbolic link from .cursor/skills
 """
 
 import sys
+import os
 from pathlib import Path
 
 
@@ -191,13 +194,59 @@ def title_case_skill_name(skill_name):
     return ' '.join(word.capitalize() for word in skill_name.split('-'))
 
 
-def init_skill(skill_name, path):
+def create_symlink(skill_name, skill_dir):
+    """
+    Create symbolic link from .cursor/skills to .agents/skills
+    
+    Args:
+        skill_name: Name of the skill
+        skill_dir: Path to the skill directory in .agents/skills
+    
+    Returns:
+        True if successful, False otherwise
+    """
+    try:
+        # Find project root by looking for .agents directory
+        current = skill_dir.parent
+        while current.parent != current:
+            if (current / '.cursor').exists():
+                break
+            current = current.parent
+        
+        cursor_skills_dir = current / '.cursor' / 'skills'
+        
+        # Create .cursor/skills directory if it doesn't exist
+        cursor_skills_dir.mkdir(parents=True, exist_ok=True)
+        
+        # Create symbolic link
+        link_path = cursor_skills_dir / skill_name
+        
+        # Check if link already exists
+        if link_path.exists() or link_path.is_symlink():
+            print(f"⚠️  Warning: Link already exists at {link_path}")
+            return False
+        
+        # Calculate relative path from .cursor/skills to .agents/skills/skill-name
+        relative_path = Path('../../.agents/skills') / skill_name
+        
+        # Create the symbolic link
+        os.symlink(relative_path, link_path)
+        print(f"✅ Created symbolic link: .cursor/skills/{skill_name} -> .agents/skills/{skill_name}")
+        
+        return True
+    except Exception as e:
+        print(f"⚠️  Warning: Could not create symbolic link: {e}")
+        return False
+
+
+def init_skill(skill_name, path, create_link=True):
     """
     Initialize a new skill directory with template SKILL.md.
 
     Args:
         skill_name: Name of the skill
         path: Path where the skill directory should be created
+        create_link: Whether to create symbolic link from .cursor/skills
 
     Returns:
         Path to created skill directory, or None if error
@@ -260,6 +309,11 @@ def init_skill(skill_name, path):
         print(f"❌ Error creating resource directories: {e}")
         return None
 
+    # Create symbolic link if requested
+    if create_link:
+        print()
+        create_symlink(skill_name, skill_dir)
+
     # Print next steps
     print(f"\n✅ Skill '{skill_name}' initialized successfully at {skill_dir}")
     print("\nNext steps:")
@@ -271,27 +325,47 @@ def init_skill(skill_name, path):
 
 
 def main():
-    if len(sys.argv) < 4 or sys.argv[2] != '--path':
-        print("Usage: init_skill.py <skill-name> --path <path>")
+    if len(sys.argv) < 2:
+        print("Usage: init_skill.py <skill-name> [--path <path>]")
         print("\nSkill name requirements:")
         print("  - Hyphen-case identifier (e.g., 'data-analyzer')")
         print("  - Lowercase letters, digits, and hyphens only")
         print("  - Max 40 characters")
         print("  - Must match directory name exactly")
         print("\nExamples:")
-        print("  init_skill.py my-new-skill --path skills/public")
-        print("  init_skill.py my-api-helper --path skills/private")
-        print("  init_skill.py custom-skill --path /custom/location")
+        print("  init_skill.py my-new-skill")
+        print("  init_skill.py my-new-skill --path /custom/location")
+        print("\nDefault behavior:")
+        print("  - Creates skill in .agents/skills")
+        print("  - Creates symbolic link from .cursor/skills")
         sys.exit(1)
 
     skill_name = sys.argv[1]
-    path = sys.argv[3]
+    
+    # Check if custom path is provided
+    if len(sys.argv) >= 4 and sys.argv[2] == '--path':
+        path = sys.argv[3]
+        create_link = False  # Don't create link for custom paths
+    else:
+        # Find project root and use .agents/skills
+        script_path = Path(__file__).resolve()
+        # Navigate up to find project root (where .agents exists)
+        current = script_path.parent
+        while current.parent != current:
+            if (current / '.agents').exists():
+                path = str(current / '.agents' / 'skills')
+                break
+            current = current.parent
+        else:
+            print("❌ Error: Could not find .agents directory")
+            sys.exit(1)
+        create_link = True
 
     print(f"🚀 Initializing skill: {skill_name}")
     print(f"   Location: {path}")
     print()
 
-    result = init_skill(skill_name, path)
+    result = init_skill(skill_name, path, create_link)
 
     if result:
         sys.exit(0)
