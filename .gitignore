@@ -43,3 +43,5 @@ yarn-error.log*
 routeTree.gen.ts
 debug-storybook.log
 .tanstack/tmp
+
+.pnpm-store/
